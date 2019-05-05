@@ -26,5 +26,4 @@ Corvus is a simple tool which helps your bot!
 ![Skylab](http://i.epvpimg.com/SuWLbab.png)
 ### Planned features
 1. Auction Bot
-2. 
-3. Improved Log
+2. Improved Log
