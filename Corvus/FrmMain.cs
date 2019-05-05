@@ -530,25 +530,25 @@ namespace Corvus
 
             if (currentGate.Ready && currentGate.Prepared)
             {
-                Log("Stopping gate mode... Can not get more parts");
-                chkBoxSpinGate.Checked = false;
-                chkBoxSpinGate.Invalidate();
+                //Log("Stopping gate mode... Can not get more parts");
+                //chkBoxSpinGate.Checked = false;
+                //chkBoxSpinGate.Invalidate();
                 return;
             }
 
             if (_account.GateData.EnergyCost.Text > _account.GateData.Money && _account.GateData.Samples <= 0)
             {
-                Log("Stopping gate mode... No Uridium/EE left");
-                chkBoxSpinGate.Checked = false;
-                chkBoxSpinGate.Invalidate();
+                //Log("Stopping gate mode... No Uridium/EE left");
+                //chkBoxSpinGate.Checked = false;
+                //chkBoxSpinGate.Invalidate();
                 return;
             }
 
             if (_account.GateData.Money <= (int) nudMinimumUridium.Value)
             {
-                Log("Stopping gate mode... Minimum Uridium reached");
-                chkBoxSpinGate.Checked = false;
-                chkBoxSpinGate.Invalidate();
+                //Log("Stopping gate mode... Minimum Uridium reached");
+                //chkBoxSpinGate.Checked = false;
+                //chkBoxSpinGate.Invalidate();
                 return;
             }
 
