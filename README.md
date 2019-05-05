@@ -14,3 +14,17 @@ Corvus is a simple tool which helps your bot!
 4. General
 4.1 Save & load settings
 4.2 Works for all portals
+
+## Screenshots
+
+![Login](http://i.epvpimg.com/gkM6dab.png)
+
+![Galaxy Gate](http://i.epvpimg.com/vl1Jgab.png)
+
+![Tech Factory](http://i.epvpimg.com/Z5Jvaab.png)
+
+![Skylab](http://i.epvpimg.com/SuWLbab.png)
+### Planned features
+1. Auction Bot
+2. 
+3. Improved Log
