@@ -211,6 +211,7 @@ namespace Corvus.DarkOrbit
         {
             var techFactory = await _httpClient.GetAsyncLimit(Urls.Build(Urls.InternalSkylab));
             var reloadToken = Regex.Match(techFactory, "reloadToken=(.*?)'").Groups[1].Value;
+            await Task.Delay(1500);
             var result = await _httpClient.GetAsyncLimit(string.Format(Urls.UpgradeSkylab, Urls.BaseUrl, type, reloadToken));
 
             //TODO: check if upgrade was success

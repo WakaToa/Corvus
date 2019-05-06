@@ -80,6 +80,7 @@ namespace Corvus
 
         private DateTime _nextRunTechFactory = DateTime.Now;
         private DateTime _nextRunSkylab = DateTime.Now;
+        private DateTime _nextRunGalaxyGate = DateTime.Now;
 
         public FrmMain()
         {
@@ -260,6 +261,7 @@ namespace Corvus
                 if (!_account.SkylabData.PrometiumCollectorInfo.Upgrading)
                 {
                     Log("Upgrading Prometium Collector");
+                    await Task.Delay(5000);
                     await _account.UpgradeSkylabAsync("prometiumCollector");
                 }
             }
@@ -269,6 +271,7 @@ namespace Corvus
                 if (!_account.SkylabData.EnduriumCollectorInfo.Upgrading)
                 {
                     Log("Upgrading Endurium Collector");
+                    await Task.Delay(5000);
                     await _account.UpgradeSkylabAsync("enduriumCollector");
                 }
             }
@@ -278,6 +281,7 @@ namespace Corvus
                 if (!_account.SkylabData.TerbiumCollectorInfo.Upgrading)
                 {
                     Log("Upgrading Terbium Collector");
+                    await Task.Delay(5000);
                     await _account.UpgradeSkylabAsync("terbiumCollector");
                 }
             }
@@ -287,6 +291,7 @@ namespace Corvus
                 if (!_account.SkylabData.SolarModuleInfo.Upgrading)
                 {
                     Log("Upgrading Solar Module");
+                    await Task.Delay(5000);
                     await _account.UpgradeSkylabAsync("solarModule");
                 }
             }
@@ -296,6 +301,7 @@ namespace Corvus
                 if (!_account.SkylabData.StorageModuleInfo.Upgrading)
                 {
                     Log("Upgrading Storage Module");
+                    await Task.Delay(5000);
                     await _account.UpgradeSkylabAsync("storageModule");
                 }
             }
@@ -305,6 +311,7 @@ namespace Corvus
                 if (!_account.SkylabData.BaseModuleInfo.Upgrading)
                 {
                     Log("Upgrading Base Module");
+                    await Task.Delay(5000);
                     await _account.UpgradeSkylabAsync("baseModule");
                 }
             }
@@ -314,6 +321,7 @@ namespace Corvus
                 if (!_account.SkylabData.PrometidRefineryInfo.Upgrading)
                 {
                     Log("Upgrading Prometid Refinery");
+                    await Task.Delay(5000);
                     await _account.UpgradeSkylabAsync("prometidRefinery");
                 }
             }
@@ -323,6 +331,7 @@ namespace Corvus
                 if (!_account.SkylabData.DuraniumRefineryInfo.Upgrading)
                 {
                     Log("Upgrading Duranium Refinery");
+                    await Task.Delay(5000);
                     await _account.UpgradeSkylabAsync("duraniumRefinery");
                 }
             }
@@ -332,6 +341,7 @@ namespace Corvus
                 if (!_account.SkylabData.PromeriumRefineryInfo.Upgrading)
                 {
                     Log("Upgrading Promerium Refinery");
+                    await Task.Delay(5000);
                     await _account.UpgradeSkylabAsync("promeriumRefinery");
                 }
             }
@@ -341,6 +351,7 @@ namespace Corvus
                 if (!_account.SkylabData.XenomitModuleInfo.Upgrading)
                 {
                     Log("Upgrading Xenomit Module");
+                    await Task.Delay(5000);
                     await _account.UpgradeSkylabAsync("xenoModule");
                 }
             }
@@ -350,6 +361,7 @@ namespace Corvus
                 if (!_account.SkylabData.SepromRefineryInfo.Upgrading)
                 {
                     Log("Upgrading Seprom Refinery");
+                    await Task.Delay(5000);
                     await _account.UpgradeSkylabAsync("sepromRefinery");
                 }
             }
@@ -524,31 +536,32 @@ namespace Corvus
 
         private async Task ExecuteSpinAsync()
         {
+            if (DateTime.Now.Subtract(_nextRunTechFactory).TotalSeconds <= 0)
+            {
+                return;
+            }
+
             UpdateGateGui();
 
             var currentGate = _account.GateData.Gates.Get(GetSelectedGate());
-
             if (currentGate.Ready && currentGate.Prepared)
             {
-                //Log("Stopping gate mode... Can not get more parts");
-                //chkBoxSpinGate.Checked = false;
-                //chkBoxSpinGate.Invalidate();
+                Log("Stopping gate mode for 5 minutes... Can not get more parts");
+                _nextRunGalaxyGate = DateTime.Now.AddMinutes(5);
                 return;
             }
 
             if (_account.GateData.EnergyCost.Text > _account.GateData.Money && _account.GateData.Samples <= 0)
             {
-                //Log("Stopping gate mode... No Uridium/EE left");
-                //chkBoxSpinGate.Checked = false;
-                //chkBoxSpinGate.Invalidate();
+                Log("Stopping gate mode for 5 minutes... No Uridium/EE left");
+                _nextRunGalaxyGate = DateTime.Now.AddMinutes(5);
                 return;
             }
 
             if (_account.GateData.Money <= (int) nudMinimumUridium.Value)
             {
-                //Log("Stopping gate mode... Minimum Uridium reached");
-                //chkBoxSpinGate.Checked = false;
-                //chkBoxSpinGate.Invalidate();
+                Log("Stopping gate mode for 5 minutes... Minimum Uridium reached");
+                _nextRunGalaxyGate = DateTime.Now.AddMinutes(5);
                 return;
             }
 
@@ -615,7 +628,7 @@ namespace Corvus
                             await Task.Delay((int)nudGateDelay.Value);
                         }
                     }
-                    catch (InvalidSessionException e)
+                    catch (InvalidSessionException)
                     {
                         //reconnect
                         Log($"Account kicked out!");
@@ -648,12 +661,13 @@ namespace Corvus
             }
             catch (Exception e)
             {
+                Log("RunTask: " + e.ToString());
             }
             finally
             {
                 _running = false;
                 cmdStart.Invoke(new Action(() => cmdStart.Enabled = true));
-                Log("RunTask destroyed...");
+                Log("RunTask destroyed...Stopping logic...");
                 _runTask = null;
             }
         }
@@ -807,13 +821,21 @@ namespace Corvus
                 if (chkBoxSaveUsernamePassword.Checked)
                 {
                     iniData["Account"]["Username"] = txtUsername.Text;
-                    iniData["Account"]["Password"] = Encryption.Encrypt(txtPassword.Text);
+                    try
+                    {
+                        iniData["Account"]["Password"] = Encryption.Encrypt(txtPassword.Text);
+                    }
+                    catch (Exception)
+                    {
+                        iniData["Account"]["Password"] = string.Empty;
+                    }
+                    
                     iniData["Account"]["Portal"] = comboBoxLoginPortal.SelectedItem.ToString();
                 }
                 else
                 {
                     iniData["Account"]["Username"] = string.Empty;
-                    iniData["Account"]["Password"] = Encryption.Encrypt(string.Empty);
+                    iniData["Account"]["Password"] = string.Empty;
                     iniData["Account"]["Portal"] = string.Empty;
                 }
 
@@ -849,7 +871,7 @@ namespace Corvus
 
                 MessageBox.Show("Setting saved!");
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 MessageBox.Show("Error while saving! Please try to start as administrator!", "Error while saving", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -869,7 +891,14 @@ namespace Corvus
 
 
                 txtUsername.Text = iniData["Account"]["Username"];
-                txtPassword.Text = Encryption.Decrypt(iniData["Account"]["Password"]);
+                try
+                {
+                    txtPassword.Text = Encryption.Decrypt(iniData["Account"]["Password"]);
+                }
+                catch (Exception)
+                {
+                }
+                
                 comboBoxLoginPortal.SelectedIndex = comboBoxLoginPortal.Items.IndexOf(iniData["Account"]["Portal"]);
 
 
@@ -935,7 +964,7 @@ namespace Corvus
                 _xenoModuleRow.Cells[_dgvSkylabUpgrade].Value = bool.Parse(iniData["Skylab"]["UpgradeXenoModule"]);
                 _sepromRefineryRow.Cells[_dgvSkylabUpgrade].Value = bool.Parse(iniData["Skylab"]["UpgradeSepromRefinery"]);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 MessageBox.Show("Error while loading settings! Please try to start as administrator!", "Error while loading settings", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
