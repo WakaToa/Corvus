@@ -52,6 +52,21 @@ namespace Corvus.DarkOrbit.Data
         public HallInfo Hall2 { get; set; }
         public HallInfo Hall3 { get; set; }
 
+        public HallInfo GetById(int i)
+        {
+            switch (i)
+            {
+                case 1:
+                    return Hall1;
+                case 2:
+                    return Hall2;
+                case 3:
+                    return Hall3;
+                default:
+                    return null;
+            }
+        }
+
         public TechFactoryData()
         {
             Hall1 = new HallInfo();

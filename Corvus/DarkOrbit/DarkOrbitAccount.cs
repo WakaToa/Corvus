@@ -109,95 +109,98 @@ namespace Corvus.DarkOrbit
         {
             var skylab = await _httpClient.GetAsyncLimit(Urls.Build(Urls.InternalSkylab));
 
-            var levelsRegex = Regex.Matches(skylab, "<div class=\"level skylab_font_level\">(.*?)</div>");
+            EvaluateSkylabAsync(skylab);
+        }
 
+        private void EvaluateSkylabAsync(string skylabSource)
+        {
             try
             {
-                SkylabData.BaseModuleInfo.Upgrading = skylab.Contains("timers_baseModule");
+                SkylabData.BaseModuleInfo.Upgrading = skylabSource.Contains($"timers_{SkylabData.BaseModuleName}");
                 if (SkylabData.BaseModuleInfo.Upgrading)
                 {
-                    SkylabData.BaseModuleInfo.TimeLeft = GetSkylabTimeLeft(skylab, "baseModule");
+                    SkylabData.BaseModuleInfo.TimeLeft = GetSkylabTimeLeft(skylabSource, SkylabData.BaseModuleName);
                 }
-                SkylabData.BaseModuleInfo.Level = int.Parse(levelsRegex[0].Groups[1].Value);
+                SkylabData.BaseModuleInfo.Level = GetSkylabModuleLevel(skylabSource, SkylabData.BaseModuleName);
 
-                SkylabData.SolarModuleInfo.Upgrading = skylab.Contains("timers_solarModule");
+                SkylabData.SolarModuleInfo.Upgrading = skylabSource.Contains($"timers_{SkylabData.SolarModuleName}");
                 if (SkylabData.SolarModuleInfo.Upgrading)
                 {
-                    SkylabData.SolarModuleInfo.TimeLeft = GetSkylabTimeLeft(skylab, "solarModule");
+                    SkylabData.SolarModuleInfo.TimeLeft = GetSkylabTimeLeft(skylabSource, SkylabData.SolarModuleName);
                 }
-                SkylabData.SolarModuleInfo.Level = int.Parse(levelsRegex[1].Groups[1].Value);
+                SkylabData.SolarModuleInfo.Level = GetSkylabModuleLevel(skylabSource, SkylabData.SolarModuleName);
 
-                SkylabData.StorageModuleInfo.Upgrading = skylab.Contains("timers_storageModule");
+                SkylabData.StorageModuleInfo.Upgrading = skylabSource.Contains($"timers_{SkylabData.StorageModuleName}");
                 if (SkylabData.StorageModuleInfo.Upgrading)
                 {
-                    SkylabData.StorageModuleInfo.TimeLeft = GetSkylabTimeLeft(skylab, "storageModule");
+                    SkylabData.StorageModuleInfo.TimeLeft = GetSkylabTimeLeft(skylabSource, SkylabData.StorageModuleName);
                 }
-                SkylabData.StorageModuleInfo.Level = int.Parse(levelsRegex[2].Groups[1].Value);
+                SkylabData.StorageModuleInfo.Level = GetSkylabModuleLevel(skylabSource, SkylabData.StorageModuleName);
 
-                SkylabData.XenomitModuleInfo.Upgrading = skylab.Contains("timers_xenoModule");
-                if (SkylabData.XenomitModuleInfo.Upgrading)
+                SkylabData.XenoModuleInfo.Upgrading = skylabSource.Contains($"timers_{SkylabData.XenoModuleName}");
+                if (SkylabData.XenoModuleInfo.Upgrading)
                 {
-                    SkylabData.XenomitModuleInfo.TimeLeft = GetSkylabTimeLeft(skylab, "xenoModule");
+                    SkylabData.XenoModuleInfo.TimeLeft = GetSkylabTimeLeft(skylabSource, SkylabData.XenoModuleName);
                 }
-                SkylabData.XenomitModuleInfo.Level = int.Parse(levelsRegex[4].Groups[1].Value);
+                SkylabData.XenoModuleInfo.Level = GetSkylabModuleLevel(skylabSource, SkylabData.XenoModuleName);
 
-                SkylabData.PrometiumCollectorInfo.Upgrading = skylab.Contains("timers_prometiumCollector");
+                SkylabData.PrometiumCollectorInfo.Upgrading = skylabSource.Contains($"timers_{SkylabData.PrometiumCollectorName}");
                 if (SkylabData.PrometiumCollectorInfo.Upgrading)
                 {
-                    SkylabData.PrometiumCollectorInfo.TimeLeft = GetSkylabTimeLeft(skylab, "prometiumCollector");
+                    SkylabData.PrometiumCollectorInfo.TimeLeft = GetSkylabTimeLeft(skylabSource, SkylabData.PrometiumCollectorName);
                 }
-                SkylabData.PrometiumCollectorInfo.Level = int.Parse(levelsRegex[5].Groups[1].Value);
+                SkylabData.PrometiumCollectorInfo.Level = GetSkylabModuleLevel(skylabSource, SkylabData.PrometiumCollectorName);
 
-                SkylabData.EnduriumCollectorInfo.Upgrading = skylab.Contains("timers_enduriumCollector");
+                SkylabData.EnduriumCollectorInfo.Upgrading = skylabSource.Contains($"timers_{SkylabData.EnduriumCollectorName}");
                 if (SkylabData.EnduriumCollectorInfo.Upgrading)
                 {
-                    SkylabData.EnduriumCollectorInfo.TimeLeft = GetSkylabTimeLeft(skylab, "enduriumCollector");
+                    SkylabData.EnduriumCollectorInfo.TimeLeft = GetSkylabTimeLeft(skylabSource, SkylabData.EnduriumCollectorName);
                 }
-                SkylabData.EnduriumCollectorInfo.Level = int.Parse(levelsRegex[6].Groups[1].Value);
+                SkylabData.EnduriumCollectorInfo.Level = GetSkylabModuleLevel(skylabSource, SkylabData.EnduriumCollectorName);
 
-                SkylabData.TerbiumCollectorInfo.Upgrading = skylab.Contains("timers_terbiumCollector");
+                SkylabData.TerbiumCollectorInfo.Upgrading = skylabSource.Contains($"timers_{SkylabData.TerbiumCollectorName}");
                 if (SkylabData.TerbiumCollectorInfo.Upgrading)
                 {
-                    SkylabData.TerbiumCollectorInfo.TimeLeft = GetSkylabTimeLeft(skylab, "terbiumCollector");
+                    SkylabData.TerbiumCollectorInfo.TimeLeft = GetSkylabTimeLeft(skylabSource, SkylabData.TerbiumCollectorName);
                 }
-                SkylabData.TerbiumCollectorInfo.Level = int.Parse(levelsRegex[7].Groups[1].Value);
+                SkylabData.TerbiumCollectorInfo.Level = GetSkylabModuleLevel(skylabSource, SkylabData.TerbiumCollectorName);
 
-                SkylabData.PrometidRefineryInfo.Upgrading = skylab.Contains("timers_prometidRefinery");
+                SkylabData.PrometidRefineryInfo.Upgrading = skylabSource.Contains($"timers_{SkylabData.PrometidRefineryName}");
                 if (SkylabData.PrometidRefineryInfo.Upgrading)
                 {
-                    SkylabData.PrometidRefineryInfo.TimeLeft = GetSkylabTimeLeft(skylab, "prometidRefinery");
+                    SkylabData.PrometidRefineryInfo.TimeLeft = GetSkylabTimeLeft(skylabSource, SkylabData.PrometidRefineryName);
                 }
-                SkylabData.PrometidRefineryInfo.Level = int.Parse(levelsRegex[8].Groups[1].Value);
+                SkylabData.PrometidRefineryInfo.Level = GetSkylabModuleLevel(skylabSource, SkylabData.PrometidRefineryName);
 
-                SkylabData.DuraniumRefineryInfo.Upgrading = skylab.Contains("timers_duraniumRefinery");
+                SkylabData.DuraniumRefineryInfo.Upgrading = skylabSource.Contains($"timers_{SkylabData.DuraniumRefineryName}");
                 if (SkylabData.DuraniumRefineryInfo.Upgrading)
                 {
-                    SkylabData.DuraniumRefineryInfo.TimeLeft = GetSkylabTimeLeft(skylab, "duraniumRefinery");
+                    SkylabData.DuraniumRefineryInfo.TimeLeft = GetSkylabTimeLeft(skylabSource, SkylabData.DuraniumRefineryName);
                 }
-                SkylabData.DuraniumRefineryInfo.Level = int.Parse(levelsRegex[9].Groups[1].Value);
+                SkylabData.DuraniumRefineryInfo.Level = GetSkylabModuleLevel(skylabSource, SkylabData.DuraniumRefineryName);
 
-                SkylabData.PromeriumRefineryInfo.Upgrading = skylab.Contains("timers_promeriumRefinery");
+                SkylabData.PromeriumRefineryInfo.Upgrading = skylabSource.Contains($"timers_{SkylabData.PromeriumRefineryName}");
                 if (SkylabData.PromeriumRefineryInfo.Upgrading)
                 {
-                    SkylabData.PromeriumRefineryInfo.TimeLeft = GetSkylabTimeLeft(skylab, "promeriumRefinery");
+                    SkylabData.PromeriumRefineryInfo.TimeLeft = GetSkylabTimeLeft(skylabSource, SkylabData.PromeriumRefineryName);
                 }
-                SkylabData.PromeriumRefineryInfo.Level = int.Parse(levelsRegex[10].Groups[1].Value);
+                SkylabData.PromeriumRefineryInfo.Level = GetSkylabModuleLevel(skylabSource, SkylabData.PromeriumRefineryName);
 
-                SkylabData.SepromRefineryInfo.Upgrading = skylab.Contains("timers_sepromRefinery");
+                SkylabData.SepromRefineryInfo.Upgrading = skylabSource.Contains($"timers_{SkylabData.SepromRefineryName}");
                 if (SkylabData.SepromRefineryInfo.Upgrading)
                 {
-                    SkylabData.SepromRefineryInfo.TimeLeft = GetSkylabTimeLeft(skylab, "sepromRefinery");
+                    SkylabData.SepromRefineryInfo.TimeLeft = GetSkylabTimeLeft(skylabSource, SkylabData.SepromRefineryName);
                 }
-                SkylabData.SepromRefineryInfo.Level = int.Parse(levelsRegex[11].Groups[1].Value);
+                SkylabData.SepromRefineryInfo.Level = GetSkylabModuleLevel(skylabSource, SkylabData.SepromRefineryName);
             }
             catch { } //if not all modules build it will throw an exception
 
-            
 
-            SkylabData.IsSending = skylab.Contains("timers_activeTransport");
 
-            SkylabData.PromeriumAmount = int.Parse(Regex.Match(skylab, "<td><strong>Promerium</strong></td>[\\n\\r\\s]+<td>(.*?)</td>").Groups[1].Value.Replace(",", ""));
-            SkylabData.SepromAmount = int.Parse(Regex.Match(skylab, "<td><strong>Seprom</strong></td>[\\n\\r\\s]+<td>(.*?)</td>").Groups[1].Value.Replace(",", ""));
+            SkylabData.IsSending = skylabSource.Contains("timers_activeTransport");
+
+            SkylabData.PromeriumAmount = int.Parse(Regex.Match(skylabSource, "<td><strong>Promerium</strong></td>[\\n\\r\\s]+<td>(.*?)</td>").Groups[1].Value.Replace(",", ""));
+            SkylabData.SepromAmount = int.Parse(Regex.Match(skylabSource, "<td><strong>Seprom</strong></td>[\\n\\r\\s]+<td>(.*?)</td>").Groups[1].Value.Replace(",", ""));
         }
 
         private TimeSpan GetSkylabTimeLeft(string pageSource, string module)
@@ -207,74 +210,117 @@ namespace Corvus.DarkOrbit
             return dateEndSeconds.TimestampToDate().Subtract(DateTime.Now);
         }
 
-        public async Task<bool> UpgradeSkylabAsync(string type)
+        private int GetSkylabModuleLevel(string pageSource, string module)
+        {
+            var r = Regex.Match(pageSource,
+                module + "\'\\);\"\">\\s*[a-zA-z0-9\"_<>=\\-\\/\\s]*skylab_font_level\">(.*?)<\\/div>");
+
+            if (!r.Success)
+            {
+                return 0;
+            }
+
+            return int.Parse(r.Groups[1].Value);
+        }
+
+        public async Task<bool> UpgradeSkylabAsync(string module)
         {
             var techFactory = await _httpClient.GetAsyncLimit(Urls.Build(Urls.InternalSkylab));
             var reloadToken = Regex.Match(techFactory, "reloadToken=(.*?)'").Groups[1].Value;
             await Task.Delay(1500);
-            var result = await _httpClient.GetAsyncLimit(string.Format(Urls.UpgradeSkylab, Urls.BaseUrl, type, reloadToken));
+            var result = await _httpClient.GetAsyncLimit(string.Format(Urls.UpgradeSkylab, Urls.BaseUrl, module, reloadToken));
+            
+            EvaluateSkylabAsync(result);
 
-            //TODO: check if upgrade was success
-            return true;
+            if (SkylabData.GetByString(module) != null)
+            {
+                return SkylabData.GetByString(module).Upgrading;
+            }
+
+            return false;
         }
 
         public async Task ReadTechFactoryAsync()
         {
             var techFactory = await _httpClient.GetAsyncLimit(Urls.Build(Urls.InternalNanoTechFactory));
 
-            var activeHalls = Regex.Matches(techFactory, "hall_singleView hall_active").Count;
-            var techAmounts = Regex.Matches(techFactory, "<div class=\"hall_stackBuffNumber\">(.*?)</div>");
+            EvaluateTechFactory(techFactory);
+        }
+
+        private void EvaluateTechFactory(string techFactorySource)
+        {
+            var activeHalls = Regex.Matches(techFactorySource, "hall_singleView hall_active").Count;
+            var techAmounts = Regex.Matches(techFactorySource, "<div class=\"hall_stackBuffNumber\">(.*?)</div>");
 
             if (activeHalls == 1)
             {
                 TechFactoryData.Hall1.Enabled = true;
                 //key, level, slot
-                var tech = Regex.Match(techFactory, "User.nanoTechFactoryShowBuff\\('(.*?)','1','1'\\)").Groups[1].Value;
+                var tech = Regex.Match(techFactorySource, "User.nanoTechFactoryShowBuff\\('(.*?)','1','1'\\)").Groups[1].Value;
                 TechFactoryData.Hall1.Item = tech.TechItemFromShortName();
-                TechFactoryData.Hall1.Building = Regex.IsMatch(techFactory, "(remainingTime_1)");
+                TechFactoryData.Hall1.Building = Regex.IsMatch(techFactorySource, "(remainingTime_1)");
                 if (TechFactoryData.Hall1.Building)
                 {
-                    TechFactoryData.Hall1.TimeLeft = TimeSpan.FromSeconds(int.Parse(Regex.Match(techFactory, "counter\\[1\\] = (.*?);").Groups[1].Value));
+                    TechFactoryData.Hall1.TimeLeft = TimeSpan.FromSeconds(int.Parse(Regex.Match(techFactorySource, "counter\\[1\\] = (.*?);").Groups[1].Value));
                 }
-                TechFactoryData.Hall1.Amount = int.Parse(techAmounts[0].Groups[1].Value);
+
+                if (techAmounts.Count >= 1 && techAmounts[0].Groups[1].Success)
+                {
+                    TechFactoryData.Hall1.Amount = int.Parse(techAmounts[0].Groups[1].Value);
+                }
+                
             }
             else if (activeHalls == 2)
             {
                 TechFactoryData.Hall2.Enabled = true;
-                var tech = Regex.Match(techFactory, "User.nanoTechFactoryShowBuff\\('(.*?)','1','2'\\)").Groups[1].Value;
+                var tech = Regex.Match(techFactorySource, "User.nanoTechFactoryShowBuff\\('(.*?)','1','2'\\)").Groups[1].Value;
                 TechFactoryData.Hall2.Item = tech.TechItemFromShortName();
-                TechFactoryData.Hall2.Building = Regex.IsMatch(techFactory, "(remainingTime_2)");
+                TechFactoryData.Hall2.Building = Regex.IsMatch(techFactorySource, "(remainingTime_2)");
                 if (TechFactoryData.Hall2.Building)
                 {
-                    TechFactoryData.Hall2.TimeLeft = TimeSpan.FromSeconds(int.Parse(Regex.Match(techFactory, "counter\\[2\\] = (.*?);").Groups[1].Value));
+                    TechFactoryData.Hall2.TimeLeft = TimeSpan.FromSeconds(int.Parse(Regex.Match(techFactorySource, "counter\\[2\\] = (.*?);").Groups[1].Value));
                 }
-                TechFactoryData.Hall2.Amount = int.Parse(techAmounts[1].Groups[1].Value);
+
+                if (techAmounts.Count >= 2 && techAmounts[1].Groups[1].Success)
+                {
+                    TechFactoryData.Hall2.Amount = int.Parse(techAmounts[1].Groups[1].Value);
+                }
             }
 
             else if (activeHalls == 3)
             {
                 TechFactoryData.Hall3.Enabled = true;
-                var tech = Regex.Match(techFactory, "User.nanoTechFactoryShowBuff\\('(.*?)','1','3'\\)").Groups[1].Value;
+                var tech = Regex.Match(techFactorySource, "User.nanoTechFactoryShowBuff\\('(.*?)','1','3'\\)").Groups[1].Value;
                 TechFactoryData.Hall3.Item = tech.TechItemFromShortName();
-                TechFactoryData.Hall3.Building = Regex.IsMatch(techFactory, "(remainingTime_3)");
+                TechFactoryData.Hall3.Building = Regex.IsMatch(techFactorySource, "(remainingTime_3)");
 
                 if (TechFactoryData.Hall3.Building)
                 {
-                    TechFactoryData.Hall3.TimeLeft = TimeSpan.FromSeconds(int.Parse(Regex.Match(techFactory, "counter\\[3\\] = (.*?);").Groups[1].Value));
+                    TechFactoryData.Hall3.TimeLeft = TimeSpan.FromSeconds(int.Parse(Regex.Match(techFactorySource, "counter\\[3\\] = (.*?);").Groups[1].Value));
                 }
 
-                TechFactoryData.Hall3.Amount = int.Parse(techAmounts[2].Groups[1].Value);
+                if (techAmounts.Count >= 3 && techAmounts[2].Groups[1].Success)
+                {
+                    TechFactoryData.Hall3.Amount = int.Parse(techAmounts[2].Groups[1].Value);
+                }
             }
         }
 
-        public async Task<bool> BuildTechAsync(TechFactoryData.TechFactoryItem item, int slot)
+        public async Task<bool> BuildTechAsync(TechFactoryData.TechFactoryItem item, int hall)
         {
             var techFactory = await _httpClient.GetAsyncLimit(Urls.Build(Urls.InternalNanoTechFactory));
             var reloadToken = Regex.Match(techFactory, "reloadToken=(.*?)'").Groups[1].Value;
-            var result = await _httpClient.GetAsyncLimit(string.Format(Urls.BuildTech, Urls.BaseUrl, item.GetShortName(), slot, reloadToken));
+            await Task.Delay(1500);
+            var result = await _httpClient.GetAsyncLimit(string.Format(Urls.BuildTech, Urls.BaseUrl, item.GetShortName(), hall, reloadToken));
 
-            //TODO: check if build was success
-            return true;
+            EvaluateTechFactory(result);
+
+            if (TechFactoryData.GetById(hall) != null)
+            {
+                return TechFactoryData.GetById(hall).Building;
+            }
+
+            return false;
         }
 
         public async Task<GateSpinData> SpinGateAsync(GalaxyGate gate)

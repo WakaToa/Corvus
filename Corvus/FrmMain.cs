@@ -241,9 +241,9 @@ namespace Corvus
             _promeriumRefineryRow.Cells[_dgvSkylabUpgrading].Value = _account.SkylabData.PromeriumRefineryInfo.Upgrading;
             _promeriumRefineryRow.Cells[_dgvSkylabTimeLeft].Value = _account.SkylabData.PromeriumRefineryInfo.TimeLeft.FormatReadable();
 
-            _xenoModuleRow.Cells[_dgvSkylabLevel].Value = _account.SkylabData.XenomitModuleInfo.Level;
-            _xenoModuleRow.Cells[_dgvSkylabUpgrading].Value = _account.SkylabData.XenomitModuleInfo.Upgrading;
-            _xenoModuleRow.Cells[_dgvSkylabTimeLeft].Value = _account.SkylabData.XenomitModuleInfo.TimeLeft.FormatReadable();
+            _xenoModuleRow.Cells[_dgvSkylabLevel].Value = _account.SkylabData.XenoModuleInfo.Level;
+            _xenoModuleRow.Cells[_dgvSkylabUpgrading].Value = _account.SkylabData.XenoModuleInfo.Upgrading;
+            _xenoModuleRow.Cells[_dgvSkylabTimeLeft].Value = _account.SkylabData.XenoModuleInfo.TimeLeft.FormatReadable();
 
             _sepromRefineryRow.Cells[_dgvSkylabLevel].Value = _account.SkylabData.SepromRefineryInfo.Level;
             _sepromRefineryRow.Cells[_dgvSkylabUpgrading].Value = _account.SkylabData.SepromRefineryInfo.Upgrading;
@@ -260,9 +260,18 @@ namespace Corvus
             {
                 if (!_account.SkylabData.PrometiumCollectorInfo.Upgrading)
                 {
-                    Log("Upgrading Prometium Collector");
-                    await Task.Delay(5000);
-                    await _account.UpgradeSkylabAsync("prometiumCollector");
+                    for (var i = 0; i < 2; i++)
+                    {
+                        Log("Upgrading Prometium Collector...");
+                        await Task.Delay(5000);
+                        if (await _account.UpgradeSkylabAsync(SkylabData.PrometiumCollectorName))
+                        {
+                            Log($"Upgrade success!");
+                            break;
+                        }
+                        Log($"Upgrading failed, trying again in 5 seconds...");
+                        await Task.Delay(5000);
+                    }
                 }
             }
 
@@ -270,9 +279,18 @@ namespace Corvus
             {
                 if (!_account.SkylabData.EnduriumCollectorInfo.Upgrading)
                 {
-                    Log("Upgrading Endurium Collector");
-                    await Task.Delay(5000);
-                    await _account.UpgradeSkylabAsync("enduriumCollector");
+                    for (var i = 0; i < 2; i++)
+                    {
+                        Log("Upgrading Endurium Collector...");
+                        await Task.Delay(5000);
+                        if (await _account.UpgradeSkylabAsync(SkylabData.EnduriumCollectorName))
+                        {
+                            Log($"Upgrade success!");
+                            break;
+                        }
+                        Log($"Upgrading failed, trying again in 5 seconds...");
+                        await Task.Delay(5000);
+                    }
                 }
             }
 
@@ -280,9 +298,18 @@ namespace Corvus
             {
                 if (!_account.SkylabData.TerbiumCollectorInfo.Upgrading)
                 {
-                    Log("Upgrading Terbium Collector");
-                    await Task.Delay(5000);
-                    await _account.UpgradeSkylabAsync("terbiumCollector");
+                    for (var i = 0; i < 2; i++)
+                    {
+                        Log("Upgrading Terbium Collector...");
+                        await Task.Delay(5000);
+                        if (await _account.UpgradeSkylabAsync(SkylabData.TerbiumCollectorName))
+                        {
+                            Log($"Upgrade success!");
+                            break;
+                        }
+                        Log($"Upgrading failed, trying again in 5 seconds...");
+                        await Task.Delay(5000);
+                    }
                 }
             }
 
@@ -290,9 +317,18 @@ namespace Corvus
             {
                 if (!_account.SkylabData.SolarModuleInfo.Upgrading)
                 {
-                    Log("Upgrading Solar Module");
-                    await Task.Delay(5000);
-                    await _account.UpgradeSkylabAsync("solarModule");
+                    for (var i = 0; i < 2; i++)
+                    {
+                        Log("Upgrading Solar Module...");
+                        await Task.Delay(5000);
+                        if (await _account.UpgradeSkylabAsync(SkylabData.SolarModuleName))
+                        {
+                            Log($"Upgrade success!");
+                            break;
+                        }
+                        Log($"Upgrading failed, trying again in 5 seconds...");
+                        await Task.Delay(5000);
+                    }
                 }
             }
 
@@ -300,9 +336,18 @@ namespace Corvus
             {
                 if (!_account.SkylabData.StorageModuleInfo.Upgrading)
                 {
-                    Log("Upgrading Storage Module");
-                    await Task.Delay(5000);
-                    await _account.UpgradeSkylabAsync("storageModule");
+                    for (var i = 0; i < 2; i++)
+                    {
+                        Log("Upgrading Storage Module...");
+                        await Task.Delay(5000);
+                        if (await _account.UpgradeSkylabAsync(SkylabData.StorageModuleName))
+                        {
+                            Log($"Upgrade success!");
+                            break;
+                        }
+                        Log($"Upgrading failed, trying again in 5 seconds...");
+                        await Task.Delay(5000);
+                    }
                 }
             }
 
@@ -310,9 +355,18 @@ namespace Corvus
             {
                 if (!_account.SkylabData.BaseModuleInfo.Upgrading)
                 {
-                    Log("Upgrading Base Module");
-                    await Task.Delay(5000);
-                    await _account.UpgradeSkylabAsync("baseModule");
+                    for (var i = 0; i < 2; i++)
+                    {
+                        Log("Upgrading Base Module...");
+                        await Task.Delay(5000);
+                        if (await _account.UpgradeSkylabAsync(SkylabData.BaseModuleName))
+                        {
+                            Log($"Upgrade success!");
+                            break;
+                        }
+                        Log($"Upgrading failed, trying again in 5 seconds...");
+                        await Task.Delay(5000);
+                    }
                 }
             }
 
@@ -320,9 +374,18 @@ namespace Corvus
             {
                 if (!_account.SkylabData.PrometidRefineryInfo.Upgrading)
                 {
-                    Log("Upgrading Prometid Refinery");
-                    await Task.Delay(5000);
-                    await _account.UpgradeSkylabAsync("prometidRefinery");
+                    for (var i = 0; i < 2; i++)
+                    {
+                        Log("Upgrading Prometid Refinery...");
+                        await Task.Delay(5000);
+                        if (await _account.UpgradeSkylabAsync(SkylabData.PrometidRefineryName))
+                        {
+                            Log($"Upgrade success!");
+                            break;
+                        }
+                        Log($"Upgrading failed, trying again in 5 seconds...");
+                        await Task.Delay(5000);
+                    }
                 }
             }
 
@@ -330,9 +393,18 @@ namespace Corvus
             {
                 if (!_account.SkylabData.DuraniumRefineryInfo.Upgrading)
                 {
-                    Log("Upgrading Duranium Refinery");
-                    await Task.Delay(5000);
-                    await _account.UpgradeSkylabAsync("duraniumRefinery");
+                    for (var i = 0; i < 2; i++)
+                    {
+                        Log("Upgrading Duranium Refinery...");
+                        await Task.Delay(5000);
+                        if (await _account.UpgradeSkylabAsync(SkylabData.DuraniumRefineryName))
+                        {
+                            Log($"Upgrade success!");
+                            break;
+                        }
+                        Log($"Upgrading failed, trying again in 5 seconds...");
+                        await Task.Delay(5000);
+                    }
                 }
             }
 
@@ -340,19 +412,37 @@ namespace Corvus
             {
                 if (!_account.SkylabData.PromeriumRefineryInfo.Upgrading)
                 {
-                    Log("Upgrading Promerium Refinery");
-                    await Task.Delay(5000);
-                    await _account.UpgradeSkylabAsync("promeriumRefinery");
+                    for (var i = 0; i < 2; i++)
+                    {
+                        Log("Upgrading Promerium Refinery...");
+                        await Task.Delay(5000);
+                        if (await _account.UpgradeSkylabAsync(SkylabData.PromeriumRefineryName))
+                        {
+                            Log($"Upgrade success!");
+                            break;
+                        }
+                        Log($"Upgrading failed, trying again in 5 seconds...");
+                        await Task.Delay(5000);
+                    }
                 }
             }
 
             if ((bool)(_xenoModuleRow.Cells[_dgvSkylabUpgrade] as DataGridViewCheckBoxCell).Value)
             {
-                if (!_account.SkylabData.XenomitModuleInfo.Upgrading)
+                if (!_account.SkylabData.XenoModuleInfo.Upgrading)
                 {
-                    Log("Upgrading Xenomit Module");
-                    await Task.Delay(5000);
-                    await _account.UpgradeSkylabAsync("xenoModule");
+                    for (var i = 0; i < 2; i++)
+                    {
+                        Log("Upgrading Xeno Module...");
+                        await Task.Delay(5000);
+                        if (await _account.UpgradeSkylabAsync(SkylabData.XenoModuleName))
+                        {
+                            Log($"Upgrade success!");
+                            break;
+                        }
+                        Log($"Upgrading failed, trying again in 5 seconds...");
+                        await Task.Delay(5000);
+                    }
                 }
             }
 
@@ -360,9 +450,18 @@ namespace Corvus
             {
                 if (!_account.SkylabData.SepromRefineryInfo.Upgrading)
                 {
-                    Log("Upgrading Seprom Refinery");
-                    await Task.Delay(5000);
-                    await _account.UpgradeSkylabAsync("sepromRefinery");
+                    for (var i = 0; i < 2; i++)
+                    {
+                        Log("Upgrading Seprom Refinery...");
+                        await Task.Delay(5000);
+                        if (await _account.UpgradeSkylabAsync(SkylabData.SepromRefineryName))
+                        {
+                            Log($"Upgrade success!");
+                            break;
+                        }
+                        Log($"Upgrading failed, trying again in 5 seconds...");
+                        await Task.Delay(5000);
+                    }
                 }
             }
 
@@ -425,8 +524,20 @@ namespace Corvus
             {
                 if (!_account.TechFactoryData.Hall1.Building && (bool)(_techHall1Row.Cells[_dgvTechFactoryBuild] as DataGridViewCheckBoxCell).Value)
                 {
-                    Log($"Building {_account.TechFactoryData.Hall1.Item.GetFullName()} on slot 1");
-                    await _account.BuildTechAsync(_account.TechFactoryData.Hall1.Item, 1);
+                    for (var i = 0; i < 2; i++)
+                    {
+                        Log($"Building {_account.TechFactoryData.Hall1.Item.GetFullName()} on hall 1...");
+                        if (await _account.BuildTechAsync(_account.TechFactoryData.Hall1.Item, 1))
+                        {
+                            Log($"Building success!");
+                            break;
+                        }
+                        else
+                        {
+                            Log($"Building failed, trying again in 5 seconds...");
+                            await Task.Delay(5000);
+                        }
+                    }
                 }
             }
 
@@ -434,8 +545,20 @@ namespace Corvus
             {
                 if (!_account.TechFactoryData.Hall2.Building && (bool)(_techHall2Row.Cells[_dgvTechFactoryBuild] as DataGridViewCheckBoxCell).Value)
                 {
-                    Log($"Building {_account.TechFactoryData.Hall2.Item.GetFullName()} on slot 2");
-                    await _account.BuildTechAsync(_account.TechFactoryData.Hall2.Item, 2);
+                    for (var i = 0; i < 2; i++)
+                    {
+                        Log($"Building {_account.TechFactoryData.Hall2.Item.GetFullName()} on hall 2...");
+                        if (await _account.BuildTechAsync(_account.TechFactoryData.Hall2.Item, 2))
+                        {
+                            Log($"Building success!");
+                            break;
+                        }
+                        else
+                        {
+                            Log($"Building failed, trying again in 5 seconds...");
+                            await Task.Delay(5000);
+                        }
+                    }
                 }
             }
 
@@ -444,8 +567,20 @@ namespace Corvus
             {
                 if (!_account.TechFactoryData.Hall3.Building && (bool)(_techHall3Row.Cells[_dgvTechFactoryBuild] as DataGridViewCheckBoxCell).Value)
                 {
-                    Log($"Building {_account.TechFactoryData.Hall3.Item.GetFullName()} on slot 3");
-                    await _account.BuildTechAsync(_account.TechFactoryData.Hall3.Item, 3);
+                    for (var i = 0; i < 2; i++)
+                    {
+                        Log($"Building {_account.TechFactoryData.Hall3.Item.GetFullName()} on hall 3...");
+                        if (await _account.BuildTechAsync(_account.TechFactoryData.Hall3.Item, 3))
+                        {
+                            Log($"Building success!");
+                            break;
+                        }
+                        else
+                        {
+                            Log($"Building failed, trying again in 5 seconds...");
+                            await Task.Delay(5000);
+                        }
+                    }
                 }
             }
 
@@ -521,7 +656,7 @@ namespace Corvus
 
         private async Task InitializeGuiAsync()
         {
-            Log("Initializing Gui");
+            Log("Initializing gui...");
             Log("Reading Skylab...");
             await _account.ReadSkylabAsync();
             UpdateSkylabGui();
@@ -536,7 +671,7 @@ namespace Corvus
 
         private async Task ExecuteSpinAsync()
         {
-            if (DateTime.Now.Subtract(_nextRunTechFactory).TotalSeconds <= 0)
+            if (DateTime.Now.Subtract(_nextRunGalaxyGate).TotalSeconds <= 0)
             {
                 return;
             }
@@ -605,7 +740,7 @@ namespace Corvus
                             {
                                 Log("Executing Tech Factory Task...");
                                 await ExecuteTechFactoryAsync();
-                                _nextRunTechFactory = DateTime.Now.AddMinutes(5);
+                                _nextRunTechFactory = DateTime.Now.AddMinutes((int)nudCheckTechFactoryEvery.Value);
                                 Log($"Next Tech Factory run -> {_nextRunTechFactory.ToLongTimeString()}");
                             }
                         }
@@ -616,16 +751,15 @@ namespace Corvus
                             {
                                 Log("Executing Skylab Task...");
                                 await ExecuteSkylabAsync();
-                                _nextRunSkylab = DateTime.Now.AddMinutes(5);
+                                _nextRunSkylab = DateTime.Now.AddMinutes((int)nudCheckSkylabEvery.Value);
                                 Log($"Next Skylab run -> {_nextRunSkylab.ToLongTimeString()}");
                             }
                         }
 
                         if (chkBoxSpinGate.Checked)
                         {
-                            await ExecuteSpinAsync();
                             Log($"Sleeping {(int)nudGateDelay.Value} ms...");
-                            await Task.Delay((int)nudGateDelay.Value);
+                            await Task.Delay((int)nudGateDelay.Value); await ExecuteSpinAsync();
                         }
                     }
                     catch (InvalidSessionException)
@@ -693,11 +827,12 @@ namespace Corvus
                     EnableGui();
                     return;
                 }
-
+                Log("Performing username/password login...");
                 _account = new DarkOrbitAccount(txtUsername.Text, txtPassword.Text, comboBoxLoginPortal.SelectedItem.ToString());
                 var loginSuccess = await _account.LoginAsync();
                 if (!loginSuccess)
                 {
+                    Log("There was a problem performing the login! Please check your input data!");
                     MessageBox.Show("There was a problem performing the login! Please check your input data!");
                     EnableGui();
                     return;
@@ -710,10 +845,12 @@ namespace Corvus
                     MessageBox.Show("Please enter your server and sessionId!");
                     return;
                 }
+                Log("Performing sessionId login...");
                 _account = new DarkOrbitAccount(txtServer.Text, txtSessionId.Text);
                 var sessionValid = await _account.CheckSessionValidAsync();
                 if (!sessionValid)
                 {
+                    Log("There was a problem performing the login! Please check your input data!");
                     MessageBox.Show("There was a problem performing the login! Please check your input data!");
                     EnableGui();
                     return;
@@ -721,6 +858,8 @@ namespace Corvus
             }
 
             Text = "Corvus - DarkOrbit Auto-Tool - " + _account.AccountData.Username;
+
+            Log("Login success!");
 
             await InitializeGuiAsync();
 
@@ -755,15 +894,22 @@ namespace Corvus
 
         private void dataGridView_CurrentCellDirtyStateChanged(object sender, EventArgs e)
         {
-            var dgv = (DataGridView) sender;
-            dgv.CommitEdit(DataGridViewDataErrorContexts.Commit);
-            if (dgv.CurrentCell == null)
-                return;
-            if (dgv.CurrentCell.EditType != typeof(DataGridViewTextBoxEditingControl))
-                return;
-            dgv.BeginEdit(false);
-            var textBox = (TextBox)dgv.EditingControl;
-            textBox.SelectionStart = textBox.Text.Length;
+            try
+            {
+                var dgv = (DataGridView)sender;
+                dgv.CommitEdit(DataGridViewDataErrorContexts.Commit);
+                if (dgv.CurrentCell == null)
+                    return;
+                if (dgv.CurrentCell.EditType != typeof(DataGridViewTextBoxEditingControl))
+                    return;
+                dgv.BeginEdit(false);
+                var textBox = (TextBox)dgv.EditingControl;
+                textBox.SelectionStart = textBox.Text.Length;
+            }
+            catch (Exception exception)
+            {
+            }
+
         }
 
         private void dataGridView_SelectionChanged(object sender, EventArgs e)
@@ -806,7 +952,7 @@ namespace Corvus
             }
         }
 
-        private void SaveSettings()
+        private void SaveSettings(bool confirm = false)
         {
             try
             {
@@ -849,11 +995,13 @@ namespace Corvus
                 iniData["GalaxyGates"]["SelectedGate"] = GetSelectedGate().GetFullName();
 
                 iniData["TechFactory"]["Build"] = chkBoxBuildTechs.Checked.ToString();
+                iniData["TechFactory"]["SleepTime"] = nudCheckTechFactoryEvery.Text;
                 iniData["TechFactory"]["BuildTech1"] = _techHall1Row.Cells[_dgvTechFactoryBuild].Value == null ? "False" : _techHall1Row.Cells[_dgvTechFactoryBuild].Value.ToString();
                 iniData["TechFactory"]["BuildTech2"] = _techHall2Row.Cells[_dgvTechFactoryBuild].Value == null ? "False" : _techHall2Row.Cells[_dgvTechFactoryBuild].Value.ToString();
                 iniData["TechFactory"]["BuildTech3"] = _techHall3Row.Cells[_dgvTechFactoryBuild].Value == null ? "False" : _techHall3Row.Cells[_dgvTechFactoryBuild].Value.ToString();
 
                 iniData["Skylab"]["Upgrade"] = chkBoxUpgradeSkylab.Checked.ToString();
+                iniData["Skylab"]["SleepTime"] = nudCheckSkylabEvery.Text;
                 iniData["Skylab"]["UpgradePrometiumCollector"] = _prometiumCollectorRow.Cells[_dgvSkylabUpgrade].Value == null ? "False" : _prometiumCollectorRow.Cells[_dgvSkylabUpgrade].Value.ToString();
                 iniData["Skylab"]["UpgradeEnduriumCollector"] = _enduriumCollectorRow.Cells[_dgvSkylabUpgrade].Value == null ? "False" : _enduriumCollectorRow.Cells[_dgvSkylabUpgrade].Value.ToString();
                 iniData["Skylab"]["UpgradeTerbiumCollector"] = _terbiumCollectorRow.Cells[_dgvSkylabUpgrade].Value == null ? "False" : _terbiumCollectorRow.Cells[_dgvSkylabUpgrade].Value.ToString();
@@ -869,7 +1017,10 @@ namespace Corvus
 
                 iniFile.WriteFile("settings.ini", iniData);
 
-                MessageBox.Show("Setting saved!");
+                if (confirm)
+                {
+                    MessageBox.Show("Setting saved!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
             catch (Exception)
             {
@@ -947,11 +1098,13 @@ namespace Corvus
                 
 
                 chkBoxBuildTechs.Checked = bool.Parse(iniData["TechFactory"]["Build"]);
+                nudCheckTechFactoryEvery.Value = decimal.Parse(iniData["TechFactory"]["SleepTime"]);
                 _techHall1Row.Cells[_dgvTechFactoryBuild].Value = bool.Parse(iniData["TechFactory"]["BuildTech1"]);
                 _techHall2Row.Cells[_dgvTechFactoryBuild].Value = bool.Parse(iniData["TechFactory"]["BuildTech2"]);
                 _techHall3Row.Cells[_dgvTechFactoryBuild].Value = bool.Parse(iniData["TechFactory"]["BuildTech3"]);
 
                 chkBoxUpgradeSkylab.Checked = bool.Parse(iniData["Skylab"]["Upgrade"]);
+                nudCheckSkylabEvery.Value = decimal.Parse(iniData["Skylab"]["SleepTime"]);
                 _prometiumCollectorRow.Cells[_dgvSkylabUpgrade].Value = bool.Parse(iniData["Skylab"]["UpgradePrometiumCollector"]);
                 _enduriumCollectorRow.Cells[_dgvSkylabUpgrade].Value = bool.Parse(iniData["Skylab"]["UpgradeEnduriumCollector"]);
                 _terbiumCollectorRow.Cells[_dgvSkylabUpgrade].Value = bool.Parse(iniData["Skylab"]["UpgradeTerbiumCollector"]);
@@ -971,6 +1124,11 @@ namespace Corvus
         }
 
         private void cmdSaveSettings_Click(object sender, EventArgs e)
+        {
+            SaveSettings(true);
+        }
+
+        private void FrmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
             SaveSettings();
         }
