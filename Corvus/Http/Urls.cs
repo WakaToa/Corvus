@@ -23,7 +23,7 @@ namespace Corvus.Http
 
         public static string InternalNanoTechFactory { get;} = "{0}/indexInternal.es?action=internalNanoTechFactory";
 
-        public static string BuildTech { get; } = "{0}/indexInternal.es?action=internalNanoTechFactory&subaction=buildBuff&buff={1}&level={2}&reloadToken={3}";
+        public static string BuildTech { get; } = "{0}/indexInternal.es?action=internalNanoTechFactory&subaction=buildBuff&buff={1}&level=1&reloadToken={2}";
 
         public static string InternalSkylab { get; } = "{0}/indexInternal.es?action=internalSkylab";
 

@@ -114,6 +114,7 @@ namespace Corvus
             this.cmdOpenBackPage = new System.Windows.Forms.Button();
             this.lblLastStatus = new System.Windows.Forms.Label();
             this.cmdSaveSettings = new System.Windows.Forms.Button();
+            this.chkSpinOnlyEE = new System.Windows.Forms.CheckBox();
             this.tcMain.SuspendLayout();
             this.tabPageLogin.SuspendLayout();
             this.gBoxUsernamePasswordLogin.SuspendLayout();
@@ -335,6 +336,7 @@ namespace Corvus
             // 
             // tabPageGalaxyGates
             // 
+            this.tabPageGalaxyGates.Controls.Add(this.chkSpinOnlyEE);
             this.tabPageGalaxyGates.Controls.Add(this.rbBuildGamma);
             this.tabPageGalaxyGates.Controls.Add(this.rbBuildBeta);
             this.tabPageGalaxyGates.Controls.Add(this.nudMinimumUridium);
@@ -1069,6 +1071,16 @@ namespace Corvus
             this.cmdSaveSettings.UseVisualStyleBackColor = true;
             this.cmdSaveSettings.Click += new System.EventHandler(this.cmdSaveSettings_Click);
             // 
+            // chkSpinOnlyEE
+            // 
+            this.chkSpinOnlyEE.AutoSize = true;
+            this.chkSpinOnlyEE.Location = new System.Drawing.Point(643, 105);
+            this.chkSpinOnlyEE.Name = "chkSpinOnlyEE";
+            this.chkSpinOnlyEE.Size = new System.Drawing.Size(86, 17);
+            this.chkSpinOnlyEE.TabIndex = 34;
+            this.chkSpinOnlyEE.Text = "&Spin only EE";
+            this.chkSpinOnlyEE.UseVisualStyleBackColor = true;
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1087,7 +1099,7 @@ namespace Corvus
             this.Name = "FrmMain";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Corvus - DarkOrbit Auto-Tool ";
+            this.Text = "Corvus - DarkOrbit Bot Helper";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmMain_FormClosing);
             this.tcMain.ResumeLayout(false);
             this.tabPageLogin.ResumeLayout(false);
@@ -1200,6 +1212,7 @@ namespace Corvus
         private Label lblCheckTechFactoryEvery;
         private NumericUpDown nudCheckSkylabEvery;
         private Label lblCheckSkylabEvery;
+        private CheckBox chkSpinOnlyEE;
     }
 }
 

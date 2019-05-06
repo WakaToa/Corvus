@@ -196,7 +196,7 @@ namespace Corvus.DarkOrbit.Data
             {
                 if (Type == "part")
                 {
-                    return $"{((GalaxyGate)GateId).GetFullName()} part #{PartId} ({Current / Total})";
+                    return $"{((GalaxyGate)GateId).GetFullName()} part #{PartId} ({Current}/{Total})";
                 }
 
                 if (Type == "battery")

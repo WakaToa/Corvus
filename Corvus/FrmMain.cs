@@ -208,46 +208,90 @@ namespace Corvus
             _prometiumCollectorRow.Cells[_dgvSkylabLevel].Value =_account.SkylabData.PrometiumCollectorInfo.Level;
             _prometiumCollectorRow.Cells[_dgvSkylabUpgrading].Value = _account.SkylabData.PrometiumCollectorInfo.Upgrading;
             _prometiumCollectorRow.Cells[_dgvSkylabTimeLeft].Value = _account.SkylabData.PrometiumCollectorInfo.TimeLeft.FormatReadable();
+            if (_account.SkylabData.PrometiumCollectorInfo.Level == 20)
+            {
+                _prometiumCollectorRow.Cells[_dgvSkylabUpgrade].ReadOnly = true;
+            }
 
             _enduriumCollectorRow.Cells[_dgvSkylabLevel].Value = _account.SkylabData.EnduriumCollectorInfo.Level;
             _enduriumCollectorRow.Cells[_dgvSkylabUpgrading].Value = _account.SkylabData.EnduriumCollectorInfo.Upgrading;
             _enduriumCollectorRow.Cells[_dgvSkylabTimeLeft].Value = _account.SkylabData.EnduriumCollectorInfo.TimeLeft.FormatReadable();
+            if (_account.SkylabData.EnduriumCollectorInfo.Level == 20)
+            {
+                _enduriumCollectorRow.Cells[_dgvSkylabUpgrade].ReadOnly = true;
+            }
 
             _terbiumCollectorRow.Cells[_dgvSkylabLevel].Value = _account.SkylabData.TerbiumCollectorInfo.Level;
             _terbiumCollectorRow.Cells[_dgvSkylabUpgrading].Value = _account.SkylabData.TerbiumCollectorInfo.Upgrading;
             _terbiumCollectorRow.Cells[_dgvSkylabTimeLeft].Value = _account.SkylabData.TerbiumCollectorInfo.TimeLeft.FormatReadable();
+            if (_account.SkylabData.TerbiumCollectorInfo.Level == 20)
+            {
+                _terbiumCollectorRow.Cells[_dgvSkylabUpgrade].ReadOnly = true;
+            }
 
             _solarModuleRow.Cells[_dgvSkylabLevel].Value = _account.SkylabData.SolarModuleInfo.Level;
             _solarModuleRow.Cells[_dgvSkylabUpgrading].Value = _account.SkylabData.SolarModuleInfo.Upgrading;
             _solarModuleRow.Cells[_dgvSkylabTimeLeft].Value = _account.SkylabData.SolarModuleInfo.TimeLeft.FormatReadable();
+            if (_account.SkylabData.SolarModuleInfo.Level == 20)
+            {
+                _solarModuleRow.Cells[_dgvSkylabUpgrade].ReadOnly = true;
+            }
 
             _storageModuleRow.Cells[_dgvSkylabLevel].Value = _account.SkylabData.StorageModuleInfo.Level;
             _storageModuleRow.Cells[_dgvSkylabUpgrading].Value = _account.SkylabData.StorageModuleInfo.Upgrading;
             _storageModuleRow.Cells[_dgvSkylabTimeLeft].Value = _account.SkylabData.StorageModuleInfo.TimeLeft.FormatReadable();
+            if (_account.SkylabData.StorageModuleInfo.Level == 20)
+            {
+                _storageModuleRow.Cells[_dgvSkylabUpgrade].ReadOnly = true;
+            }
 
             _baseModuleRow.Cells[_dgvSkylabLevel].Value = _account.SkylabData.BaseModuleInfo.Level;
             _baseModuleRow.Cells[_dgvSkylabUpgrading].Value = _account.SkylabData.BaseModuleInfo.Upgrading;
             _baseModuleRow.Cells[_dgvSkylabTimeLeft].Value = _account.SkylabData.BaseModuleInfo.TimeLeft.FormatReadable();
+            if (_account.SkylabData.BaseModuleInfo.Level == 20)
+            {
+                _baseModuleRow.Cells[_dgvSkylabUpgrade].ReadOnly = true;
+            }
 
             _prometidRefineryRow.Cells[_dgvSkylabLevel].Value = _account.SkylabData.PrometidRefineryInfo.Level;
             _prometidRefineryRow.Cells[_dgvSkylabUpgrading].Value = _account.SkylabData.PrometidRefineryInfo.Upgrading;
             _prometidRefineryRow.Cells[_dgvSkylabTimeLeft].Value = _account.SkylabData.PrometidRefineryInfo.TimeLeft.FormatReadable();
+            if (_account.SkylabData.PrometidRefineryInfo.Level == 20)
+            {
+                _prometidRefineryRow.Cells[_dgvSkylabUpgrade].ReadOnly = true;
+            }
 
             _duraniumRefineryRow.Cells[_dgvSkylabLevel].Value = _account.SkylabData.DuraniumRefineryInfo.Level;
             _duraniumRefineryRow.Cells[_dgvSkylabUpgrading].Value = _account.SkylabData.DuraniumRefineryInfo.Upgrading;
             _duraniumRefineryRow.Cells[_dgvSkylabTimeLeft].Value = _account.SkylabData.DuraniumRefineryInfo.TimeLeft.FormatReadable();
+            if (_account.SkylabData.DuraniumRefineryInfo.Level == 20)
+            {
+                _duraniumRefineryRow.Cells[_dgvSkylabUpgrade].ReadOnly = true;
+            }
 
             _promeriumRefineryRow.Cells[_dgvSkylabLevel].Value = _account.SkylabData.PromeriumRefineryInfo.Level;
             _promeriumRefineryRow.Cells[_dgvSkylabUpgrading].Value = _account.SkylabData.PromeriumRefineryInfo.Upgrading;
             _promeriumRefineryRow.Cells[_dgvSkylabTimeLeft].Value = _account.SkylabData.PromeriumRefineryInfo.TimeLeft.FormatReadable();
+            if (_account.SkylabData.PromeriumRefineryInfo.Level == 20)
+            {
+                _promeriumRefineryRow.Cells[_dgvSkylabUpgrade].ReadOnly = true;
+            }
 
             _xenoModuleRow.Cells[_dgvSkylabLevel].Value = _account.SkylabData.XenoModuleInfo.Level;
             _xenoModuleRow.Cells[_dgvSkylabUpgrading].Value = _account.SkylabData.XenoModuleInfo.Upgrading;
             _xenoModuleRow.Cells[_dgvSkylabTimeLeft].Value = _account.SkylabData.XenoModuleInfo.TimeLeft.FormatReadable();
+            if (_account.SkylabData.XenoModuleInfo.Level == 20)
+            {
+                _xenoModuleRow.Cells[_dgvSkylabUpgrade].ReadOnly = true;
+            }
 
             _sepromRefineryRow.Cells[_dgvSkylabLevel].Value = _account.SkylabData.SepromRefineryInfo.Level;
             _sepromRefineryRow.Cells[_dgvSkylabUpgrading].Value = _account.SkylabData.SepromRefineryInfo.Upgrading;
             _sepromRefineryRow.Cells[_dgvSkylabTimeLeft].Value = _account.SkylabData.SepromRefineryInfo.TimeLeft.FormatReadable();
+            if (_account.SkylabData.SepromRefineryInfo.Level == 20)
+            {
+                _sepromRefineryRow.Cells[_dgvSkylabUpgrade].ReadOnly = true;
+            }
         }
 
         private async Task ExecuteSkylabAsync()
@@ -700,6 +744,13 @@ namespace Corvus
                 return;
             }
 
+            if (chkSpinOnlyEE.Checked && _account.GateData.Samples <= 0)
+            {
+                Log("Stopping gate mode for 5 minutes... No EE left");
+                _nextRunGalaxyGate = DateTime.Now.AddMinutes(5);
+                return;
+            }
+
             Log($"Spinning {GetSelectedGate().GetFullName()}...");
             var spin = await _account.SpinGateAsync(GetSelectedGate());
             foreach (var allItem in spin.Items.GetAllItems())
@@ -857,7 +908,7 @@ namespace Corvus
                 }
             }
 
-            Text = "Corvus - DarkOrbit Auto-Tool - " + _account.AccountData.Username;
+            Text = "Corvus - DarkOrbit Bot Helper - " + _account.AccountData.Username;
 
             Log("Login success!");
 
@@ -992,6 +1043,7 @@ namespace Corvus
                 iniData["GalaxyGates"]["Spin"] = chkBoxSpinGate.Checked.ToString();
                 iniData["GalaxyGates"]["Delay"] = nudGateDelay.Text;
                 iniData["GalaxyGates"]["MinUridium"] = nudMinimumUridium.Text;
+                iniData["GalaxyGates"]["OnlyEE"] = chkSpinOnlyEE.Checked.ToString();
                 iniData["GalaxyGates"]["SelectedGate"] = GetSelectedGate().GetFullName();
 
                 iniData["TechFactory"]["Build"] = chkBoxBuildTechs.Checked.ToString();
@@ -1060,6 +1112,7 @@ namespace Corvus
                 chkBoxSpinGate.Checked = bool.Parse(iniData["GalaxyGates"]["Spin"]);
                 nudGateDelay.Value = decimal.Parse(iniData["GalaxyGates"]["Delay"]);
                 nudMinimumUridium.Value = decimal.Parse(iniData["GalaxyGates"]["MinUridium"]);
+                chkSpinOnlyEE.Checked = bool.Parse(iniData["GalaxyGates"]["OnlyEE"]);
 
                 switch (iniData["GalaxyGates"]["SelectedGate"].GalaxyGateFromFullName())
                 {
