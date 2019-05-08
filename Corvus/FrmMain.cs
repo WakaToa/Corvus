@@ -809,8 +809,13 @@ namespace Corvus
 
                         if (chkBoxSpinGate.Checked)
                         {
-                            Log($"Sleeping {(int)nudGateDelay.Value} ms...");
-                            await Task.Delay((int)nudGateDelay.Value); await ExecuteSpinAsync();
+                            if (DateTime.Now.Subtract(_nextRunGalaxyGate).TotalSeconds >= 0)
+                            {
+                                Log($"Sleeping {(int)nudGateDelay.Value} ms...");
+                                await Task.Delay((int)nudGateDelay.Value);
+                                await ExecuteSpinAsync();
+                            }
+
                         }
                     }
                     catch (InvalidSessionException)
@@ -894,6 +899,7 @@ namespace Corvus
                 if (string.IsNullOrWhiteSpace(txtServer.Text) || string.IsNullOrWhiteSpace(txtServer.Text))
                 {
                     MessageBox.Show("Please enter your server and sessionId!");
+                    EnableGui();
                     return;
                 }
                 Log("Performing sessionId login...");
