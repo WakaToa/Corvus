@@ -364,7 +364,7 @@ namespace Corvus.DarkOrbit
 
             foreach (var spinItem in spin.Items.GetAllItems())
             {
-                if (spinItem.Type == "part")
+                if (spinItem.Type == "part" && !spinItem.Duplicate)
                 {
                     GateItemsReceived.GateParts++;
                     var gate = GateData.Gates.Gates.Find(x => x.Id == spinItem.GateId);

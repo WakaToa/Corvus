@@ -81,6 +81,7 @@ namespace Corvus
         private DateTime _nextRunTechFactory = DateTime.Now;
         private DateTime _nextRunSkylab = DateTime.Now;
         private DateTime _nextRunGalaxyGate = DateTime.Now;
+        private DateTime _nextRefreshGalaxyGate = DateTime.Now;
 
         public FrmMain()
         {
@@ -723,12 +724,25 @@ namespace Corvus
             UpdateGateGui();
 
             var currentGate = _account.GateData.Gates.Get(GetSelectedGate());
-            if (currentGate.Ready && currentGate.Prepared)
+            if (chkBoxPlaceGate.Checked)
             {
-                Log("Stopping gate mode for 5 minutes... Can not get more parts");
-                _nextRunGalaxyGate = DateTime.Now.AddMinutes(5);
-                return;
+                if (currentGate.Prepared && currentGate.Ready)
+                {
+                    Log("Stopping gate mode for 5 minutes... Can not get more parts");
+                    _nextRunGalaxyGate = DateTime.Now.AddMinutes(5);
+                    return;
+                }
             }
+            else
+            {
+                if (currentGate.Ready)
+                {
+                    Log("Stopping gate mode for 5 minutes... Can not get more parts");
+                    _nextRunGalaxyGate = DateTime.Now.AddMinutes(5);
+                    return;
+                }
+            }
+
 
             if (_account.GateData.EnergyCost.Text > _account.GateData.Money && _account.GateData.Samples <= 0)
             {
@@ -755,7 +769,14 @@ namespace Corvus
             var spin = await _account.SpinGateAsync(GetSelectedGate());
             foreach (var allItem in spin.Items.GetAllItems())
             {
-                Log($"Received {allItem.ToString()}");
+                if (allItem.Duplicate)
+                {
+                    Log($"Received duplicate gate part > received multiplier");
+                }
+                else
+                {
+                    Log($"Received {allItem.ToString()}");
+                }
             }
             if (currentGate.Ready && !currentGate.Prepared)
             {
@@ -815,7 +836,15 @@ namespace Corvus
                                 await Task.Delay((int)nudGateDelay.Value);
                                 await ExecuteSpinAsync();
                             }
+                        }
 
+                        if (DateTime.Now.Subtract(_nextRefreshGalaxyGate).TotalSeconds >= 0)
+                        {
+                            _nextRefreshGalaxyGate = _nextRefreshGalaxyGate.AddMinutes(5);
+                            Log("Refreshing Galaxy Gate...");
+                            await _account.ReadGatesAsync();
+                            UpdateGateGui();
+                            
                         }
                     }
                     catch (InvalidSessionException)
@@ -844,6 +873,8 @@ namespace Corvus
                         if (!reconnectSuccess)
                         {
                             Log($"Reconnect failed!");
+                            DisableGui();
+                            tabPageLogin.Enabled = true;
                             break;
                         }
                     }

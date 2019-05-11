@@ -191,6 +191,8 @@ namespace Corvus.DarkOrbit.Data
             public int PartId { get; set; }
             [XmlAttribute(AttributeName = "multiplier_used")]
             public bool MultiplierUsed { get; set; }
+            [XmlAttribute(AttributeName = "duplicate")]
+            public bool Duplicate { get; set; }
 
             public override string ToString()
             {
