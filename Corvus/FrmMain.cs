@@ -77,6 +77,7 @@ namespace Corvus
 
         private Task _runTask;
         private bool _running = false;
+        CancellationTokenSource _cancellationTokenSource = null;
 
         private DateTime _nextRunTechFactory = DateTime.Now;
         private DateTime _nextRunSkylab = DateTime.Now;
@@ -732,6 +733,15 @@ namespace Corvus
                     _nextRunGalaxyGate = DateTime.Now.AddMinutes(5);
                     return;
                 }
+                if (currentGate.Ready && !currentGate.Prepared)
+                {
+                    Log($"Gate {GetSelectedGate().GetFullName()} is ready...");
+                    Log($"Placing {GetSelectedGate().GetFullName()}");
+                    await _account.PlaceGateAsync(GetSelectedGate());
+                    Log("Reading Galaxy Gates...");
+                    await _account.ReadGatesAsync();
+                    UpdateGateGui();
+                }
             }
             else
             {
@@ -812,7 +822,7 @@ namespace Corvus
                             {
                                 Log("Executing Tech Factory Task...");
                                 await ExecuteTechFactoryAsync();
-                                _nextRunTechFactory = DateTime.Now.AddMinutes((int)nudCheckTechFactoryEvery.Value);
+                                _nextRunTechFactory = DateTime.Now.AddMinutes((int) nudCheckTechFactoryEvery.Value);
                                 Log($"Next Tech Factory run -> {_nextRunTechFactory.ToLongTimeString()}");
                             }
                         }
@@ -823,7 +833,7 @@ namespace Corvus
                             {
                                 Log("Executing Skylab Task...");
                                 await ExecuteSkylabAsync();
-                                _nextRunSkylab = DateTime.Now.AddMinutes((int)nudCheckSkylabEvery.Value);
+                                _nextRunSkylab = DateTime.Now.AddMinutes((int) nudCheckSkylabEvery.Value);
                                 Log($"Next Skylab run -> {_nextRunSkylab.ToLongTimeString()}");
                             }
                         }
@@ -832,20 +842,28 @@ namespace Corvus
                         {
                             if (DateTime.Now.Subtract(_nextRunGalaxyGate).TotalSeconds >= 0)
                             {
-                                Log($"Sleeping {(int)nudGateDelay.Value} ms...");
-                                await Task.Delay((int)nudGateDelay.Value);
+                                Log($"Sleeping {(int) nudGateDelay.Value} ms...");
+                                await Task.Delay((int) nudGateDelay.Value);
                                 await ExecuteSpinAsync();
                             }
                         }
 
                         if (DateTime.Now.Subtract(_nextRefreshGalaxyGate).TotalSeconds >= 0)
                         {
-                            _nextRefreshGalaxyGate = _nextRefreshGalaxyGate.AddMinutes(5);
+                            _nextRefreshGalaxyGate = _nextRefreshGalaxyGate.AddMinutes(2);
                             Log("Refreshing Galaxy Gate...");
                             await _account.ReadGatesAsync();
                             UpdateGateGui();
-                            
+
                         }
+
+                        var delay = GetMinimumWaitingTime();
+                        if (delay.TotalMilliseconds > 0)
+                        {
+                            Log($"Sleeping {delay.FormatReadable()} ...");
+                            await Task.Delay(delay, _cancellationTokenSource.Token);
+                        }
+
                     }
                     catch (InvalidSessionException)
                     {
@@ -855,7 +873,7 @@ namespace Corvus
                         if (_account.AccountData.UsernamePasswordLogin && chkBoxReconnect.Checked)
                         {
                             Log($"Trying to reconnect...");
-                          
+
                             for (var i = 0; i < 3; i++)
                             {
                                 Log($"Trying to reconnect {i + 1}...");
@@ -880,6 +898,10 @@ namespace Corvus
                     }
                 }
             }
+            catch (TaskCanceledException)
+            {
+
+            }
             catch (Exception e)
             {
                 Log("RunTask: " + e.ToString());
@@ -888,9 +910,29 @@ namespace Corvus
             {
                 _running = false;
                 cmdStart.Invoke(new Action(() => cmdStart.Enabled = true));
-                Log("RunTask destroyed...Stopping logic...");
+                Log("RunTask destroyed...Logic stopped...");
                 _runTask = null;
             }
+        }
+
+        private TimeSpan GetMinimumWaitingTime()
+        {
+            var dateTimes = new List<DateTime>();
+            if (chkBoxSpinGate.Checked)
+            {
+                dateTimes.Add(_nextRunGalaxyGate);
+            }
+            if (chkBoxUpgradeSkylab.Checked)
+            {
+                dateTimes.Add(_nextRunSkylab);
+            }
+            if (chkBoxBuildTechs.Checked)
+            {
+                dateTimes.Add(_nextRunTechFactory);
+            }
+            dateTimes.Add(_nextRefreshGalaxyGate);
+
+            return TimeSpan.FromMilliseconds(dateTimes.Min().Subtract(DateTime.Now).TotalMilliseconds + 1000);
         }
 
         private void rbUsernamePasswordLogin_CheckedChanged(object sender, EventArgs e)
@@ -963,14 +1005,16 @@ namespace Corvus
 
         private void cmdStart_Click(object sender, EventArgs e)
         {
+            _cancellationTokenSource = new CancellationTokenSource();
             _running = true;
             cmdStart.Enabled = false;
             cmdStop.Enabled = true;
-            _runTask = Task.Run(DoWork);
+            _runTask = Task.Run(DoWork, _cancellationTokenSource.Token);
         }
 
         private void cmdStop_Click(object sender, EventArgs e)
         {
+            _cancellationTokenSource.Cancel();
             _running = false;
             cmdStop.Enabled = false;
         }
@@ -994,7 +1038,7 @@ namespace Corvus
                 var textBox = (TextBox)dgv.EditingControl;
                 textBox.SelectionStart = textBox.Text.Length;
             }
-            catch (Exception exception)
+            catch (Exception)
             {
             }
 
@@ -1082,6 +1126,7 @@ namespace Corvus
                 iniData["GalaxyGates"]["MinUridium"] = nudMinimumUridium.Text;
                 iniData["GalaxyGates"]["OnlyEE"] = chkSpinOnlyEE.Checked.ToString();
                 iniData["GalaxyGates"]["SelectedGate"] = GetSelectedGate().GetFullName();
+                iniData["GalaxyGates"]["PlaceGate"] = chkBoxPlaceGate.Checked.ToString();
 
                 iniData["TechFactory"]["Build"] = chkBoxBuildTechs.Checked.ToString();
                 iniData["TechFactory"]["SleepTime"] = nudCheckTechFactoryEvery.Text;
@@ -1150,6 +1195,7 @@ namespace Corvus
                 nudGateDelay.Value = decimal.Parse(iniData["GalaxyGates"]["Delay"]);
                 nudMinimumUridium.Value = decimal.Parse(iniData["GalaxyGates"]["MinUridium"]);
                 chkSpinOnlyEE.Checked = bool.Parse(iniData["GalaxyGates"]["OnlyEE"]);
+                chkBoxPlaceGate.Checked = bool.Parse(iniData["GalaxyGates"]["PlaceGate"]);
 
                 switch (iniData["GalaxyGates"]["SelectedGate"].GalaxyGateFromFullName())
                 {
