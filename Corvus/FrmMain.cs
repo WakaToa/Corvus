@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -130,7 +130,7 @@ namespace Corvus
 
         private GalaxyGate GetSelectedGate()
         {
-            if (rbBuildAlpha.Checked)
+            if (rbBuildABG.Checked)
             {
                 return GalaxyGate.Alpha;
             }
@@ -1601,13 +1601,7 @@ namespace Corvus
                 {
                     default:
                     case GalaxyGate.Alpha:
-                        rbBuildAlpha.Checked = true;
-                        break;
-                    case GalaxyGate.Beta:
-                        rbBuildBeta.Checked = true;
-                        break;
-                    case GalaxyGate.Gamma:
-                        rbBuildGamma.Checked = true;
+                        rbBuildABG.Checked = true;
                         break;
                     case GalaxyGate.Delta:
                         rbBuildDelta.Checked = true;
@@ -1684,6 +1678,11 @@ namespace Corvus
                 default:
                     return "null";
             }
+        }
+        
+        private void ComboBoxABG_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
         }
     }
 }
