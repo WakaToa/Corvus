@@ -50,8 +50,7 @@ namespace Corvus
             this.txtServer = new System.Windows.Forms.TextBox();
             this.lblServer = new System.Windows.Forms.Label();
             this.tabPageGalaxyGates = new System.Windows.Forms.TabPage();
-            this.rbBuildGamma = new System.Windows.Forms.RadioButton();
-            this.rbBuildBeta = new System.Windows.Forms.RadioButton();
+            this.comboBoxABG = new System.Windows.Forms.ComboBox();
             this.nudMinimumUridium = new System.Windows.Forms.NumericUpDown();
             this.lblMinimumUridium = new System.Windows.Forms.Label();
             this.chkBoxPlaceGate = new System.Windows.Forms.CheckBox();
@@ -86,7 +85,7 @@ namespace Corvus
             this.rbBuildZeta = new System.Windows.Forms.RadioButton();
             this.rbBuildEpsilon = new System.Windows.Forms.RadioButton();
             this.rbBuildDelta = new System.Windows.Forms.RadioButton();
-            this.rbBuildAlpha = new System.Windows.Forms.RadioButton();
+            this.rbBuildABG = new System.Windows.Forms.RadioButton();
             this.tabPageTechFactory = new System.Windows.Forms.TabPage();
             this.nudCheckTechFactoryEvery = new System.Windows.Forms.NumericUpDown();
             this.lblCheckTechFactoryEvery = new System.Windows.Forms.Label();
@@ -336,9 +335,8 @@ namespace Corvus
             // 
             // tabPageGalaxyGates
             // 
+            this.tabPageGalaxyGates.Controls.Add(this.comboBoxABG);
             this.tabPageGalaxyGates.Controls.Add(this.chkSpinOnlyEE);
-            this.tabPageGalaxyGates.Controls.Add(this.rbBuildGamma);
-            this.tabPageGalaxyGates.Controls.Add(this.rbBuildBeta);
             this.tabPageGalaxyGates.Controls.Add(this.nudMinimumUridium);
             this.tabPageGalaxyGates.Controls.Add(this.lblMinimumUridium);
             this.tabPageGalaxyGates.Controls.Add(this.chkBoxPlaceGate);
@@ -369,7 +367,7 @@ namespace Corvus
             this.tabPageGalaxyGates.Controls.Add(this.rbBuildZeta);
             this.tabPageGalaxyGates.Controls.Add(this.rbBuildEpsilon);
             this.tabPageGalaxyGates.Controls.Add(this.rbBuildDelta);
-            this.tabPageGalaxyGates.Controls.Add(this.rbBuildAlpha);
+            this.tabPageGalaxyGates.Controls.Add(this.rbBuildABG);
             this.tabPageGalaxyGates.Location = new System.Drawing.Point(4, 22);
             this.tabPageGalaxyGates.Name = "tabPageGalaxyGates";
             this.tabPageGalaxyGates.Size = new System.Drawing.Size(767, 340);
@@ -377,25 +375,20 @@ namespace Corvus
             this.tabPageGalaxyGates.Text = "Galaxy Gates";
             this.tabPageGalaxyGates.UseVisualStyleBackColor = true;
             // 
-            // rbBuildGamma
+            // comboBoxABG
             // 
-            this.rbBuildGamma.AutoSize = true;
-            this.rbBuildGamma.Location = new System.Drawing.Point(20, 149);
-            this.rbBuildGamma.Name = "rbBuildGamma";
-            this.rbBuildGamma.Size = new System.Drawing.Size(61, 17);
-            this.rbBuildGamma.TabIndex = 33;
-            this.rbBuildGamma.Text = "&Gamma";
-            this.rbBuildGamma.UseVisualStyleBackColor = true;
-            // 
-            // rbBuildBeta
-            // 
-            this.rbBuildBeta.AutoSize = true;
-            this.rbBuildBeta.Location = new System.Drawing.Point(20, 126);
-            this.rbBuildBeta.Name = "rbBuildBeta";
-            this.rbBuildBeta.Size = new System.Drawing.Size(47, 17);
-            this.rbBuildBeta.TabIndex = 32;
-            this.rbBuildBeta.Text = "&Beta";
-            this.rbBuildBeta.UseVisualStyleBackColor = true;
+            this.comboBoxABG.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxABG.FormattingEnabled = true;
+            this.comboBoxABG.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4"});
+            this.comboBoxABG.Location = new System.Drawing.Point(81, 103);
+            this.comboBoxABG.Name = "comboBoxABG";
+            this.comboBoxABG.Size = new System.Drawing.Size(60, 21);
+            this.comboBoxABG.TabIndex = 35;
+            this.comboBoxABG.SelectedIndexChanged += new System.EventHandler(this.ComboBoxABG_SelectedIndexChanged);
             // 
             // nudMinimumUridium
             // 
@@ -680,7 +673,7 @@ namespace Corvus
             // rbBuildKuiper
             // 
             this.rbBuildKuiper.AutoSize = true;
-            this.rbBuildKuiper.Location = new System.Drawing.Point(20, 310);
+            this.rbBuildKuiper.Location = new System.Drawing.Point(20, 266);
             this.rbBuildKuiper.Name = "rbBuildKuiper";
             this.rbBuildKuiper.Size = new System.Drawing.Size(55, 17);
             this.rbBuildKuiper.TabIndex = 8;
@@ -690,7 +683,7 @@ namespace Corvus
             // rbBuildHades
             // 
             this.rbBuildHades.AutoSize = true;
-            this.rbBuildHades.Location = new System.Drawing.Point(20, 287);
+            this.rbBuildHades.Location = new System.Drawing.Point(20, 243);
             this.rbBuildHades.Name = "rbBuildHades";
             this.rbBuildHades.Size = new System.Drawing.Size(56, 17);
             this.rbBuildHades.TabIndex = 7;
@@ -700,7 +693,7 @@ namespace Corvus
             // rbBuildKappa
             // 
             this.rbBuildKappa.AutoSize = true;
-            this.rbBuildKappa.Location = new System.Drawing.Point(20, 241);
+            this.rbBuildKappa.Location = new System.Drawing.Point(20, 197);
             this.rbBuildKappa.Name = "rbBuildKappa";
             this.rbBuildKappa.Size = new System.Drawing.Size(56, 17);
             this.rbBuildKappa.TabIndex = 6;
@@ -710,7 +703,7 @@ namespace Corvus
             // rbBuildLambda
             // 
             this.rbBuildLambda.AutoSize = true;
-            this.rbBuildLambda.Location = new System.Drawing.Point(20, 264);
+            this.rbBuildLambda.Location = new System.Drawing.Point(20, 220);
             this.rbBuildLambda.Name = "rbBuildLambda";
             this.rbBuildLambda.Size = new System.Drawing.Size(63, 17);
             this.rbBuildLambda.TabIndex = 5;
@@ -720,7 +713,7 @@ namespace Corvus
             // rbBuildZeta
             // 
             this.rbBuildZeta.AutoSize = true;
-            this.rbBuildZeta.Location = new System.Drawing.Point(20, 218);
+            this.rbBuildZeta.Location = new System.Drawing.Point(20, 174);
             this.rbBuildZeta.Name = "rbBuildZeta";
             this.rbBuildZeta.Size = new System.Drawing.Size(47, 17);
             this.rbBuildZeta.TabIndex = 4;
@@ -730,7 +723,7 @@ namespace Corvus
             // rbBuildEpsilon
             // 
             this.rbBuildEpsilon.AutoSize = true;
-            this.rbBuildEpsilon.Location = new System.Drawing.Point(20, 195);
+            this.rbBuildEpsilon.Location = new System.Drawing.Point(20, 151);
             this.rbBuildEpsilon.Name = "rbBuildEpsilon";
             this.rbBuildEpsilon.Size = new System.Drawing.Size(59, 17);
             this.rbBuildEpsilon.TabIndex = 3;
@@ -740,24 +733,22 @@ namespace Corvus
             // rbBuildDelta
             // 
             this.rbBuildDelta.AutoSize = true;
-            this.rbBuildDelta.Location = new System.Drawing.Point(20, 172);
+            this.rbBuildDelta.Location = new System.Drawing.Point(20, 128);
             this.rbBuildDelta.Name = "rbBuildDelta";
             this.rbBuildDelta.Size = new System.Drawing.Size(50, 17);
             this.rbBuildDelta.TabIndex = 2;
             this.rbBuildDelta.Text = "&Delta";
             this.rbBuildDelta.UseVisualStyleBackColor = true;
             // 
-            // rbBuildAlpha
+            // rbBuildABG
             // 
-            this.rbBuildAlpha.AutoSize = true;
-            this.rbBuildAlpha.Checked = true;
-            this.rbBuildAlpha.Location = new System.Drawing.Point(20, 103);
-            this.rbBuildAlpha.Name = "rbBuildAlpha";
-            this.rbBuildAlpha.Size = new System.Drawing.Size(52, 17);
-            this.rbBuildAlpha.TabIndex = 0;
-            this.rbBuildAlpha.TabStop = true;
-            this.rbBuildAlpha.Text = "&Alpha";
-            this.rbBuildAlpha.UseVisualStyleBackColor = true;
+            this.rbBuildABG.AutoSize = true;
+            this.rbBuildABG.Location = new System.Drawing.Point(20, 105);
+            this.rbBuildABG.Name = "rbBuildABG";
+            this.rbBuildABG.Size = new System.Drawing.Size(47, 17);
+            this.rbBuildABG.TabIndex = 33;
+            this.rbBuildABG.Text = "&ABG";
+            this.rbBuildABG.UseVisualStyleBackColor = true;
             // 
             // tabPageTechFactory
             // 
@@ -1149,6 +1140,7 @@ namespace Corvus
         private System.Windows.Forms.TabPage tabPageSkylab;
         private System.Windows.Forms.Label lblPortal;
         private System.Windows.Forms.ComboBox comboBoxLoginPortal;
+        private System.Windows.Forms.ComboBox comboBoxABG;
         private System.Windows.Forms.DataGridView dgvSkylab;
         private System.Windows.Forms.TabPage tabPageLog;
         private System.Windows.Forms.DataGridView dgvTechFactory;
@@ -1160,7 +1152,7 @@ namespace Corvus
         private System.Windows.Forms.Button cmdStart;
         private System.Windows.Forms.Button cmdStop;
         private System.Windows.Forms.Button cmdOpenBackPage;
-        private System.Windows.Forms.RadioButton rbBuildAlpha;
+        private System.Windows.Forms.RadioButton rbBuildABG;
         private System.Windows.Forms.RadioButton rbBuildKuiper;
         private System.Windows.Forms.RadioButton rbBuildHades;
         private System.Windows.Forms.RadioButton rbBuildKappa;
@@ -1206,8 +1198,6 @@ namespace Corvus
         private CheckBox chkBoxSaveUsernamePassword;
         private Label lblLastStatus;
         private Button cmdSaveSettings;
-        private RadioButton rbBuildGamma;
-        private RadioButton rbBuildBeta;
         private NumericUpDown nudCheckTechFactoryEvery;
         private Label lblCheckTechFactoryEvery;
         private NumericUpDown nudCheckSkylabEvery;
