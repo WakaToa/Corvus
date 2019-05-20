@@ -453,13 +453,18 @@ namespace Corvus
             // nudGateDelay
             // 
             this.nudGateDelay.Increment = new decimal(new int[] {
-            50,
+            25,
             0,
             0,
             0});
             this.nudGateDelay.Location = new System.Drawing.Point(20, 33);
             this.nudGateDelay.Maximum = new decimal(new int[] {
             5000,
+            0,
+            0,
+            0});
+            this.nudGateDelay.Minimum = new decimal(new int[] {
+            25,
             0,
             0,
             0});
