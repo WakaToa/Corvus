@@ -50,7 +50,8 @@ namespace Corvus
             this.txtServer = new System.Windows.Forms.TextBox();
             this.lblServer = new System.Windows.Forms.Label();
             this.tabPageGalaxyGates = new System.Windows.Forms.TabPage();
-            this.comboBoxABG = new System.Windows.Forms.ComboBox();
+            this.boxoptionABG = new System.Windows.Forms.NumericUpDown();
+            this.chkSpinOnlyEE = new System.Windows.Forms.CheckBox();
             this.nudMinimumUridium = new System.Windows.Forms.NumericUpDown();
             this.lblMinimumUridium = new System.Windows.Forms.Label();
             this.chkBoxPlaceGate = new System.Windows.Forms.CheckBox();
@@ -113,12 +114,12 @@ namespace Corvus
             this.cmdOpenBackPage = new System.Windows.Forms.Button();
             this.lblLastStatus = new System.Windows.Forms.Label();
             this.cmdSaveSettings = new System.Windows.Forms.Button();
-            this.chkSpinOnlyEE = new System.Windows.Forms.CheckBox();
             this.tcMain.SuspendLayout();
             this.tabPageLogin.SuspendLayout();
             this.gBoxUsernamePasswordLogin.SuspendLayout();
             this.gBoxSessionIDLogin.SuspendLayout();
             this.tabPageGalaxyGates.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.boxoptionABG)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMinimumUridium)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudGateDelay)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvGates)).BeginInit();
@@ -335,7 +336,7 @@ namespace Corvus
             // 
             // tabPageGalaxyGates
             // 
-            this.tabPageGalaxyGates.Controls.Add(this.comboBoxABG);
+            this.tabPageGalaxyGates.Controls.Add(this.boxoptionABG);
             this.tabPageGalaxyGates.Controls.Add(this.chkSpinOnlyEE);
             this.tabPageGalaxyGates.Controls.Add(this.nudMinimumUridium);
             this.tabPageGalaxyGates.Controls.Add(this.lblMinimumUridium);
@@ -375,20 +376,37 @@ namespace Corvus
             this.tabPageGalaxyGates.Text = "Galaxy Gates";
             this.tabPageGalaxyGates.UseVisualStyleBackColor = true;
             // 
-            // comboBoxABG
+            // boxoptionABG
             // 
-            this.comboBoxABG.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxABG.FormattingEnabled = true;
-            this.comboBoxABG.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3",
-            "4"});
-            this.comboBoxABG.Location = new System.Drawing.Point(81, 103);
-            this.comboBoxABG.Name = "comboBoxABG";
-            this.comboBoxABG.Size = new System.Drawing.Size(60, 21);
-            this.comboBoxABG.TabIndex = 35;
-            this.comboBoxABG.SelectedIndexChanged += new System.EventHandler(this.ComboBoxABG_SelectedIndexChanged);
+            this.boxoptionABG.Location = new System.Drawing.Point(81, 102);
+            this.boxoptionABG.Maximum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.boxoptionABG.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.boxoptionABG.Name = "boxoptionABG";
+            this.boxoptionABG.Size = new System.Drawing.Size(60, 20);
+            this.boxoptionABG.TabIndex = 36;
+            this.boxoptionABG.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // chkSpinOnlyEE
+            // 
+            this.chkSpinOnlyEE.AutoSize = true;
+            this.chkSpinOnlyEE.Location = new System.Drawing.Point(643, 105);
+            this.chkSpinOnlyEE.Name = "chkSpinOnlyEE";
+            this.chkSpinOnlyEE.Size = new System.Drawing.Size(86, 17);
+            this.chkSpinOnlyEE.TabIndex = 34;
+            this.chkSpinOnlyEE.Text = "&Spin only EE";
+            this.chkSpinOnlyEE.UseVisualStyleBackColor = true;
             // 
             // nudMinimumUridium
             // 
@@ -1067,16 +1085,6 @@ namespace Corvus
             this.cmdSaveSettings.UseVisualStyleBackColor = true;
             this.cmdSaveSettings.Click += new System.EventHandler(this.cmdSaveSettings_Click);
             // 
-            // chkSpinOnlyEE
-            // 
-            this.chkSpinOnlyEE.AutoSize = true;
-            this.chkSpinOnlyEE.Location = new System.Drawing.Point(643, 105);
-            this.chkSpinOnlyEE.Name = "chkSpinOnlyEE";
-            this.chkSpinOnlyEE.Size = new System.Drawing.Size(86, 17);
-            this.chkSpinOnlyEE.TabIndex = 34;
-            this.chkSpinOnlyEE.Text = "&Spin only EE";
-            this.chkSpinOnlyEE.UseVisualStyleBackColor = true;
-            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1105,6 +1113,7 @@ namespace Corvus
             this.gBoxSessionIDLogin.PerformLayout();
             this.tabPageGalaxyGates.ResumeLayout(false);
             this.tabPageGalaxyGates.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.boxoptionABG)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMinimumUridium)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudGateDelay)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvGates)).EndInit();
@@ -1145,7 +1154,6 @@ namespace Corvus
         private System.Windows.Forms.TabPage tabPageSkylab;
         private System.Windows.Forms.Label lblPortal;
         private System.Windows.Forms.ComboBox comboBoxLoginPortal;
-        private System.Windows.Forms.ComboBox comboBoxABG;
         private System.Windows.Forms.DataGridView dgvSkylab;
         private System.Windows.Forms.TabPage tabPageLog;
         private System.Windows.Forms.DataGridView dgvTechFactory;
@@ -1200,6 +1208,7 @@ namespace Corvus
         private System.Windows.Forms.CheckBox chkBoxBuildTechs;
         private System.Windows.Forms.CheckBox chkBoxUpgradeSkylab;
         private System.Windows.Forms.RichTextBox rtbLog;
+        private System.Windows.Forms.NumericUpDown boxoptionABG;
         private CheckBox chkBoxSaveUsernamePassword;
         private Label lblLastStatus;
         private Button cmdSaveSettings;

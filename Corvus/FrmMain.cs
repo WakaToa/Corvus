@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -89,9 +89,7 @@ namespace Corvus
             InitializeComponent();
             DisableGui();
             tabPageLogin.Enabled = true;
-            CheckForIllegalCrossThreadCalls = false;
             comboBoxLoginPortal.SelectedIndex = 0;
-            comboBoxABG.SelectedIndex = 0;
 
             _prometiumCollectorRow = dgvSkylab.Rows[dgvSkylab.Rows.Add("Prometium Collector", 0, false, "", false)];
             _enduriumCollectorRow = dgvSkylab.Rows[dgvSkylab.Rows.Add("Endurium Collector", 0, false, "", false)];
@@ -920,6 +918,55 @@ namespace Corvus
                         }
                     }
                 }
+                else if (getOptionforABG() == "option5")
+                {
+                    if (chkBoxPlaceGate.Checked)
+                    {
+                        if ((currentGateA.Prepared && currentGateA.Ready) || (currentGateB.Prepared && currentGateB.Ready) || (currentGateG.Prepared && currentGateG.Ready))
+                        {
+                            Log("Stopping gate mode for 5 minutes... Can not get more parts");
+                            _nextRunGalaxyGate = DateTime.Now.AddMinutes(5);
+                            return;
+                        }
+
+                        if (currentGateA.Ready && !currentGateA.Prepared)
+                        {
+                            Log($"Gate {GalaxyGate.Alpha.GetFullName()} is ready...");
+                            Log($"Placing {GalaxyGate.Alpha.GetFullName()}");
+                            await _account.PlaceGateAsync(GalaxyGate.Alpha);
+                            Log("Reading Galaxy Gates...");
+                            await _account.ReadGatesAsync();
+                            UpdateGateGui();
+                        }
+                        if (currentGateB.Ready && !currentGateB.Prepared)
+                        {
+                            Log($"Gate {GalaxyGate.Beta.GetFullName()} is ready...");
+                            Log($"Placing {GalaxyGate.Beta.GetFullName()}");
+                            await _account.PlaceGateAsync(GalaxyGate.Beta);
+                            Log("Reading Galaxy Gates...");
+                            await _account.ReadGatesAsync();
+                            UpdateGateGui();
+                        }
+                        if (currentGateG.Ready && !currentGateG.Prepared)
+                        {
+                            Log($"Gate {GalaxyGate.Gamma.GetFullName()} is ready...");
+                            Log($"Placing {GalaxyGate.Gamma.GetFullName()}");
+                            await _account.PlaceGateAsync(GalaxyGate.Gamma);
+                            Log("Reading Galaxy Gates...");
+                            await _account.ReadGatesAsync();
+                            UpdateGateGui();
+                        }
+                    }
+                    else
+                    {
+                        if (currentGateA.Ready || currentGateB.Ready || currentGateG.Ready)
+                        {
+                            Log("Stopping gate mode for 5 minutes... Can not get more parts");
+                            _nextRunGalaxyGate = DateTime.Now.AddMinutes(5);
+                            return;
+                        }
+                    }
+                }
             } else
             {
                 if (chkBoxPlaceGate.Checked)
@@ -1019,123 +1066,7 @@ namespace Corvus
                 var currentGateA = _account.GateData.Gates.Get(GalaxyGate.Alpha);
                 var currentGateB = _account.GateData.Gates.Get(GalaxyGate.Beta);
                 var currentGateG = _account.GateData.Gates.Get(GalaxyGate.Gamma);
-                if (getOptionforABG() == "option1")
-                {
-                    if (currentGateA.Ready && !currentGateA.Prepared)
-                    {
-                        if (chkBoxPlaceGate.Checked)
-                        {
-                            Log($"Gate {GalaxyGate.Alpha.GetFullName()} is ready...");
-                            Log($"Placing {GalaxyGate.Alpha.GetFullName()}");
-                            await _account.PlaceGateAsync(GalaxyGate.Alpha);
-                            Log("Reading Galaxy Gates...");
-                            await _account.ReadGatesAsync();
-                            UpdateGateGui();
-                        }
-                    }
-                    if (currentGateB.Ready && !currentGateB.Prepared)
-                    {
-                        if (chkBoxPlaceGate.Checked)
-                        {
-                            Log($"Gate {GalaxyGate.Beta.GetFullName()} is ready...");
-                            Log($"Placing {GalaxyGate.Beta.GetFullName()}");
-                            await _account.PlaceGateAsync(GalaxyGate.Beta);
-                            Log("Reading Galaxy Gates...");
-                            await _account.ReadGatesAsync();
-                            UpdateGateGui();
-                        }
-                    }
-                    if (currentGateG.Ready && !currentGateG.Prepared)
-                    {
-                        if (chkBoxPlaceGate.Checked)
-                        {
-                            Log($"Gate {GalaxyGate.Gamma.GetFullName()} is ready...");
-                            Log($"Placing {GalaxyGate.Gamma.GetFullName()}");
-                            await _account.PlaceGateAsync(GalaxyGate.Gamma);
-                            Log("Reading Galaxy Gates...");
-                            await _account.ReadGatesAsync();
-                            UpdateGateGui();
-                        }
-                    }
-                } else if (getOptionforABG() == "option2")
-                {
-                    if (currentGateA.Ready && !currentGateA.Prepared)
-                    {
-                        if (chkBoxPlaceGate.Checked)
-                        {
-                            Log($"Gate {GalaxyGate.Alpha.GetFullName()} is ready...");
-                            Log($"Placing {GalaxyGate.Alpha.GetFullName()}");
-                            await _account.PlaceGateAsync(GalaxyGate.Alpha);
-                            Log("Reading Galaxy Gates...");
-                            await _account.ReadGatesAsync();
-                            UpdateGateGui();
-                        }
-                    }
-                    if (currentGateB.Ready && !currentGateB.Prepared)
-                    {
-                        if (chkBoxPlaceGate.Checked)
-                        {
-                            Log($"Gate {GalaxyGate.Beta.GetFullName()} is ready...");
-                            Log($"Placing {GalaxyGate.Beta.GetFullName()}");
-                            await _account.PlaceGateAsync(GalaxyGate.Beta);
-                            Log("Reading Galaxy Gates...");
-                            await _account.ReadGatesAsync();
-                            UpdateGateGui();
-                        }
-                    }
-                    if (currentGateG.Ready && !currentGateG.Prepared)
-                    {
-                        if (chkBoxPlaceGate.Checked)
-                        {
-                            Log($"Gate {GalaxyGate.Gamma.GetFullName()} is ready...");
-                            Log($"Placing {GalaxyGate.Gamma.GetFullName()}");
-                            await _account.PlaceGateAsync(GalaxyGate.Gamma);
-                            Log("Reading Galaxy Gates...");
-                            await _account.ReadGatesAsync();
-                            UpdateGateGui();
-                        }
-                    }
-                }
-                else if (getOptionforABG() == "option3")
-                {
-                    if (currentGateA.Ready && !currentGateA.Prepared)
-                    {
-                        if (chkBoxPlaceGate.Checked)
-                        {
-                            Log($"Gate {GalaxyGate.Alpha.GetFullName()} is ready...");
-                            Log($"Placing {GalaxyGate.Alpha.GetFullName()}");
-                            await _account.PlaceGateAsync(GalaxyGate.Alpha);
-                            Log("Reading Galaxy Gates...");
-                            await _account.ReadGatesAsync();
-                            UpdateGateGui();
-                        }
-                    }
-                    if (currentGateB.Ready && !currentGateB.Prepared)
-                    {
-                        if (chkBoxPlaceGate.Checked)
-                        {
-                            Log($"Gate {GalaxyGate.Beta.GetFullName()} is ready...");
-                            Log($"Placing {GalaxyGate.Beta.GetFullName()}");
-                            await _account.PlaceGateAsync(GalaxyGate.Beta);
-                            Log("Reading Galaxy Gates...");
-                            await _account.ReadGatesAsync();
-                            UpdateGateGui();
-                        }
-                    }
-                    if (currentGateG.Ready && !currentGateG.Prepared)
-                    {
-                        if (chkBoxPlaceGate.Checked)
-                        {
-                            Log($"Gate {GalaxyGate.Gamma.GetFullName()} is ready...");
-                            Log($"Placing {GalaxyGate.Gamma.GetFullName()}");
-                            await _account.PlaceGateAsync(GalaxyGate.Gamma);
-                            Log("Reading Galaxy Gates...");
-                            await _account.ReadGatesAsync();
-                            UpdateGateGui();
-                        }
-                    }
-                }
-                else if (getOptionforABG() == "option4")
+                if ((getOptionforABG() == "option1") || (getOptionforABG() == "option2") || (getOptionforABG() == "option3") || (getOptionforABG() == "option4") || (getOptionforABG() == "option5"))
                 {
                     if (currentGateA.Ready && !currentGateA.Prepared)
                     {
@@ -1522,7 +1453,7 @@ namespace Corvus
                 iniData["GalaxyGates"]["Spin"] = chkBoxSpinGate.Checked.ToString();
                 iniData["GalaxyGates"]["Delay"] = nudGateDelay.Text;
                 iniData["GalaxyGates"]["MinUridium"] = nudMinimumUridium.Text;
-                iniData["GalaxyGates"]["GetOptionABG"] = comboBoxABG.SelectedItem.ToString();
+                iniData["GalaxyGates"]["GetOptionABG"] = boxoptionABG.Text;
                 iniData["GalaxyGates"]["OnlyEE"] = chkSpinOnlyEE.Checked.ToString();
                 iniData["GalaxyGates"]["SelectedGate"] = GetSelectedGate().GetFullName();
                 iniData["GalaxyGates"]["PlaceGate"] = chkBoxPlaceGate.Checked.ToString();
@@ -1593,7 +1524,7 @@ namespace Corvus
                 chkBoxSpinGate.Checked = bool.Parse(iniData["GalaxyGates"]["Spin"]);
                 nudGateDelay.Value = decimal.Parse(iniData["GalaxyGates"]["Delay"]);
                 nudMinimumUridium.Value = decimal.Parse(iniData["GalaxyGates"]["MinUridium"]);
-                comboBoxABG.SelectedIndex = comboBoxABG.Items.IndexOf(iniData["GalaxyGates"]["GetOptionABG"]);
+                boxoptionABG.Value = decimal.Parse(iniData["GalaxyGates"]["GetOptionABG"]);
                 chkSpinOnlyEE.Checked = bool.Parse(iniData["GalaxyGates"]["OnlyEE"]);
                 chkBoxPlaceGate.Checked = bool.Parse(iniData["GalaxyGates"]["PlaceGate"]);
 
@@ -1665,24 +1596,21 @@ namespace Corvus
         
         private String getOptionforABG()
         {
-            switch(comboBoxABG.Text)
+            switch(boxoptionABG.Value)
             {
-                case "1":
+                case 1:
                     return "option1";
-                case "2":
+                case 2:
                     return "option2";
-                case "3":
+                case 3:
                     return "option3";
-                case "4":
+                case 4:
                     return "option4";
+                case 5:
+                    return "option5";
                 default:
                     return "null";
             }
-        }
-        
-        private void ComboBoxABG_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            
         }
     }
 }
