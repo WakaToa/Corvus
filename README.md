@@ -8,12 +8,6 @@ Galaxy Gate Spinner
 2. Builds and places gates automatically
 3. Always uses X2 multiplier
 4. Set custom spin delay
-5. Options for ABG
-    1️⃣ It will stop pulling energies when the alpha portal is in 2/2
-    2️⃣ It will stop pulling energies when the beta portal is in 2/2
-    3️⃣ It will stop pulling energies when the gamma portal is in 2/2
-    4️⃣ It will stop pulling energies when the 3 alpha / beta / gamma portals are in 2/2
-    5️⃣ Any of the 3 GG stops until you have free to build other GG
 
 Build techs in all 3 halls (checks every 5 minutes)
 1. Shows time left
