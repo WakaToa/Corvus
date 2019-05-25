@@ -30,10 +30,10 @@ namespace Corvus.Http
         public static string UpgradeSkylab { get; } = "{0}/indexInternal.es?action=internalSkylab&subaction=upgrade&construction={1}&reloadToken={2}";
 
         public static string SpinGate { get; } =
-            "{0}/flashinput/galaxyGates.php?userID={1}&action=multiEnergy&sid={2}&gateID={3}&{4}=1&multiplier=1";
+            "{0}/flashinput/galaxyGates.php?userID={1}&action=multiEnergy&sid={2}&gateID={3}&{4}=1&multiplier=1&spinamount={5}";
 
         public static string SpinGateSample { get; } =
-            "{0}/flashinput/galaxyGates.php?userID={1}&action=multiEnergy&sid={2}&gateID={3}&{4}=1&multiplier=1&sample=1";
+            "{0}/flashinput/galaxyGates.php?userID={1}&action=multiEnergy&sid={2}&gateID={3}&{4}=1&multiplier=1&sample=1&spinamount={5}";
 
         public static string GateInfo { get; } =
             "{0}/flashinput/galaxyGates.php?userID={1}&action=init&sid={2}";

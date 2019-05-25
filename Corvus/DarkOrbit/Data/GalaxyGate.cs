@@ -31,7 +31,7 @@ namespace Corvus.DarkOrbit.Data
         Lambda = 8,
         [FullName("Hades")]
         Hades = 13,
-        [FullName("Kuiper")]
+        [FullName("Streuner")]
         Kuiper = 19
     }
 
@@ -81,6 +81,8 @@ namespace Corvus.DarkOrbit.Data
             public int LivesLeft { get; set; }
             [XmlAttribute(AttributeName = "lifePrice")]
             public int LifePrice { get; set; }
+            [XmlAttribute(AttributeName = "totalBuild")]
+            public int TotalBuild { get; set; }
         }
 
 

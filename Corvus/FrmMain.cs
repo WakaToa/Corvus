@@ -73,6 +73,7 @@ namespace Corvus
         private int _dgvGateParts = 1;
         private int _dgvGateReady = 2;
         private int _dgvGateOnMap = 3;
+        private int _dgvGateTotalBuild = 4;
         #endregion
 
         private Task _runTask;
@@ -89,7 +90,9 @@ namespace Corvus
             InitializeComponent();
             DisableGui();
             tabPageLogin.Enabled = true;
+            CheckForIllegalCrossThreadCalls = false;
             comboBoxLoginPortal.SelectedIndex = 0;
+            comboBoxEnergyCharge.SelectedIndex = 0;
 
             _prometiumCollectorRow = dgvSkylab.Rows[dgvSkylab.Rows.Add("Prometium Collector", 0, false, "", false)];
             _enduriumCollectorRow = dgvSkylab.Rows[dgvSkylab.Rows.Add("Endurium Collector", 0, false, "", false)];
@@ -110,16 +113,16 @@ namespace Corvus
             _techHall3Row = dgvTechFactory.Rows[dgvTechFactory.Rows.Add("", 0, false, "", false)];
             _techHall3Row.Visible = false;
 
-            _alphaRow = dgvGates.Rows[dgvGates.Rows.Add("Alpha", 0, false, false)];
-            _betaRow = dgvGates.Rows[dgvGates.Rows.Add("Beta", 0, false, false)];
-            _gammaRow = dgvGates.Rows[dgvGates.Rows.Add("Gamma", 0, false, false)];
-            _deltaRow = dgvGates.Rows[dgvGates.Rows.Add("Delta", 0, false, false)];
-            _epsilonRow = dgvGates.Rows[dgvGates.Rows.Add("Epsilon", 0, false, false)];
-            _zetaRow = dgvGates.Rows[dgvGates.Rows.Add("Zeta", 0, false, false)];
-            _kappaRow = dgvGates.Rows[dgvGates.Rows.Add("Kappa", 0, false, false)];
-            _lambdaRow = dgvGates.Rows[dgvGates.Rows.Add("Lambda", 0, false, false)];
-            _hadesRow = dgvGates.Rows[dgvGates.Rows.Add("Hades", 0, false, false)];
-            _kuiperRow = dgvGates.Rows[dgvGates.Rows.Add("Kuiper", 0, false, false)];
+            _alphaRow = dgvGates.Rows[dgvGates.Rows.Add("Alpha", 0, false, false, 0)];
+            _betaRow = dgvGates.Rows[dgvGates.Rows.Add("Beta", 0, false, false, 0)];
+            _gammaRow = dgvGates.Rows[dgvGates.Rows.Add("Gamma", 0, false, false, 0)];
+            _deltaRow = dgvGates.Rows[dgvGates.Rows.Add("Delta", 0, false, false, 0)];
+            _epsilonRow = dgvGates.Rows[dgvGates.Rows.Add("Epsilon", 0, false, false, 0)];
+            _zetaRow = dgvGates.Rows[dgvGates.Rows.Add("Zeta", 0, false, false, 0)];
+            _kappaRow = dgvGates.Rows[dgvGates.Rows.Add("Kappa", 0, false, false, 0)];
+            _lambdaRow = dgvGates.Rows[dgvGates.Rows.Add("Lambda", 0, false, false, 0)];
+            _hadesRow = dgvGates.Rows[dgvGates.Rows.Add("Hades", 0, false, false, 0)];
+            _kuiperRow = dgvGates.Rows[dgvGates.Rows.Add("Kuiper", 0, false, false, 0)];
 
             Log($"Corvus v{Assembly.GetExecutingAssembly().GetName().Version} started - Made by 'Heaven.");
 
@@ -637,42 +640,52 @@ namespace Corvus
                 _alphaRow.Cells[_dgvGateParts].Value = $"{_account.GateData.Gates.Alpha().Current}/{_account.GateData.Gates.Alpha().Total}";
                 _alphaRow.Cells[_dgvGateReady].Value = _account.GateData.Gates.Alpha().Current == _account.GateData.Gates.Alpha().Total;
                 _alphaRow.Cells[_dgvGateOnMap].Value = _account.GateData.Gates.Alpha().Prepared;
+                _alphaRow.Cells[_dgvGateTotalBuild].Value = _account.GateData.Gates.Alpha().TotalBuild;
 
                 _betaRow.Cells[_dgvGateParts].Value = $"{_account.GateData.Gates.Beta().Current}/{_account.GateData.Gates.Beta().Total}";
                 _betaRow.Cells[_dgvGateReady].Value = _account.GateData.Gates.Beta().Current == _account.GateData.Gates.Beta().Total;
                 _betaRow.Cells[_dgvGateOnMap].Value = _account.GateData.Gates.Beta().Prepared;
+                _betaRow.Cells[_dgvGateTotalBuild].Value = _account.GateData.Gates.Beta().TotalBuild;
 
                 _gammaRow.Cells[_dgvGateParts].Value = $"{_account.GateData.Gates.Gamma().Current}/{_account.GateData.Gates.Gamma().Total}";
                 _gammaRow.Cells[_dgvGateReady].Value = _account.GateData.Gates.Gamma().Current == _account.GateData.Gates.Gamma().Total;
                 _gammaRow.Cells[_dgvGateOnMap].Value = _account.GateData.Gates.Gamma().Prepared;
+                _gammaRow.Cells[_dgvGateTotalBuild].Value = _account.GateData.Gates.Beta().TotalBuild;
 
                 _deltaRow.Cells[_dgvGateParts].Value = $"{_account.GateData.Gates.Delta().Current}/{_account.GateData.Gates.Delta().Total}";
                 _deltaRow.Cells[_dgvGateReady].Value = _account.GateData.Gates.Delta().Current == _account.GateData.Gates.Delta().Total;
                 _deltaRow.Cells[_dgvGateOnMap].Value = _account.GateData.Gates.Delta().Prepared;
+                _deltaRow.Cells[_dgvGateTotalBuild].Value = _account.GateData.Gates.Delta().TotalBuild;
 
                 _epsilonRow.Cells[_dgvGateParts].Value = $"{_account.GateData.Gates.Epsilon().Current}/{_account.GateData.Gates.Epsilon().Total}";
                 _epsilonRow.Cells[_dgvGateReady].Value = _account.GateData.Gates.Epsilon().Current == _account.GateData.Gates.Epsilon().Total;
                 _epsilonRow.Cells[_dgvGateOnMap].Value = _account.GateData.Gates.Epsilon().Prepared;
+                _epsilonRow.Cells[_dgvGateTotalBuild].Value = _account.GateData.Gates.Epsilon().TotalBuild;
 
                 _zetaRow.Cells[_dgvGateParts].Value = $"{_account.GateData.Gates.Zeta().Current}/{_account.GateData.Gates.Zeta().Total}";
                 _zetaRow.Cells[_dgvGateReady].Value = _account.GateData.Gates.Zeta().Current == _account.GateData.Gates.Zeta().Total;
                 _zetaRow.Cells[_dgvGateOnMap].Value = _account.GateData.Gates.Zeta().Prepared;
+                _zetaRow.Cells[_dgvGateTotalBuild].Value = _account.GateData.Gates.Zeta().TotalBuild;
 
                 _kappaRow.Cells[_dgvGateParts].Value = $"{_account.GateData.Gates.Kappa().Current}/{_account.GateData.Gates.Kappa().Total}";
                 _kappaRow.Cells[_dgvGateReady].Value = _account.GateData.Gates.Kappa().Current == _account.GateData.Gates.Kappa().Total;
                 _kappaRow.Cells[_dgvGateOnMap].Value = _account.GateData.Gates.Kappa().Prepared;
+                _kappaRow.Cells[_dgvGateTotalBuild].Value = _account.GateData.Gates.Kappa().TotalBuild;
 
                 _lambdaRow.Cells[_dgvGateParts].Value = $"{_account.GateData.Gates.Lamba().Current}/{_account.GateData.Gates.Lamba().Total}";
                 _lambdaRow.Cells[_dgvGateReady].Value = _account.GateData.Gates.Lamba().Current == _account.GateData.Gates.Lamba().Total;
                 _lambdaRow.Cells[_dgvGateOnMap].Value = _account.GateData.Gates.Lamba().Prepared;
+                _lambdaRow.Cells[_dgvGateTotalBuild].Value = _account.GateData.Gates.Lamba().TotalBuild;
 
                 _hadesRow.Cells[_dgvGateParts].Value = $"{_account.GateData.Gates.Hades().Current}/{_account.GateData.Gates.Hades().Total}";
                 _hadesRow.Cells[_dgvGateReady].Value = _account.GateData.Gates.Hades().Current == _account.GateData.Gates.Hades().Total;
                 _hadesRow.Cells[_dgvGateOnMap].Value = _account.GateData.Gates.Hades().Prepared;
+                _hadesRow.Cells[_dgvGateTotalBuild].Value = _account.GateData.Gates.Hades().TotalBuild;
 
                 _kuiperRow.Cells[_dgvGateParts].Value = $"{_account.GateData.Gates.Kuiper().Current}/{_account.GateData.Gates.Kuiper().Total}";
                 _kuiperRow.Cells[_dgvGateReady].Value = _account.GateData.Gates.Kuiper().Current == _account.GateData.Gates.Kuiper().Total;
                 _kuiperRow.Cells[_dgvGateOnMap].Value = _account.GateData.Gates.Kuiper().Prepared;
+                _kuiperRow.Cells[_dgvGateTotalBuild].Value = _account.GateData.Gates.Kuiper().TotalBuild;
 
                 lblTotalSpins.Text = $"&Total spins: {_account.GateItemsReceived.TotalSpins}";
                 lblReceivedX2.Text = $"&X2: {_account.GateItemsReceived.X2}";
@@ -1028,7 +1041,23 @@ namespace Corvus
             if (rbBuildABG.Checked)
             {
                 Log("Spinning ABG...");
-                var spin = await _account.SpinGateAsync(GetSelectedGate());
+                var spin = await _account.SpinGateAsync(GetSelectedGate(), getEnergyCharge());
+                foreach (var allItem in spin.Items.GetAllItems())
+                {
+                    if (allItem.Duplicate)
+                    {
+                        Log($"Received duplicate gate part > received multiplier");
+                    }
+                    else
+                    {
+                        Log($"Received {allItem.ToString()}");
+                    }
+                }
+            }
+            else if (rbBuildKuiper.Checked)
+            {
+                Log("Spinning Kuiper...");
+                var spin = await _account.SpinGateAsync(GetSelectedGate(), getEnergyCharge());
                 foreach (var allItem in spin.Items.GetAllItems())
                 {
                     if (allItem.Duplicate)
@@ -1044,7 +1073,7 @@ namespace Corvus
             else
             {
                 Log($"Spinning {GetSelectedGate().GetFullName()}...");
-                var spin = await _account.SpinGateAsync(GetSelectedGate());
+                var spin = await _account.SpinGateAsync(GetSelectedGate(), getEnergyCharge());
                 foreach (var allItem in spin.Items.GetAllItems())
                 {
                     if (allItem.Duplicate)
@@ -1451,6 +1480,7 @@ namespace Corvus
                 iniData["Login"]["Reconnect"] = chkBoxReconnect.Checked.ToString();
 
                 iniData["GalaxyGates"]["Spin"] = chkBoxSpinGate.Checked.ToString();
+                iniData["GalaxyGates"]["EnergyCharge"] = comboBoxEnergyCharge.SelectedItem.ToString();
                 iniData["GalaxyGates"]["Delay"] = nudGateDelay.Text;
                 iniData["GalaxyGates"]["MinUridium"] = nudMinimumUridium.Text;
                 iniData["GalaxyGates"]["GetOptionABG"] = boxoptionABG.Text;
@@ -1522,6 +1552,7 @@ namespace Corvus
                 chkBoxReconnect.Checked = bool.Parse(iniData["Login"]["Reconnect"]);
 
                 chkBoxSpinGate.Checked = bool.Parse(iniData["GalaxyGates"]["Spin"]);
+                comboBoxEnergyCharge.SelectedIndex = comboBoxEnergyCharge.Items.IndexOf(iniData["GalaxyGates"]["EnergyCharge"]);
                 nudGateDelay.Value = decimal.Parse(iniData["GalaxyGates"]["Delay"]);
                 nudMinimumUridium.Value = decimal.Parse(iniData["GalaxyGates"]["MinUridium"]);
                 boxoptionABG.Value = decimal.Parse(iniData["GalaxyGates"]["GetOptionABG"]);
@@ -1594,6 +1625,7 @@ namespace Corvus
             SaveSettings();
         }
         
+
         private String getOptionforABG()
         {
             switch(boxoptionABG.Value)
@@ -1612,5 +1644,22 @@ namespace Corvus
                     return "null";
             }
         }
+        private int getEnergyCharge()
+        {
+            switch (comboBoxEnergyCharge.SelectedIndex)
+            {
+                case 0:
+                    return 1;
+                case 1:
+                    return 5;
+                case 2:
+                    return 10;
+                case 3:
+                    return 100;
+                default:
+                    return 0;
+            }
+        }
+
     }
 }

@@ -327,14 +327,14 @@ namespace Corvus.DarkOrbit
             return false;
         }
 
-        public async Task<GateSpinData> SpinGateAsync(GalaxyGate gate)
+        public async Task<GateSpinData> SpinGateAsync(GalaxyGate gate, int spinamount)
         {
             var spinUrl = string.Format(Urls.SpinGate, Urls.BaseUrl, AccountData.UserId, AccountData.SessionId,
-                (int) gate, gate.GetFullName().ToLower());
+                (int) gate, gate.GetFullName().ToLower(), spinamount);
             if (GateData.Samples > 0)
             {
                 spinUrl = string.Format(Urls.SpinGateSample, Urls.BaseUrl, AccountData.UserId, AccountData.SessionId,
-                    (int)gate, gate.GetFullName().ToLower());
+                    (int)gate, gate.GetFullName().ToLower(), spinamount);
             }
 
             var resultString = await _httpClient.GetAsyncNoLimit(spinUrl);
@@ -349,14 +349,14 @@ namespace Corvus.DarkOrbit
             }
 
 
-            EvaluateGateSpin(result);
+            EvaluateGateSpin(result, spinamount);
 
             return result;
         }
 
-        private void EvaluateGateSpin(GateSpinData spin)
+        private void EvaluateGateSpin(GateSpinData spin, int spinamount)
         {
-            GateItemsReceived.TotalSpins++;
+            GateItemsReceived.TotalSpins += spinamount;
             GateData.Samples = spin.Samples;
             GateData.EnergyCost.Text = spin.EnergyCost.Text;
             GateData.Money = spin.Money;
@@ -445,6 +445,9 @@ namespace Corvus.DarkOrbit
         {
             var placed = await _httpClient.GetAsyncLimit(string.Format(Urls.PlaceGate, Urls.BaseUrl, AccountData.UserId,
                 AccountData.SessionId, (int) gate));
+
+            if (!placed.Contains("not_enough_parts"))
+                GateData.Gates.Get(gate).TotalBuild += 1;
 
             return !placed.Contains("not_enough_parts");
         }

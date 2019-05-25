@@ -50,6 +50,9 @@ namespace Corvus
             this.txtServer = new System.Windows.Forms.TextBox();
             this.lblServer = new System.Windows.Forms.Label();
             this.tabPageGalaxyGates = new System.Windows.Forms.TabPage();
+            this.gates = new System.Windows.Forms.Label();
+            this.statistics = new System.Windows.Forms.Label();
+            this.accountinfo = new System.Windows.Forms.Label();
             this.boxoptionABG = new System.Windows.Forms.NumericUpDown();
             this.chkSpinOnlyEE = new System.Windows.Forms.CheckBox();
             this.nudMinimumUridium = new System.Windows.Forms.NumericUpDown();
@@ -78,6 +81,7 @@ namespace Corvus
             this.clmnGateParts = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmnGateReady = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.clmnGateOnMap = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.clmnGatesTotalBuilds = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cmdResetGateStats = new System.Windows.Forms.Button();
             this.rbBuildKuiper = new System.Windows.Forms.RadioButton();
             this.rbBuildHades = new System.Windows.Forms.RadioButton();
@@ -114,6 +118,8 @@ namespace Corvus
             this.cmdOpenBackPage = new System.Windows.Forms.Button();
             this.lblLastStatus = new System.Windows.Forms.Label();
             this.cmdSaveSettings = new System.Windows.Forms.Button();
+            this.lblEnergyCharge = new System.Windows.Forms.Label();
+            this.comboBoxEnergyCharge = new System.Windows.Forms.ComboBox();
             this.tcMain.SuspendLayout();
             this.tabPageLogin.SuspendLayout();
             this.gBoxUsernamePasswordLogin.SuspendLayout();
@@ -194,7 +200,7 @@ namespace Corvus
             this.chkBoxSaveUsernamePassword.Name = "chkBoxSaveUsernamePassword";
             this.chkBoxSaveUsernamePassword.Size = new System.Drawing.Size(75, 17);
             this.chkBoxSaveUsernamePassword.TabIndex = 11;
-            this.chkBoxSaveUsernamePassword.Text = "&Save data";
+            this.chkBoxSaveUsernamePassword.Text = "Save data";
             this.chkBoxSaveUsernamePassword.UseVisualStyleBackColor = true;
             // 
             // lblPortal
@@ -204,7 +210,7 @@ namespace Corvus
             this.lblPortal.Name = "lblPortal";
             this.lblPortal.Size = new System.Drawing.Size(37, 13);
             this.lblPortal.TabIndex = 10;
-            this.lblPortal.Text = "&Portal:";
+            this.lblPortal.Text = "Portal:";
             // 
             // comboBoxLoginPortal
             // 
@@ -239,7 +245,7 @@ namespace Corvus
             this.chkBoxReconnect.Name = "chkBoxReconnect";
             this.chkBoxReconnect.Size = new System.Drawing.Size(117, 17);
             this.chkBoxReconnect.TabIndex = 5;
-            this.chkBoxReconnect.Text = "&Reconnect on kick";
+            this.chkBoxReconnect.Text = "Reconnect on kick";
             this.chkBoxReconnect.UseVisualStyleBackColor = true;
             // 
             // txtPassword
@@ -257,7 +263,7 @@ namespace Corvus
             this.lblPassword.Name = "lblPassword";
             this.lblPassword.Size = new System.Drawing.Size(56, 13);
             this.lblPassword.TabIndex = 2;
-            this.lblPassword.Text = "&Password:";
+            this.lblPassword.Text = "Password:";
             // 
             // txtUsername
             // 
@@ -273,7 +279,7 @@ namespace Corvus
             this.lblUsername.Name = "lblUsername";
             this.lblUsername.Size = new System.Drawing.Size(58, 13);
             this.lblUsername.TabIndex = 0;
-            this.lblUsername.Text = "&Username:";
+            this.lblUsername.Text = "Username:";
             // 
             // gBoxSessionIDLogin
             // 
@@ -316,7 +322,7 @@ namespace Corvus
             this.lblSessionId.Name = "lblSessionId";
             this.lblSessionId.Size = new System.Drawing.Size(56, 13);
             this.lblSessionId.TabIndex = 2;
-            this.lblSessionId.Text = "&SessionId:";
+            this.lblSessionId.Text = "SessionId:";
             // 
             // txtServer
             // 
@@ -332,10 +338,15 @@ namespace Corvus
             this.lblServer.Name = "lblServer";
             this.lblServer.Size = new System.Drawing.Size(41, 13);
             this.lblServer.TabIndex = 0;
-            this.lblServer.Text = "&Server:";
+            this.lblServer.Text = "Server:";
             // 
             // tabPageGalaxyGates
             // 
+            this.tabPageGalaxyGates.Controls.Add(this.comboBoxEnergyCharge);
+            this.tabPageGalaxyGates.Controls.Add(this.lblEnergyCharge);
+            this.tabPageGalaxyGates.Controls.Add(this.gates);
+            this.tabPageGalaxyGates.Controls.Add(this.statistics);
+            this.tabPageGalaxyGates.Controls.Add(this.accountinfo);
             this.tabPageGalaxyGates.Controls.Add(this.boxoptionABG);
             this.tabPageGalaxyGates.Controls.Add(this.chkSpinOnlyEE);
             this.tabPageGalaxyGates.Controls.Add(this.nudMinimumUridium);
@@ -376,9 +387,39 @@ namespace Corvus
             this.tabPageGalaxyGates.Text = "Galaxy Gates";
             this.tabPageGalaxyGates.UseVisualStyleBackColor = true;
             // 
+            // gates
+            // 
+            this.gates.AutoSize = true;
+            this.gates.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gates.Location = new System.Drawing.Point(17, 129);
+            this.gates.Name = "gates";
+            this.gates.Size = new System.Drawing.Size(50, 17);
+            this.gates.TabIndex = 39;
+            this.gates.Text = "Gates:";
+            // 
+            // statistics
+            // 
+            this.statistics.AutoSize = true;
+            this.statistics.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.statistics.Location = new System.Drawing.Point(510, 112);
+            this.statistics.Name = "statistics";
+            this.statistics.Size = new System.Drawing.Size(68, 17);
+            this.statistics.TabIndex = 38;
+            this.statistics.Text = "Statistics:";
+            // 
+            // accountinfo
+            // 
+            this.accountinfo.AutoSize = true;
+            this.accountinfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.accountinfo.Location = new System.Drawing.Point(510, 10);
+            this.accountinfo.Name = "accountinfo";
+            this.accountinfo.Size = new System.Drawing.Size(90, 17);
+            this.accountinfo.TabIndex = 37;
+            this.accountinfo.Text = "Account info:";
+            // 
             // boxoptionABG
             // 
-            this.boxoptionABG.Location = new System.Drawing.Point(81, 102);
+            this.boxoptionABG.Location = new System.Drawing.Point(81, 151);
             this.boxoptionABG.Maximum = new decimal(new int[] {
             5,
             0,
@@ -401,11 +442,11 @@ namespace Corvus
             // chkSpinOnlyEE
             // 
             this.chkSpinOnlyEE.AutoSize = true;
-            this.chkSpinOnlyEE.Location = new System.Drawing.Point(643, 105);
+            this.chkSpinOnlyEE.Location = new System.Drawing.Point(664, 12);
             this.chkSpinOnlyEE.Name = "chkSpinOnlyEE";
             this.chkSpinOnlyEE.Size = new System.Drawing.Size(86, 17);
             this.chkSpinOnlyEE.TabIndex = 34;
-            this.chkSpinOnlyEE.Text = "&Spin only EE";
+            this.chkSpinOnlyEE.Text = "Spin only EE";
             this.chkSpinOnlyEE.UseVisualStyleBackColor = true;
             // 
             // nudMinimumUridium
@@ -415,7 +456,7 @@ namespace Corvus
             0,
             0,
             0});
-            this.nudMinimumUridium.Location = new System.Drawing.Point(81, 77);
+            this.nudMinimumUridium.Location = new System.Drawing.Point(81, 106);
             this.nudMinimumUridium.Maximum = new decimal(new int[] {
             100000,
             0,
@@ -433,20 +474,20 @@ namespace Corvus
             // lblMinimumUridium
             // 
             this.lblMinimumUridium.AutoSize = true;
-            this.lblMinimumUridium.Location = new System.Drawing.Point(17, 79);
+            this.lblMinimumUridium.Location = new System.Drawing.Point(17, 108);
             this.lblMinimumUridium.Name = "lblMinimumUridium";
             this.lblMinimumUridium.Size = new System.Drawing.Size(63, 13);
             this.lblMinimumUridium.TabIndex = 30;
-            this.lblMinimumUridium.Text = "&Min uridium:";
+            this.lblMinimumUridium.Text = "Min uridium:";
             // 
             // chkBoxPlaceGate
             // 
             this.chkBoxPlaceGate.AutoSize = true;
-            this.chkBoxPlaceGate.Location = new System.Drawing.Point(20, 59);
+            this.chkBoxPlaceGate.Location = new System.Drawing.Point(20, 84);
             this.chkBoxPlaceGate.Name = "chkBoxPlaceGate";
             this.chkBoxPlaceGate.Size = new System.Drawing.Size(115, 17);
             this.chkBoxPlaceGate.TabIndex = 29;
-            this.chkBoxPlaceGate.Text = "&Place gate on map";
+            this.chkBoxPlaceGate.Text = "Place gate on map";
             this.chkBoxPlaceGate.UseVisualStyleBackColor = true;
             // 
             // chkBoxSpinGate
@@ -456,17 +497,17 @@ namespace Corvus
             this.chkBoxSpinGate.Name = "chkBoxSpinGate";
             this.chkBoxSpinGate.Size = new System.Drawing.Size(71, 17);
             this.chkBoxSpinGate.TabIndex = 28;
-            this.chkBoxSpinGate.Text = "&Spin gate";
+            this.chkBoxSpinGate.Text = "Spin gate";
             this.chkBoxSpinGate.UseVisualStyleBackColor = true;
             // 
             // lblReceivedParts
             // 
             this.lblReceivedParts.AutoSize = true;
-            this.lblReceivedParts.Location = new System.Drawing.Point(640, 174);
+            this.lblReceivedParts.Location = new System.Drawing.Point(630, 158);
             this.lblReceivedParts.Name = "lblReceivedParts";
             this.lblReceivedParts.Size = new System.Drawing.Size(34, 13);
             this.lblReceivedParts.TabIndex = 27;
-            this.lblReceivedParts.Text = "&Parts:";
+            this.lblReceivedParts.Text = "Parts:";
             // 
             // nudGateDelay
             // 
@@ -475,7 +516,7 @@ namespace Corvus
             0,
             0,
             0});
-            this.nudGateDelay.Location = new System.Drawing.Point(20, 33);
+            this.nudGateDelay.Location = new System.Drawing.Point(20, 58);
             this.nudGateDelay.Maximum = new decimal(new int[] {
             5000,
             0,
@@ -498,137 +539,137 @@ namespace Corvus
             // lblGateDelay
             // 
             this.lblGateDelay.AutoSize = true;
-            this.lblGateDelay.Location = new System.Drawing.Point(85, 35);
+            this.lblGateDelay.Location = new System.Drawing.Point(85, 60);
             this.lblGateDelay.Name = "lblGateDelay";
             this.lblGateDelay.Size = new System.Drawing.Size(56, 13);
             this.lblGateDelay.TabIndex = 25;
-            this.lblGateDelay.Text = "&Delay (ms)";
+            this.lblGateDelay.Text = "Delay (ms)";
             // 
             // lblSpinCost
             // 
             this.lblSpinCost.AutoSize = true;
-            this.lblSpinCost.Location = new System.Drawing.Point(640, 79);
+            this.lblSpinCost.Location = new System.Drawing.Point(510, 73);
             this.lblSpinCost.Name = "lblSpinCost";
             this.lblSpinCost.Size = new System.Drawing.Size(54, 13);
             this.lblSpinCost.TabIndex = 24;
-            this.lblSpinCost.Text = "&Spin cost:";
+            this.lblSpinCost.Text = "Spin cost:";
             // 
             // lblReceivedNanoHull
             // 
             this.lblReceivedNanoHull.AutoSize = true;
-            this.lblReceivedNanoHull.Location = new System.Drawing.Point(640, 243);
+            this.lblReceivedNanoHull.Location = new System.Drawing.Point(630, 227);
             this.lblReceivedNanoHull.Name = "lblReceivedNanoHull";
             this.lblReceivedNanoHull.Size = new System.Drawing.Size(55, 13);
             this.lblReceivedNanoHull.TabIndex = 23;
-            this.lblReceivedNanoHull.Text = "&Nano hull:";
+            this.lblReceivedNanoHull.Text = "Nano hull:";
             // 
             // lblReceivedXenomit
             // 
             this.lblReceivedXenomit.AutoSize = true;
-            this.lblReceivedXenomit.Location = new System.Drawing.Point(640, 220);
+            this.lblReceivedXenomit.Location = new System.Drawing.Point(630, 204);
             this.lblReceivedXenomit.Name = "lblReceivedXenomit";
             this.lblReceivedXenomit.Size = new System.Drawing.Size(48, 13);
             this.lblReceivedXenomit.TabIndex = 22;
-            this.lblReceivedXenomit.Text = "&Xenomit:";
+            this.lblReceivedXenomit.Text = "Xenomit:";
             // 
             // lblReceivedRepairCredits
             // 
             this.lblReceivedRepairCredits.AutoSize = true;
-            this.lblReceivedRepairCredits.Location = new System.Drawing.Point(640, 197);
+            this.lblReceivedRepairCredits.Location = new System.Drawing.Point(630, 181);
             this.lblReceivedRepairCredits.Name = "lblReceivedRepairCredits";
             this.lblReceivedRepairCredits.Size = new System.Drawing.Size(75, 13);
             this.lblReceivedRepairCredits.TabIndex = 21;
-            this.lblReceivedRepairCredits.Text = "&Repair credits:";
+            this.lblReceivedRepairCredits.Text = "Repair credits:";
             // 
             // lblReceivedLogDisks
             // 
             this.lblReceivedLogDisks.AutoSize = true;
-            this.lblReceivedLogDisks.Location = new System.Drawing.Point(640, 151);
+            this.lblReceivedLogDisks.Location = new System.Drawing.Point(630, 137);
             this.lblReceivedLogDisks.Name = "lblReceivedLogDisks";
             this.lblReceivedLogDisks.Size = new System.Drawing.Size(55, 13);
             this.lblReceivedLogDisks.TabIndex = 20;
-            this.lblReceivedLogDisks.Text = "&Log disks:";
+            this.lblReceivedLogDisks.Text = "Log disks:";
             // 
             // lblReceivedACM
             // 
             this.lblReceivedACM.AutoSize = true;
-            this.lblReceivedACM.Location = new System.Drawing.Point(509, 266);
+            this.lblReceivedACM.Location = new System.Drawing.Point(510, 277);
             this.lblReceivedACM.Name = "lblReceivedACM";
             this.lblReceivedACM.Size = new System.Drawing.Size(33, 13);
             this.lblReceivedACM.TabIndex = 19;
-            this.lblReceivedACM.Text = "&ACM:";
+            this.lblReceivedACM.Text = "ACM:";
             // 
             // lblReceivedPLT2021
             // 
             this.lblReceivedPLT2021.AutoSize = true;
-            this.lblReceivedPLT2021.Location = new System.Drawing.Point(509, 243);
+            this.lblReceivedPLT2021.Location = new System.Drawing.Point(510, 252);
             this.lblReceivedPLT2021.Name = "lblReceivedPLT2021";
             this.lblReceivedPLT2021.Size = new System.Drawing.Size(57, 13);
             this.lblReceivedPLT2021.TabIndex = 18;
-            this.lblReceivedPLT2021.Text = "&PLT-2021:";
+            this.lblReceivedPLT2021.Text = "PLT-2021:";
             // 
             // lblReceivedSAB
             // 
             this.lblReceivedSAB.AutoSize = true;
-            this.lblReceivedSAB.Location = new System.Drawing.Point(509, 220);
+            this.lblReceivedSAB.Location = new System.Drawing.Point(510, 229);
             this.lblReceivedSAB.Name = "lblReceivedSAB";
             this.lblReceivedSAB.Size = new System.Drawing.Size(31, 13);
             this.lblReceivedSAB.TabIndex = 17;
-            this.lblReceivedSAB.Text = "&SAB:";
+            this.lblReceivedSAB.Text = "SAB:";
             // 
             // lblReceivedX4
             // 
             this.lblReceivedX4.AutoSize = true;
-            this.lblReceivedX4.Location = new System.Drawing.Point(509, 197);
+            this.lblReceivedX4.Location = new System.Drawing.Point(510, 206);
             this.lblReceivedX4.Name = "lblReceivedX4";
             this.lblReceivedX4.Size = new System.Drawing.Size(23, 13);
             this.lblReceivedX4.TabIndex = 16;
-            this.lblReceivedX4.Text = "&X4:";
+            this.lblReceivedX4.Text = "X4:";
             // 
             // lblReceivedX3
             // 
             this.lblReceivedX3.AutoSize = true;
-            this.lblReceivedX3.Location = new System.Drawing.Point(509, 174);
+            this.lblReceivedX3.Location = new System.Drawing.Point(510, 183);
             this.lblReceivedX3.Name = "lblReceivedX3";
             this.lblReceivedX3.Size = new System.Drawing.Size(23, 13);
             this.lblReceivedX3.TabIndex = 15;
-            this.lblReceivedX3.Text = "&X3:";
+            this.lblReceivedX3.Text = "X3:";
             // 
             // lblReceivedX2
             // 
             this.lblReceivedX2.AutoSize = true;
-            this.lblReceivedX2.Location = new System.Drawing.Point(509, 151);
+            this.lblReceivedX2.Location = new System.Drawing.Point(510, 160);
             this.lblReceivedX2.Name = "lblReceivedX2";
             this.lblReceivedX2.Size = new System.Drawing.Size(23, 13);
             this.lblReceivedX2.TabIndex = 14;
-            this.lblReceivedX2.Text = "&X2:";
+            this.lblReceivedX2.Text = "X2:";
             // 
             // lblTotalSpins
             // 
             this.lblTotalSpins.AutoSize = true;
-            this.lblTotalSpins.Location = new System.Drawing.Point(509, 128);
+            this.lblTotalSpins.Location = new System.Drawing.Point(510, 137);
             this.lblTotalSpins.Name = "lblTotalSpins";
-            this.lblTotalSpins.Size = new System.Drawing.Size(61, 13);
+            this.lblTotalSpins.Size = new System.Drawing.Size(62, 13);
             this.lblTotalSpins.TabIndex = 13;
-            this.lblTotalSpins.Text = "&Total spins:";
+            this.lblTotalSpins.Text = "Spins used:";
             // 
             // lblExtraEnergy
             // 
             this.lblExtraEnergy.AutoSize = true;
-            this.lblExtraEnergy.Location = new System.Drawing.Point(509, 105);
+            this.lblExtraEnergy.Location = new System.Drawing.Point(510, 54);
             this.lblExtraEnergy.Name = "lblExtraEnergy";
             this.lblExtraEnergy.Size = new System.Drawing.Size(70, 13);
             this.lblExtraEnergy.TabIndex = 12;
-            this.lblExtraEnergy.Text = "&Extra Energy:";
+            this.lblExtraEnergy.Text = "Extra Energy:";
             // 
             // lblUridium
             // 
             this.lblUridium.AutoSize = true;
-            this.lblUridium.Location = new System.Drawing.Point(509, 79);
+            this.lblUridium.Location = new System.Drawing.Point(510, 35);
             this.lblUridium.Name = "lblUridium";
             this.lblUridium.Size = new System.Drawing.Size(45, 13);
             this.lblUridium.TabIndex = 11;
-            this.lblUridium.Text = "&Uridium:";
+            this.lblUridium.Text = "Uridium:";
             // 
             // dgvGates
             // 
@@ -643,24 +684,26 @@ namespace Corvus
             this.clmnGateName,
             this.clmnGateParts,
             this.clmnGateReady,
-            this.clmnGateOnMap});
-            this.dgvGates.Location = new System.Drawing.Point(146, 10);
+            this.clmnGateOnMap,
+            this.clmnGatesTotalBuilds});
+            this.dgvGates.Location = new System.Drawing.Point(148, 7);
             this.dgvGates.Name = "dgvGates";
             this.dgvGates.RowHeadersVisible = false;
             this.dgvGates.ShowCellErrors = false;
             this.dgvGates.ShowCellToolTips = false;
             this.dgvGates.ShowEditingIcon = false;
             this.dgvGates.ShowRowErrors = false;
-            this.dgvGates.Size = new System.Drawing.Size(348, 281);
+            this.dgvGates.Size = new System.Drawing.Size(358, 327);
             this.dgvGates.TabIndex = 10;
             this.dgvGates.SelectionChanged += new System.EventHandler(this.dataGridView_SelectionChanged);
             // 
             // clmnGateName
             // 
+            this.clmnGateName.Frozen = true;
             this.clmnGateName.HeaderText = "Name";
             this.clmnGateName.Name = "clmnGateName";
             this.clmnGateName.ReadOnly = true;
-            this.clmnGateName.Width = 110;
+            this.clmnGateName.Width = 60;
             // 
             // clmnGateParts
             // 
@@ -683,9 +726,16 @@ namespace Corvus
             this.clmnGateOnMap.ReadOnly = true;
             this.clmnGateOnMap.Width = 70;
             // 
+            // clmnGatesTotalBuilds
+            // 
+            this.clmnGatesTotalBuilds.HeaderText = "Total Builds";
+            this.clmnGatesTotalBuilds.Name = "clmnGatesTotalBuilds";
+            this.clmnGatesTotalBuilds.ReadOnly = true;
+            this.clmnGatesTotalBuilds.Width = 85;
+            // 
             // cmdResetGateStats
             // 
-            this.cmdResetGateStats.Location = new System.Drawing.Point(512, 288);
+            this.cmdResetGateStats.Location = new System.Drawing.Point(518, 309);
             this.cmdResetGateStats.Name = "cmdResetGateStats";
             this.cmdResetGateStats.Size = new System.Drawing.Size(238, 23);
             this.cmdResetGateStats.TabIndex = 9;
@@ -696,81 +746,81 @@ namespace Corvus
             // rbBuildKuiper
             // 
             this.rbBuildKuiper.AutoSize = true;
-            this.rbBuildKuiper.Location = new System.Drawing.Point(20, 266);
+            this.rbBuildKuiper.Location = new System.Drawing.Point(20, 312);
             this.rbBuildKuiper.Name = "rbBuildKuiper";
             this.rbBuildKuiper.Size = new System.Drawing.Size(55, 17);
             this.rbBuildKuiper.TabIndex = 8;
-            this.rbBuildKuiper.Text = "&Kuiper";
+            this.rbBuildKuiper.Text = "Kuiper";
             this.rbBuildKuiper.UseVisualStyleBackColor = true;
             // 
             // rbBuildHades
             // 
             this.rbBuildHades.AutoSize = true;
-            this.rbBuildHades.Location = new System.Drawing.Point(20, 243);
+            this.rbBuildHades.Location = new System.Drawing.Point(20, 289);
             this.rbBuildHades.Name = "rbBuildHades";
             this.rbBuildHades.Size = new System.Drawing.Size(56, 17);
             this.rbBuildHades.TabIndex = 7;
-            this.rbBuildHades.Text = "&Hades";
+            this.rbBuildHades.Text = "Hades";
             this.rbBuildHades.UseVisualStyleBackColor = true;
             // 
             // rbBuildKappa
             // 
             this.rbBuildKappa.AutoSize = true;
-            this.rbBuildKappa.Location = new System.Drawing.Point(20, 197);
+            this.rbBuildKappa.Location = new System.Drawing.Point(20, 243);
             this.rbBuildKappa.Name = "rbBuildKappa";
             this.rbBuildKappa.Size = new System.Drawing.Size(56, 17);
             this.rbBuildKappa.TabIndex = 6;
-            this.rbBuildKappa.Text = "&Kappa";
+            this.rbBuildKappa.Text = "Kappa";
             this.rbBuildKappa.UseVisualStyleBackColor = true;
             // 
             // rbBuildLambda
             // 
             this.rbBuildLambda.AutoSize = true;
-            this.rbBuildLambda.Location = new System.Drawing.Point(20, 220);
+            this.rbBuildLambda.Location = new System.Drawing.Point(20, 266);
             this.rbBuildLambda.Name = "rbBuildLambda";
             this.rbBuildLambda.Size = new System.Drawing.Size(63, 17);
             this.rbBuildLambda.TabIndex = 5;
-            this.rbBuildLambda.Text = "&Lambda";
+            this.rbBuildLambda.Text = "Lambda";
             this.rbBuildLambda.UseVisualStyleBackColor = true;
             // 
             // rbBuildZeta
             // 
             this.rbBuildZeta.AutoSize = true;
-            this.rbBuildZeta.Location = new System.Drawing.Point(20, 174);
+            this.rbBuildZeta.Location = new System.Drawing.Point(20, 220);
             this.rbBuildZeta.Name = "rbBuildZeta";
             this.rbBuildZeta.Size = new System.Drawing.Size(47, 17);
             this.rbBuildZeta.TabIndex = 4;
-            this.rbBuildZeta.Text = "&Zeta";
+            this.rbBuildZeta.Text = "Zeta";
             this.rbBuildZeta.UseVisualStyleBackColor = true;
             // 
             // rbBuildEpsilon
             // 
             this.rbBuildEpsilon.AutoSize = true;
-            this.rbBuildEpsilon.Location = new System.Drawing.Point(20, 151);
+            this.rbBuildEpsilon.Location = new System.Drawing.Point(20, 197);
             this.rbBuildEpsilon.Name = "rbBuildEpsilon";
             this.rbBuildEpsilon.Size = new System.Drawing.Size(59, 17);
             this.rbBuildEpsilon.TabIndex = 3;
-            this.rbBuildEpsilon.Text = "&Epsilon";
+            this.rbBuildEpsilon.Text = "Epsilon";
             this.rbBuildEpsilon.UseVisualStyleBackColor = true;
             // 
             // rbBuildDelta
             // 
             this.rbBuildDelta.AutoSize = true;
-            this.rbBuildDelta.Location = new System.Drawing.Point(20, 128);
+            this.rbBuildDelta.Location = new System.Drawing.Point(20, 174);
             this.rbBuildDelta.Name = "rbBuildDelta";
             this.rbBuildDelta.Size = new System.Drawing.Size(50, 17);
             this.rbBuildDelta.TabIndex = 2;
-            this.rbBuildDelta.Text = "&Delta";
+            this.rbBuildDelta.Text = "Delta";
             this.rbBuildDelta.UseVisualStyleBackColor = true;
             // 
             // rbBuildABG
             // 
             this.rbBuildABG.AutoSize = true;
-            this.rbBuildABG.Location = new System.Drawing.Point(20, 105);
+            this.rbBuildABG.Location = new System.Drawing.Point(20, 151);
             this.rbBuildABG.Name = "rbBuildABG";
             this.rbBuildABG.Size = new System.Drawing.Size(47, 17);
             this.rbBuildABG.TabIndex = 33;
-            this.rbBuildABG.Text = "&ABG";
+            this.rbBuildABG.Text = "ABG";
             this.rbBuildABG.UseVisualStyleBackColor = true;
             // 
             // tabPageTechFactory
@@ -815,7 +865,7 @@ namespace Corvus
             this.lblCheckTechFactoryEvery.Name = "lblCheckTechFactoryEvery";
             this.lblCheckTechFactoryEvery.Size = new System.Drawing.Size(229, 13);
             this.lblCheckTechFactoryEvery.TabIndex = 4;
-            this.lblCheckTechFactoryEvery.Text = "&Check Tech Factory every                    minutes";
+            this.lblCheckTechFactoryEvery.Text = "Check Tech Factory every                    minutes";
             // 
             // chkBoxBuildTechs
             // 
@@ -824,7 +874,7 @@ namespace Corvus
             this.chkBoxBuildTechs.Name = "chkBoxBuildTechs";
             this.chkBoxBuildTechs.Size = new System.Drawing.Size(78, 17);
             this.chkBoxBuildTechs.TabIndex = 2;
-            this.chkBoxBuildTechs.Text = "&Build techs";
+            this.chkBoxBuildTechs.Text = "Build techs";
             this.chkBoxBuildTechs.UseVisualStyleBackColor = true;
             // 
             // dgvTechFactory
@@ -936,7 +986,7 @@ namespace Corvus
             this.lblCheckSkylabEvery.Name = "lblCheckSkylabEvery";
             this.lblCheckSkylabEvery.Size = new System.Drawing.Size(198, 13);
             this.lblCheckSkylabEvery.TabIndex = 6;
-            this.lblCheckSkylabEvery.Text = "&Check Skylab every                    minutes";
+            this.lblCheckSkylabEvery.Text = "Check Skylab every                    minutes";
             // 
             // chkBoxUpgradeSkylab
             // 
@@ -945,7 +995,7 @@ namespace Corvus
             this.chkBoxUpgradeSkylab.Name = "chkBoxUpgradeSkylab";
             this.chkBoxUpgradeSkylab.Size = new System.Drawing.Size(100, 17);
             this.chkBoxUpgradeSkylab.TabIndex = 3;
-            this.chkBoxUpgradeSkylab.Text = "&Upgrade skylab";
+            this.chkBoxUpgradeSkylab.Text = "Upgrade skylab";
             this.chkBoxUpgradeSkylab.UseVisualStyleBackColor = true;
             // 
             // dgvSkylab
@@ -1023,7 +1073,7 @@ namespace Corvus
             this.tabPageLog.Padding = new System.Windows.Forms.Padding(3);
             this.tabPageLog.Size = new System.Drawing.Size(767, 340);
             this.tabPageLog.TabIndex = 5;
-            this.tabPageLog.Text = "Log";
+            this.tabPageLog.Text = "Debug";
             this.tabPageLog.UseVisualStyleBackColor = true;
             // 
             // rtbLog
@@ -1031,7 +1081,7 @@ namespace Corvus
             this.rtbLog.Location = new System.Drawing.Point(20, 10);
             this.rtbLog.Name = "rtbLog";
             this.rtbLog.ReadOnly = true;
-            this.rtbLog.Size = new System.Drawing.Size(568, 301);
+            this.rtbLog.Size = new System.Drawing.Size(728, 301);
             this.rtbLog.TabIndex = 0;
             this.rtbLog.Text = "";
             // 
@@ -1041,7 +1091,7 @@ namespace Corvus
             this.cmdStart.Name = "cmdStart";
             this.cmdStart.Size = new System.Drawing.Size(75, 23);
             this.cmdStart.TabIndex = 1;
-            this.cmdStart.Text = "&Start";
+            this.cmdStart.Text = "Start";
             this.cmdStart.UseVisualStyleBackColor = true;
             this.cmdStart.Click += new System.EventHandler(this.cmdStart_Click);
             // 
@@ -1051,7 +1101,7 @@ namespace Corvus
             this.cmdStop.Name = "cmdStop";
             this.cmdStop.Size = new System.Drawing.Size(75, 23);
             this.cmdStop.TabIndex = 2;
-            this.cmdStop.Text = "&Stop";
+            this.cmdStop.Text = "Stop";
             this.cmdStop.UseVisualStyleBackColor = true;
             this.cmdStop.Click += new System.EventHandler(this.cmdStop_Click);
             // 
@@ -1061,7 +1111,7 @@ namespace Corvus
             this.cmdOpenBackPage.Name = "cmdOpenBackPage";
             this.cmdOpenBackPage.Size = new System.Drawing.Size(97, 23);
             this.cmdOpenBackPage.TabIndex = 3;
-            this.cmdOpenBackPage.Text = "&Open backpage";
+            this.cmdOpenBackPage.Text = "Open backpage";
             this.cmdOpenBackPage.UseVisualStyleBackColor = true;
             this.cmdOpenBackPage.Click += new System.EventHandler(this.cmdOpenBackPage_Click);
             // 
@@ -1073,7 +1123,7 @@ namespace Corvus
             this.lblLastStatus.Name = "lblLastStatus";
             this.lblLastStatus.Size = new System.Drawing.Size(71, 15);
             this.lblLastStatus.TabIndex = 4;
-            this.lblLastStatus.Text = "&Last status: ";
+            this.lblLastStatus.Text = "Last status: ";
             // 
             // cmdSaveSettings
             // 
@@ -1081,9 +1131,31 @@ namespace Corvus
             this.cmdSaveSettings.Name = "cmdSaveSettings";
             this.cmdSaveSettings.Size = new System.Drawing.Size(101, 23);
             this.cmdSaveSettings.TabIndex = 5;
-            this.cmdSaveSettings.Text = "&Save settings";
+            this.cmdSaveSettings.Text = "Save settings";
             this.cmdSaveSettings.UseVisualStyleBackColor = true;
             this.cmdSaveSettings.Click += new System.EventHandler(this.cmdSaveSettings_Click);
+            // 
+            // lblEnergyCharge
+            // 
+            this.lblEnergyCharge.AutoSize = true;
+            this.lblEnergyCharge.Location = new System.Drawing.Point(17, 35);
+            this.lblEnergyCharge.Name = "lblEnergyCharge";
+            this.lblEnergyCharge.Size = new System.Drawing.Size(79, 13);
+            this.lblEnergyCharge.TabIndex = 40;
+            this.lblEnergyCharge.Text = "Energy charge:";
+            // 
+            // comboBoxEnergyCharge
+            // 
+            this.comboBoxEnergyCharge.FormattingEnabled = true;
+            this.comboBoxEnergyCharge.Items.AddRange(new object[] {
+            "1",
+            "5",
+            "10",
+            "100"});
+            this.comboBoxEnergyCharge.Location = new System.Drawing.Point(95, 31);
+            this.comboBoxEnergyCharge.Name = "comboBoxEnergyCharge";
+            this.comboBoxEnergyCharge.Size = new System.Drawing.Size(45, 21);
+            this.comboBoxEnergyCharge.TabIndex = 41;
             // 
             // FrmMain
             // 
@@ -1099,7 +1171,6 @@ namespace Corvus
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
-            this.MinimizeBox = false;
             this.Name = "FrmMain";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -1191,10 +1262,6 @@ namespace Corvus
         private System.Windows.Forms.Label lblReceivedRepairCredits;
         private System.Windows.Forms.NumericUpDown nudGateDelay;
         private System.Windows.Forms.Label lblGateDelay;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmnGateName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmnGateParts;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn clmnGateReady;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn clmnGateOnMap;
         private System.Windows.Forms.Label lblReceivedParts;
         private System.Windows.Forms.CheckBox chkBoxSpinGate;
         private System.Windows.Forms.CheckBox chkBoxPlaceGate;
@@ -1217,6 +1284,16 @@ namespace Corvus
         private NumericUpDown nudCheckSkylabEvery;
         private Label lblCheckSkylabEvery;
         private CheckBox chkSpinOnlyEE;
+        private Label statistics;
+        private Label accountinfo;
+        private Label gates;
+        private DataGridViewTextBoxColumn clmnGateName;
+        private DataGridViewTextBoxColumn clmnGateParts;
+        private DataGridViewCheckBoxColumn clmnGateReady;
+        private DataGridViewCheckBoxColumn clmnGateOnMap;
+        private DataGridViewTextBoxColumn clmnGatesTotalBuilds;
+        private ComboBox comboBoxEnergyCharge;
+        private Label lblEnergyCharge;
     }
 }
 
