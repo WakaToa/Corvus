@@ -73,20 +73,20 @@ namespace Corvus
         private int _dgvGateParts = 1;
         private int _dgvGateReady = 2;
         private int _dgvGateOnMap = 3;
-        private int _dgvGateTotalBuild = 4;
+        private int _dgvGateGatesBuilt = 4;
         #endregion
 
-        #region Gate TotalBuild
-        private int totalBuildAlpha = 0;
-        private int totalBuildBeta = 0;
-        private int totalBuildGamma = 0;
-        private int totalBuildDelta = 0;
-        private int totalBuildEpsilon = 0;
-        private int totalBuildZeta = 0;
-        private int totalBuildKappa = 0;
-        private int totalBuildLambda = 0;
-        private int totalBuildHades = 0;
-        private int totalBuildKuiper = 0;
+        #region Gate GatesBuilt
+        private int GatesBuiltAlpha = 0;
+        private int GatesBuiltBeta = 0;
+        private int GatesBuiltGamma = 0;
+        private int GatesBuiltDelta = 0;
+        private int GatesBuiltEpsilon = 0;
+        private int GatesBuiltZeta = 0;
+        private int GatesBuiltKappa = 0;
+        private int GatesBuiltLambda = 0;
+        private int GatesBuiltHades = 0;
+        private int GatesBuiltKuiper = 0;
         #endregion
 
         private Task _runTask;
@@ -653,52 +653,52 @@ namespace Corvus
                 _alphaRow.Cells[_dgvGateParts].Value = $"{_account.GateData.Gates.Alpha().Current}/{_account.GateData.Gates.Alpha().Total}";
                 _alphaRow.Cells[_dgvGateReady].Value = _account.GateData.Gates.Alpha().Current == _account.GateData.Gates.Alpha().Total;
                 _alphaRow.Cells[_dgvGateOnMap].Value = _account.GateData.Gates.Alpha().Prepared;
-                _alphaRow.Cells[_dgvGateTotalBuild].Value = totalBuildAlpha;
+                _alphaRow.Cells[_dgvGateGatesBuilt].Value = GatesBuiltAlpha;
 
                 _betaRow.Cells[_dgvGateParts].Value = $"{_account.GateData.Gates.Beta().Current}/{_account.GateData.Gates.Beta().Total}";
                 _betaRow.Cells[_dgvGateReady].Value = _account.GateData.Gates.Beta().Current == _account.GateData.Gates.Beta().Total;
                 _betaRow.Cells[_dgvGateOnMap].Value = _account.GateData.Gates.Beta().Prepared;
-                _betaRow.Cells[_dgvGateTotalBuild].Value = totalBuildBeta;
+                _betaRow.Cells[_dgvGateGatesBuilt].Value = GatesBuiltBeta;
 
                 _gammaRow.Cells[_dgvGateParts].Value = $"{_account.GateData.Gates.Gamma().Current}/{_account.GateData.Gates.Gamma().Total}";
                 _gammaRow.Cells[_dgvGateReady].Value = _account.GateData.Gates.Gamma().Current == _account.GateData.Gates.Gamma().Total;
                 _gammaRow.Cells[_dgvGateOnMap].Value = _account.GateData.Gates.Gamma().Prepared;
-                _gammaRow.Cells[_dgvGateTotalBuild].Value = totalBuildGamma;
+                _gammaRow.Cells[_dgvGateGatesBuilt].Value = GatesBuiltGamma;
 
                 _deltaRow.Cells[_dgvGateParts].Value = $"{_account.GateData.Gates.Delta().Current}/{_account.GateData.Gates.Delta().Total}";
                 _deltaRow.Cells[_dgvGateReady].Value = _account.GateData.Gates.Delta().Current == _account.GateData.Gates.Delta().Total;
                 _deltaRow.Cells[_dgvGateOnMap].Value = _account.GateData.Gates.Delta().Prepared;
-                _deltaRow.Cells[_dgvGateTotalBuild].Value = totalBuildDelta;
+                _deltaRow.Cells[_dgvGateGatesBuilt].Value = GatesBuiltDelta;
 
                 _epsilonRow.Cells[_dgvGateParts].Value = $"{_account.GateData.Gates.Epsilon().Current}/{_account.GateData.Gates.Epsilon().Total}";
                 _epsilonRow.Cells[_dgvGateReady].Value = _account.GateData.Gates.Epsilon().Current == _account.GateData.Gates.Epsilon().Total;
                 _epsilonRow.Cells[_dgvGateOnMap].Value = _account.GateData.Gates.Epsilon().Prepared;
-                _epsilonRow.Cells[_dgvGateTotalBuild].Value = totalBuildEpsilon;
+                _epsilonRow.Cells[_dgvGateGatesBuilt].Value = GatesBuiltEpsilon;
 
                 _zetaRow.Cells[_dgvGateParts].Value = $"{_account.GateData.Gates.Zeta().Current}/{_account.GateData.Gates.Zeta().Total}";
                 _zetaRow.Cells[_dgvGateReady].Value = _account.GateData.Gates.Zeta().Current == _account.GateData.Gates.Zeta().Total;
                 _zetaRow.Cells[_dgvGateOnMap].Value = _account.GateData.Gates.Zeta().Prepared;
-                _zetaRow.Cells[_dgvGateTotalBuild].Value = totalBuildZeta;
+                _zetaRow.Cells[_dgvGateGatesBuilt].Value = GatesBuiltZeta;
 
                 _kappaRow.Cells[_dgvGateParts].Value = $"{_account.GateData.Gates.Kappa().Current}/{_account.GateData.Gates.Kappa().Total}";
                 _kappaRow.Cells[_dgvGateReady].Value = _account.GateData.Gates.Kappa().Current == _account.GateData.Gates.Kappa().Total;
                 _kappaRow.Cells[_dgvGateOnMap].Value = _account.GateData.Gates.Kappa().Prepared;
-                _kappaRow.Cells[_dgvGateTotalBuild].Value = totalBuildKappa;
+                _kappaRow.Cells[_dgvGateGatesBuilt].Value = GatesBuiltKappa;
 
                 _lambdaRow.Cells[_dgvGateParts].Value = $"{_account.GateData.Gates.Lambda().Current}/{_account.GateData.Gates.Lambda().Total}";
                 _lambdaRow.Cells[_dgvGateReady].Value = _account.GateData.Gates.Lambda().Current == _account.GateData.Gates.Lambda().Total;
                 _lambdaRow.Cells[_dgvGateOnMap].Value = _account.GateData.Gates.Lambda().Prepared;
-                _lambdaRow.Cells[_dgvGateTotalBuild].Value = totalBuildLambda;
+                _lambdaRow.Cells[_dgvGateGatesBuilt].Value = GatesBuiltLambda;
 
                 _hadesRow.Cells[_dgvGateParts].Value = $"{_account.GateData.Gates.Hades().Current}/{_account.GateData.Gates.Hades().Total}";
                 _hadesRow.Cells[_dgvGateReady].Value = _account.GateData.Gates.Hades().Current == _account.GateData.Gates.Hades().Total;
                 _hadesRow.Cells[_dgvGateOnMap].Value = _account.GateData.Gates.Hades().Prepared;
-                _hadesRow.Cells[_dgvGateTotalBuild].Value = totalBuildHades;
+                _hadesRow.Cells[_dgvGateGatesBuilt].Value = GatesBuiltHades;
 
                 _kuiperRow.Cells[_dgvGateParts].Value = $"{_account.GateData.Gates.Kuiper().Current}/{_account.GateData.Gates.Kuiper().Total}";
                 _kuiperRow.Cells[_dgvGateReady].Value = _account.GateData.Gates.Kuiper().Current == _account.GateData.Gates.Kuiper().Total;
                 _kuiperRow.Cells[_dgvGateOnMap].Value = _account.GateData.Gates.Kuiper().Prepared;
-                _kuiperRow.Cells[_dgvGateTotalBuild].Value = totalBuildKuiper;
+                _kuiperRow.Cells[_dgvGateGatesBuilt].Value = GatesBuiltKuiper;
 
                 lblTotalSpins.Text = $"&Total spins: {_account.GateItemsReceived.TotalSpins}";
                 lblReceivedX2.Text = $"&X2: {_account.GateItemsReceived.X2}";
@@ -766,7 +766,7 @@ namespace Corvus
                             Log($"Gate {GalaxyGate.Alpha.GetFullName()} is ready...");
                             Log($"Placing {GalaxyGate.Alpha.GetFullName()}");
                             await _account.PlaceGateAsync(GalaxyGate.Alpha);
-                            setTotalBuild(GalaxyGate.Alpha);
+                            setGatesBuilt(GalaxyGate.Alpha);
                             Log("Reading Galaxy Gates...");
                             await _account.ReadGatesAsync();
                             UpdateGateGui();
@@ -776,7 +776,7 @@ namespace Corvus
                             Log($"Gate {GalaxyGate.Beta.GetFullName()} is ready...");
                             Log($"Placing {GalaxyGate.Beta.GetFullName()}");
                             await _account.PlaceGateAsync(GalaxyGate.Beta);
-                            setTotalBuild(GalaxyGate.Beta);
+                            setGatesBuilt(GalaxyGate.Beta);
                             Log("Reading Galaxy Gates...");
                             await _account.ReadGatesAsync();
                             UpdateGateGui();
@@ -786,7 +786,7 @@ namespace Corvus
                             Log($"Gate {GalaxyGate.Gamma.GetFullName()} is ready...");
                             Log($"Placing {GalaxyGate.Gamma.GetFullName()}");
                             await _account.PlaceGateAsync(GalaxyGate.Gamma);
-                            setTotalBuild(GalaxyGate.Gamma);
+                            setGatesBuilt(GalaxyGate.Gamma);
                             Log("Reading Galaxy Gates...");
                             await _account.ReadGatesAsync();
                             UpdateGateGui();
@@ -817,7 +817,7 @@ namespace Corvus
                             Log($"Gate {GalaxyGate.Alpha.GetFullName()} is ready...");
                             Log($"Placing {GalaxyGate.Alpha.GetFullName()}");
                             await _account.PlaceGateAsync(GalaxyGate.Alpha);
-                            setTotalBuild(GalaxyGate.Alpha);
+                            setGatesBuilt(GalaxyGate.Alpha);
                             Log("Reading Galaxy Gates...");
                             await _account.ReadGatesAsync();
                             UpdateGateGui();
@@ -827,7 +827,7 @@ namespace Corvus
                             Log($"Gate {GalaxyGate.Beta.GetFullName()} is ready...");
                             Log($"Placing {GalaxyGate.Beta.GetFullName()}");
                             await _account.PlaceGateAsync(GalaxyGate.Beta);
-                            setTotalBuild(GalaxyGate.Beta);
+                            setGatesBuilt(GalaxyGate.Beta);
                             Log("Reading Galaxy Gates...");
                             await _account.ReadGatesAsync();
                             UpdateGateGui();
@@ -837,7 +837,7 @@ namespace Corvus
                             Log($"Gate {GalaxyGate.Gamma.GetFullName()} is ready...");
                             Log($"Placing {GalaxyGate.Gamma.GetFullName()}");
                             await _account.PlaceGateAsync(GalaxyGate.Gamma);
-                            setTotalBuild(GalaxyGate.Gamma);
+                            setGatesBuilt(GalaxyGate.Gamma);
                             Log("Reading Galaxy Gates...");
                             await _account.ReadGatesAsync();
                             UpdateGateGui();
@@ -868,7 +868,7 @@ namespace Corvus
                             Log($"Gate {GalaxyGate.Alpha.GetFullName()} is ready...");
                             Log($"Placing {GalaxyGate.Alpha.GetFullName()}");
                             await _account.PlaceGateAsync(GalaxyGate.Alpha);
-                            setTotalBuild(GalaxyGate.Alpha);
+                            setGatesBuilt(GalaxyGate.Alpha);
                             Log("Reading Galaxy Gates...");
                             await _account.ReadGatesAsync();
                             UpdateGateGui();
@@ -878,7 +878,7 @@ namespace Corvus
                             Log($"Gate {GalaxyGate.Beta.GetFullName()} is ready...");
                             Log($"Placing {GalaxyGate.Beta.GetFullName()}");
                             await _account.PlaceGateAsync(GalaxyGate.Beta);
-                            setTotalBuild(GalaxyGate.Beta);
+                            setGatesBuilt(GalaxyGate.Beta);
                             Log("Reading Galaxy Gates...");
                             await _account.ReadGatesAsync();
                             UpdateGateGui();
@@ -888,7 +888,7 @@ namespace Corvus
                             Log($"Gate {GalaxyGate.Gamma.GetFullName()} is ready...");
                             Log($"Placing {GalaxyGate.Gamma.GetFullName()}");
                             await _account.PlaceGateAsync(GalaxyGate.Gamma);
-                            setTotalBuild(GalaxyGate.Gamma);
+                            setGatesBuilt(GalaxyGate.Gamma);
                             Log("Reading Galaxy Gates...");
                             await _account.ReadGatesAsync();
                             UpdateGateGui();
@@ -920,7 +920,7 @@ namespace Corvus
                             Log($"Gate {GalaxyGate.Alpha.GetFullName()} is ready...");
                             Log($"Placing {GalaxyGate.Alpha.GetFullName()}");
                             await _account.PlaceGateAsync(GalaxyGate.Alpha);
-                            setTotalBuild(GalaxyGate.Alpha);
+                            setGatesBuilt(GalaxyGate.Alpha);
                             Log("Reading Galaxy Gates...");
                             await _account.ReadGatesAsync();
                             UpdateGateGui();
@@ -930,7 +930,7 @@ namespace Corvus
                             Log($"Gate {GalaxyGate.Beta.GetFullName()} is ready...");
                             Log($"Placing {GalaxyGate.Beta.GetFullName()}");
                             await _account.PlaceGateAsync(GalaxyGate.Beta);
-                            setTotalBuild(GalaxyGate.Beta);
+                            setGatesBuilt(GalaxyGate.Beta);
                             Log("Reading Galaxy Gates...");
                             await _account.ReadGatesAsync();
                             UpdateGateGui();
@@ -940,7 +940,7 @@ namespace Corvus
                             Log($"Gate {GalaxyGate.Gamma.GetFullName()} is ready...");
                             Log($"Placing {GalaxyGate.Gamma.GetFullName()}");
                             await _account.PlaceGateAsync(GalaxyGate.Gamma);
-                            setTotalBuild(GalaxyGate.Gamma);
+                            setGatesBuilt(GalaxyGate.Gamma);
                             Log("Reading Galaxy Gates...");
                             await _account.ReadGatesAsync();
                             UpdateGateGui();
@@ -972,7 +972,7 @@ namespace Corvus
                             Log($"Gate {GalaxyGate.Alpha.GetFullName()} is ready...");
                             Log($"Placing {GalaxyGate.Alpha.GetFullName()}");
                             await _account.PlaceGateAsync(GalaxyGate.Alpha);
-                            setTotalBuild(GalaxyGate.Beta);
+                            setGatesBuilt(GalaxyGate.Beta);
                             Log("Reading Galaxy Gates...");
                             await _account.ReadGatesAsync();
                             UpdateGateGui();
@@ -982,7 +982,7 @@ namespace Corvus
                             Log($"Gate {GalaxyGate.Beta.GetFullName()} is ready...");
                             Log($"Placing {GalaxyGate.Beta.GetFullName()}");
                             await _account.PlaceGateAsync(GalaxyGate.Beta);
-                            setTotalBuild(GalaxyGate.Beta);
+                            setGatesBuilt(GalaxyGate.Beta);
                             Log("Reading Galaxy Gates...");
                             await _account.ReadGatesAsync();
                             UpdateGateGui();
@@ -992,7 +992,7 @@ namespace Corvus
                             Log($"Gate {GalaxyGate.Gamma.GetFullName()} is ready...");
                             Log($"Placing {GalaxyGate.Gamma.GetFullName()}");
                             await _account.PlaceGateAsync(GalaxyGate.Gamma);
-                            setTotalBuild(GalaxyGate.Gamma);
+                            setGatesBuilt(GalaxyGate.Gamma);
                             Log("Reading Galaxy Gates...");
                             await _account.ReadGatesAsync();
                             UpdateGateGui();
@@ -1023,7 +1023,7 @@ namespace Corvus
                         Log($"Gate {GetSelectedGate().GetFullName()} is ready...");
                         Log($"Placing {GetSelectedGate().GetFullName()}");
                         await _account.PlaceGateAsync(GetSelectedGate());
-                        setTotalBuild(GetSelectedGate());
+                        setGatesBuilt(GetSelectedGate());
                         Log("Reading Galaxy Gates...");
                         await _account.ReadGatesAsync();
                         UpdateGateGui();
@@ -1133,7 +1133,7 @@ namespace Corvus
                             Log($"Gate {GalaxyGate.Alpha.GetFullName()} is ready...");
                             Log($"Placing {GalaxyGate.Alpha.GetFullName()}");
                             await _account.PlaceGateAsync(GalaxyGate.Alpha);
-                            setTotalBuild(GalaxyGate.Alpha);
+                            setGatesBuilt(GalaxyGate.Alpha);
                             Log("Reading Galaxy Gates...");
                             await _account.ReadGatesAsync();
                             UpdateGateGui();
@@ -1146,7 +1146,7 @@ namespace Corvus
                             Log($"Gate {GalaxyGate.Beta.GetFullName()} is ready...");
                             Log($"Placing {GalaxyGate.Beta.GetFullName()}");
                             await _account.PlaceGateAsync(GalaxyGate.Beta);
-                            setTotalBuild(GalaxyGate.Beta);
+                            setGatesBuilt(GalaxyGate.Beta);
                             Log("Reading Galaxy Gates...");
                             await _account.ReadGatesAsync();
                             UpdateGateGui();
@@ -1159,7 +1159,7 @@ namespace Corvus
                             Log($"Gate {GalaxyGate.Gamma.GetFullName()} is ready...");
                             Log($"Placing {GalaxyGate.Gamma.GetFullName()}");
                             await _account.PlaceGateAsync(GalaxyGate.Gamma);
-                            setTotalBuild(GalaxyGate.Gamma);
+                            setGatesBuilt(GalaxyGate.Gamma);
                             Log("Reading Galaxy Gates...");
                             await _account.ReadGatesAsync();
                             UpdateGateGui();
@@ -1176,7 +1176,7 @@ namespace Corvus
                         Log($"Gate {GetSelectedGate().GetFullName()} is ready...");
                         Log($"Placing {GetSelectedGate().GetFullName()}");
                         await _account.PlaceGateAsync(GetSelectedGate());
-                        setTotalBuild(GetSelectedGate());
+                        setGatesBuilt(GetSelectedGate());
                         Log("Reading Galaxy Gates...");
                         await _account.ReadGatesAsync();
                         UpdateGateGui();
@@ -1694,39 +1694,39 @@ namespace Corvus
             }
         }
 
-        public void setTotalBuild(GalaxyGate gate)
+        public void setGatesBuilt(GalaxyGate gate)
         {
             switch ((int) gate)
             {
                 case 1:
-                    totalBuildAlpha++;
+                    GatesBuiltAlpha++;
                     break;
                 case 2:
-                    totalBuildBeta++;
+                    GatesBuiltBeta++;
                     break;
                 case 3:
-                    totalBuildGamma++;
+                    GatesBuiltGamma++;
                     break;
                 case 4:
-                    totalBuildDelta++;
+                    GatesBuiltDelta++;
                     break;
                 case 5:
-                    totalBuildEpsilon++;
+                    GatesBuiltEpsilon++;
                     break;
                 case 6:
-                    totalBuildZeta++;
+                    GatesBuiltZeta++;
                     break;
                 case 7:
-                    totalBuildKappa++;
+                    GatesBuiltKappa++;
                     break;
                 case 8:
-                    totalBuildLambda++;
+                    GatesBuiltLambda++;
                     break;
                 case 13:
-                    totalBuildHades++;
+                    GatesBuiltHades++;
                     break;
                 case 19:
-                    totalBuildKuiper++;
+                    GatesBuiltKuiper++;
                     break;
             }
         }

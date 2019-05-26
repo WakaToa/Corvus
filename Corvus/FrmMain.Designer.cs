@@ -79,11 +79,6 @@ namespace Corvus
             this.lblExtraEnergy = new System.Windows.Forms.Label();
             this.lblUridium = new System.Windows.Forms.Label();
             this.dgvGates = new System.Windows.Forms.DataGridView();
-            this.clmnGateName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmnGateParts = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmnGateReady = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.clmnGateOnMap = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.clmnGatesTotalBuilds = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cmdResetGateStats = new System.Windows.Forms.Button();
             this.rbBuildKuiper = new System.Windows.Forms.RadioButton();
             this.rbBuildHades = new System.Windows.Forms.RadioButton();
@@ -120,6 +115,11 @@ namespace Corvus
             this.cmdOpenBackPage = new System.Windows.Forms.Button();
             this.lblLastStatus = new System.Windows.Forms.Label();
             this.cmdSaveSettings = new System.Windows.Forms.Button();
+            this.clmnGateName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmnGateParts = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmnGateReady = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.clmnGateOnMap = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.clmnGatesBuilt = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tcMain.SuspendLayout();
             this.tabPageLogin.SuspendLayout();
             this.gBoxUsernamePasswordLogin.SuspendLayout();
@@ -708,7 +708,7 @@ namespace Corvus
             this.clmnGateParts,
             this.clmnGateReady,
             this.clmnGateOnMap,
-            this.clmnGatesTotalBuilds});
+            this.clmnGatesBuilt});
             this.dgvGates.Location = new System.Drawing.Point(148, 7);
             this.dgvGates.Name = "dgvGates";
             this.dgvGates.RowHeadersVisible = false;
@@ -719,42 +719,6 @@ namespace Corvus
             this.dgvGates.Size = new System.Drawing.Size(358, 327);
             this.dgvGates.TabIndex = 10;
             this.dgvGates.SelectionChanged += new System.EventHandler(this.dataGridView_SelectionChanged);
-            // 
-            // clmnGateName
-            // 
-            this.clmnGateName.Frozen = true;
-            this.clmnGateName.HeaderText = "Name";
-            this.clmnGateName.Name = "clmnGateName";
-            this.clmnGateName.ReadOnly = true;
-            this.clmnGateName.Width = 60;
-            // 
-            // clmnGateParts
-            // 
-            this.clmnGateParts.HeaderText = "Parts";
-            this.clmnGateParts.Name = "clmnGateParts";
-            this.clmnGateParts.ReadOnly = true;
-            this.clmnGateParts.Width = 70;
-            // 
-            // clmnGateReady
-            // 
-            this.clmnGateReady.HeaderText = "Ready";
-            this.clmnGateReady.Name = "clmnGateReady";
-            this.clmnGateReady.ReadOnly = true;
-            this.clmnGateReady.Width = 70;
-            // 
-            // clmnGateOnMap
-            // 
-            this.clmnGateOnMap.HeaderText = "On Map";
-            this.clmnGateOnMap.Name = "clmnGateOnMap";
-            this.clmnGateOnMap.ReadOnly = true;
-            this.clmnGateOnMap.Width = 70;
-            // 
-            // clmnGatesTotalBuilds
-            // 
-            this.clmnGatesTotalBuilds.HeaderText = "Total Builds";
-            this.clmnGatesTotalBuilds.Name = "clmnGatesTotalBuilds";
-            this.clmnGatesTotalBuilds.ReadOnly = true;
-            this.clmnGatesTotalBuilds.Width = 85;
             // 
             // cmdResetGateStats
             // 
@@ -1158,6 +1122,42 @@ namespace Corvus
             this.cmdSaveSettings.UseVisualStyleBackColor = true;
             this.cmdSaveSettings.Click += new System.EventHandler(this.cmdSaveSettings_Click);
             // 
+            // clmnGateName
+            // 
+            this.clmnGateName.Frozen = true;
+            this.clmnGateName.HeaderText = "Name";
+            this.clmnGateName.Name = "clmnGateName";
+            this.clmnGateName.ReadOnly = true;
+            this.clmnGateName.Width = 60;
+            // 
+            // clmnGateParts
+            // 
+            this.clmnGateParts.HeaderText = "Parts";
+            this.clmnGateParts.Name = "clmnGateParts";
+            this.clmnGateParts.ReadOnly = true;
+            this.clmnGateParts.Width = 70;
+            // 
+            // clmnGateReady
+            // 
+            this.clmnGateReady.HeaderText = "Ready";
+            this.clmnGateReady.Name = "clmnGateReady";
+            this.clmnGateReady.ReadOnly = true;
+            this.clmnGateReady.Width = 70;
+            // 
+            // clmnGateOnMap
+            // 
+            this.clmnGateOnMap.HeaderText = "On Map";
+            this.clmnGateOnMap.Name = "clmnGateOnMap";
+            this.clmnGateOnMap.ReadOnly = true;
+            this.clmnGateOnMap.Width = 70;
+            // 
+            // clmnGatesBuilt
+            // 
+            this.clmnGatesBuilt.HeaderText = "Gates built";
+            this.clmnGatesBuilt.Name = "clmnGatesBuilt";
+            this.clmnGatesBuilt.ReadOnly = true;
+            this.clmnGatesBuilt.Width = 85;
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1288,13 +1288,13 @@ namespace Corvus
         private Label statistics;
         private Label accountinfo;
         private Label gates;
+        private ComboBox comboBoxEnergyCharge;
+        private Label lblEnergyCharge;
         private DataGridViewTextBoxColumn clmnGateName;
         private DataGridViewTextBoxColumn clmnGateParts;
         private DataGridViewCheckBoxColumn clmnGateReady;
         private DataGridViewCheckBoxColumn clmnGateOnMap;
-        private DataGridViewTextBoxColumn clmnGatesTotalBuilds;
-        private ComboBox comboBoxEnergyCharge;
-        private Label lblEnergyCharge;
+        private DataGridViewTextBoxColumn clmnGatesBuilt;
     }
 }
 
