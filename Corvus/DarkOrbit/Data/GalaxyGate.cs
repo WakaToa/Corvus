@@ -81,8 +81,6 @@ namespace Corvus.DarkOrbit.Data
             public int LivesLeft { get; set; }
             [XmlAttribute(AttributeName = "lifePrice")]
             public int LifePrice { get; set; }
-            [XmlAttribute(AttributeName = "totalBuild")]
-            public int TotalBuild { get; set; }
         }
 
 
@@ -132,7 +130,7 @@ namespace Corvus.DarkOrbit.Data
                 return Gates.Find(x => x.Id == (int)GalaxyGate.Kappa);
             }
 
-            public Gate Lamba()
+            public Gate Lambda()
             {
                 return Gates.Find(x => x.Id == (int)GalaxyGate.Lambda);
             }

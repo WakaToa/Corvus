@@ -50,6 +50,8 @@ namespace Corvus
             this.txtServer = new System.Windows.Forms.TextBox();
             this.lblServer = new System.Windows.Forms.Label();
             this.tabPageGalaxyGates = new System.Windows.Forms.TabPage();
+            this.comboBoxEnergyCharge = new System.Windows.Forms.ComboBox();
+            this.lblEnergyCharge = new System.Windows.Forms.Label();
             this.gates = new System.Windows.Forms.Label();
             this.statistics = new System.Windows.Forms.Label();
             this.accountinfo = new System.Windows.Forms.Label();
@@ -118,8 +120,6 @@ namespace Corvus
             this.cmdOpenBackPage = new System.Windows.Forms.Button();
             this.lblLastStatus = new System.Windows.Forms.Label();
             this.cmdSaveSettings = new System.Windows.Forms.Button();
-            this.lblEnergyCharge = new System.Windows.Forms.Label();
-            this.comboBoxEnergyCharge = new System.Windows.Forms.ComboBox();
             this.tcMain.SuspendLayout();
             this.tabPageLogin.SuspendLayout();
             this.gBoxUsernamePasswordLogin.SuspendLayout();
@@ -386,6 +386,29 @@ namespace Corvus
             this.tabPageGalaxyGates.TabIndex = 1;
             this.tabPageGalaxyGates.Text = "Galaxy Gates";
             this.tabPageGalaxyGates.UseVisualStyleBackColor = true;
+            // 
+            // comboBoxEnergyCharge
+            // 
+            this.comboBoxEnergyCharge.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxEnergyCharge.FormattingEnabled = true;
+            this.comboBoxEnergyCharge.Items.AddRange(new object[] {
+            "1",
+            "10",
+            "100",
+            "5"});
+            this.comboBoxEnergyCharge.Location = new System.Drawing.Point(95, 31);
+            this.comboBoxEnergyCharge.Name = "comboBoxEnergyCharge";
+            this.comboBoxEnergyCharge.Size = new System.Drawing.Size(45, 21);
+            this.comboBoxEnergyCharge.TabIndex = 41;
+            // 
+            // lblEnergyCharge
+            // 
+            this.lblEnergyCharge.AutoSize = true;
+            this.lblEnergyCharge.Location = new System.Drawing.Point(17, 35);
+            this.lblEnergyCharge.Name = "lblEnergyCharge";
+            this.lblEnergyCharge.Size = new System.Drawing.Size(79, 13);
+            this.lblEnergyCharge.TabIndex = 40;
+            this.lblEnergyCharge.Text = "Energy charge:";
             // 
             // gates
             // 
@@ -898,7 +921,7 @@ namespace Corvus
             this.dgvTechFactory.ShowCellToolTips = false;
             this.dgvTechFactory.ShowEditingIcon = false;
             this.dgvTechFactory.ShowRowErrors = false;
-            this.dgvTechFactory.Size = new System.Drawing.Size(477, 278);
+            this.dgvTechFactory.Size = new System.Drawing.Size(443, 278);
             this.dgvTechFactory.TabIndex = 1;
             this.dgvTechFactory.CurrentCellDirtyStateChanged += new System.EventHandler(this.dataGridView_CurrentCellDirtyStateChanged);
             this.dgvTechFactory.SelectionChanged += new System.EventHandler(this.dataGridView_SelectionChanged);
@@ -1020,7 +1043,7 @@ namespace Corvus
             this.dgvSkylab.ShowCellToolTips = false;
             this.dgvSkylab.ShowEditingIcon = false;
             this.dgvSkylab.ShowRowErrors = false;
-            this.dgvSkylab.Size = new System.Drawing.Size(568, 278);
+            this.dgvSkylab.Size = new System.Drawing.Size(543, 279);
             this.dgvSkylab.TabIndex = 0;
             this.dgvSkylab.CurrentCellDirtyStateChanged += new System.EventHandler(this.dataGridView_CurrentCellDirtyStateChanged);
             this.dgvSkylab.SelectionChanged += new System.EventHandler(this.dataGridView_SelectionChanged);
@@ -1134,28 +1157,6 @@ namespace Corvus
             this.cmdSaveSettings.Text = "Save settings";
             this.cmdSaveSettings.UseVisualStyleBackColor = true;
             this.cmdSaveSettings.Click += new System.EventHandler(this.cmdSaveSettings_Click);
-            // 
-            // lblEnergyCharge
-            // 
-            this.lblEnergyCharge.AutoSize = true;
-            this.lblEnergyCharge.Location = new System.Drawing.Point(17, 35);
-            this.lblEnergyCharge.Name = "lblEnergyCharge";
-            this.lblEnergyCharge.Size = new System.Drawing.Size(79, 13);
-            this.lblEnergyCharge.TabIndex = 40;
-            this.lblEnergyCharge.Text = "Energy charge:";
-            // 
-            // comboBoxEnergyCharge
-            // 
-            this.comboBoxEnergyCharge.FormattingEnabled = true;
-            this.comboBoxEnergyCharge.Items.AddRange(new object[] {
-            "1",
-            "5",
-            "10",
-            "100"});
-            this.comboBoxEnergyCharge.Location = new System.Drawing.Point(95, 31);
-            this.comboBoxEnergyCharge.Name = "comboBoxEnergyCharge";
-            this.comboBoxEnergyCharge.Size = new System.Drawing.Size(45, 21);
-            this.comboBoxEnergyCharge.TabIndex = 41;
             // 
             // FrmMain
             // 

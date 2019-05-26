@@ -446,9 +446,6 @@ namespace Corvus.DarkOrbit
             var placed = await _httpClient.GetAsyncLimit(string.Format(Urls.PlaceGate, Urls.BaseUrl, AccountData.UserId,
                 AccountData.SessionId, (int) gate));
 
-            if (!placed.Contains("not_enough_parts"))
-                GateData.Gates.Get(gate).TotalBuild += 1;
-
             return !placed.Contains("not_enough_parts");
         }
     }
