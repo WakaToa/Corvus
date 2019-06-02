@@ -105,6 +105,7 @@ namespace Corvus
             tabPageLogin.Enabled = true;
             CheckForIllegalCrossThreadCalls = false;
             comboBoxLoginPortal.SelectedIndex = 0;
+            comboBoxOptionABG.SelectedIndex = 0;
             comboBoxEnergyCharge.SelectedIndex = 0;
 
             _prometiumCollectorRow = dgvSkylab.Rows[dgvSkylab.Rows.Add("Prometium Collector", 0, false, "", false)];
@@ -1064,9 +1065,8 @@ namespace Corvus
                 _nextRunGalaxyGate = DateTime.Now.AddMinutes(5);
                 return;
             }
-
+            
             //start function by srfairyox
-
             if (rbBuildABG.Checked)
             {
                 Log("Spinning ABG...");
@@ -1379,7 +1379,6 @@ namespace Corvus
             await InitializeGuiAsync();
 
             EnableGui();
-            tabPageLogin.Enabled = false;
         }
 
         private void cmdResetGateStats_Click(object sender, EventArgs e)
@@ -1394,9 +1393,14 @@ namespace Corvus
             _running = true;
             cmdStart.Enabled = false;
             cmdStop.Enabled = true;
-            tabPageGalaxyGates.Enabled = false;
-            tabPageTechFactory.Enabled = false;
-            tabPageSkylab.Enabled = false;
+            rbBuildABG.Enabled = false;
+            rbBuildDelta.Enabled = false;
+            rbBuildEpsilon.Enabled = false;
+            rbBuildZeta.Enabled = false;
+            rbBuildKappa.Enabled = false;
+            rbBuildLambda.Enabled = false;
+            rbBuildHades.Enabled = false;
+            rbBuildKuiper.Enabled = false;
             _runTask = Task.Run(DoWork, _cancellationTokenSource.Token);
         }
 
@@ -1405,9 +1409,14 @@ namespace Corvus
             _cancellationTokenSource.Cancel();
             _running = false;
             cmdStop.Enabled = false;
-            tabPageGalaxyGates.Enabled = true;
-            tabPageTechFactory.Enabled = true;
-            tabPageSkylab.Enabled = true;
+            rbBuildABG.Enabled = true;
+            rbBuildDelta.Enabled = true;
+            rbBuildEpsilon.Enabled = true;
+            rbBuildZeta.Enabled = true;
+            rbBuildKappa.Enabled = true;
+            rbBuildLambda.Enabled = true;
+            rbBuildHades.Enabled = true;
+            rbBuildKuiper.Enabled = true;
         }
 
         private void cmdOpenBackPage_Click(object sender, EventArgs e)
@@ -1516,7 +1525,7 @@ namespace Corvus
                 iniData["GalaxyGates"]["EnergyCharge"] = comboBoxEnergyCharge.SelectedItem.ToString();
                 iniData["GalaxyGates"]["Delay"] = nudGateDelay.Text;
                 iniData["GalaxyGates"]["MinUridium"] = nudMinimumUridium.Text;
-                iniData["GalaxyGates"]["GetOptionABG"] = boxoptionABG.Text;
+                iniData["GalaxyGates"]["GetOptionABG"] = comboBoxOptionABG.SelectedIndex.ToString();
                 iniData["GalaxyGates"]["OnlyEE"] = chkSpinOnlyEE.Checked.ToString();
                 iniData["GalaxyGates"]["SelectedGate"] = GetSelectedGate().GetFullName();
                 iniData["GalaxyGates"]["PlaceGate"] = chkBoxPlaceGate.Checked.ToString();
@@ -1588,7 +1597,7 @@ namespace Corvus
                 comboBoxEnergyCharge.SelectedIndex = comboBoxEnergyCharge.Items.IndexOf(iniData["GalaxyGates"]["EnergyCharge"]);
                 nudGateDelay.Value = decimal.Parse(iniData["GalaxyGates"]["Delay"]);
                 nudMinimumUridium.Value = decimal.Parse(iniData["GalaxyGates"]["MinUridium"]);
-                boxoptionABG.Value = decimal.Parse(iniData["GalaxyGates"]["GetOptionABG"]);
+                comboBoxOptionABG.SelectedIndex = int.Parse(iniData["GalaxyGates"]["GetOptionABG"]);
                 chkSpinOnlyEE.Checked = bool.Parse(iniData["GalaxyGates"]["OnlyEE"]);
                 chkBoxPlaceGate.Checked = bool.Parse(iniData["GalaxyGates"]["PlaceGate"]);
 
@@ -1661,17 +1670,17 @@ namespace Corvus
 
         private String getOptionforABG()
         {
-            switch(boxoptionABG.Value)
+            switch(comboBoxOptionABG.SelectedIndex)
             {
-                case 1:
+                case 0:
                     return "option1";
-                case 2:
+                case 1:
                     return "option2";
-                case 3:
+                case 2:
                     return "option3";
-                case 4:
+                case 3:
                     return "option4";
-                case 5:
+                case 4:
                     return "option5";
                 default:
                     return "null";

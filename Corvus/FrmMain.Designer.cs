@@ -30,6 +30,7 @@ namespace Corvus
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
             this.tcMain = new System.Windows.Forms.TabControl();
             this.tabPageLogin = new System.Windows.Forms.TabPage();
             this.cmdLogin = new System.Windows.Forms.Button();
@@ -50,12 +51,12 @@ namespace Corvus
             this.txtServer = new System.Windows.Forms.TextBox();
             this.lblServer = new System.Windows.Forms.Label();
             this.tabPageGalaxyGates = new System.Windows.Forms.TabPage();
+            this.comboBoxOptionABG = new System.Windows.Forms.ComboBox();
             this.comboBoxEnergyCharge = new System.Windows.Forms.ComboBox();
             this.lblEnergyCharge = new System.Windows.Forms.Label();
             this.gates = new System.Windows.Forms.Label();
             this.statistics = new System.Windows.Forms.Label();
             this.accountinfo = new System.Windows.Forms.Label();
-            this.boxoptionABG = new System.Windows.Forms.NumericUpDown();
             this.chkSpinOnlyEE = new System.Windows.Forms.CheckBox();
             this.nudMinimumUridium = new System.Windows.Forms.NumericUpDown();
             this.lblMinimumUridium = new System.Windows.Forms.Label();
@@ -79,6 +80,11 @@ namespace Corvus
             this.lblExtraEnergy = new System.Windows.Forms.Label();
             this.lblUridium = new System.Windows.Forms.Label();
             this.dgvGates = new System.Windows.Forms.DataGridView();
+            this.clmnGateName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmnGateParts = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmnGateReady = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.clmnGateOnMap = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.clmnGatesBuilt = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cmdResetGateStats = new System.Windows.Forms.Button();
             this.rbBuildKuiper = new System.Windows.Forms.RadioButton();
             this.rbBuildHades = new System.Windows.Forms.RadioButton();
@@ -115,17 +121,11 @@ namespace Corvus
             this.cmdOpenBackPage = new System.Windows.Forms.Button();
             this.lblLastStatus = new System.Windows.Forms.Label();
             this.cmdSaveSettings = new System.Windows.Forms.Button();
-            this.clmnGateName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmnGateParts = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmnGateReady = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.clmnGateOnMap = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.clmnGatesBuilt = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tcMain.SuspendLayout();
             this.tabPageLogin.SuspendLayout();
             this.gBoxUsernamePasswordLogin.SuspendLayout();
             this.gBoxSessionIDLogin.SuspendLayout();
             this.tabPageGalaxyGates.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.boxoptionABG)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMinimumUridium)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudGateDelay)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvGates)).BeginInit();
@@ -342,12 +342,12 @@ namespace Corvus
             // 
             // tabPageGalaxyGates
             // 
+            this.tabPageGalaxyGates.Controls.Add(this.comboBoxOptionABG);
             this.tabPageGalaxyGates.Controls.Add(this.comboBoxEnergyCharge);
             this.tabPageGalaxyGates.Controls.Add(this.lblEnergyCharge);
             this.tabPageGalaxyGates.Controls.Add(this.gates);
             this.tabPageGalaxyGates.Controls.Add(this.statistics);
             this.tabPageGalaxyGates.Controls.Add(this.accountinfo);
-            this.tabPageGalaxyGates.Controls.Add(this.boxoptionABG);
             this.tabPageGalaxyGates.Controls.Add(this.chkSpinOnlyEE);
             this.tabPageGalaxyGates.Controls.Add(this.nudMinimumUridium);
             this.tabPageGalaxyGates.Controls.Add(this.lblMinimumUridium);
@@ -387,15 +387,33 @@ namespace Corvus
             this.tabPageGalaxyGates.Text = "Galaxy Gates";
             this.tabPageGalaxyGates.UseVisualStyleBackColor = true;
             // 
+            // comboBoxOptionABG
+            // 
+            this.comboBoxOptionABG.AllowDrop = true;
+            this.comboBoxOptionABG.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxOptionABG.DropDownWidth = 253;
+            this.comboBoxOptionABG.FormattingEnabled = true;
+            this.comboBoxOptionABG.IntegralHeight = false;
+            this.comboBoxOptionABG.Items.AddRange(new object[] {
+            "1. It should just stop when the alpha portal is 2/2",
+            "2. It should just stop when the beta portal is 2/2",
+            "3. It should just stop when the gamma portal is 2/2",
+            "4. It should just stop when any of the 3 portals is 2/2",
+            "5. It should just stop when the 3 portals are 2/2"});
+            this.comboBoxOptionABG.Location = new System.Drawing.Point(73, 149);
+            this.comboBoxOptionABG.Name = "comboBoxOptionABG";
+            this.comboBoxOptionABG.Size = new System.Drawing.Size(69, 21);
+            this.comboBoxOptionABG.TabIndex = 42;
+            // 
             // comboBoxEnergyCharge
             // 
             this.comboBoxEnergyCharge.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxEnergyCharge.FormattingEnabled = true;
             this.comboBoxEnergyCharge.Items.AddRange(new object[] {
             "1",
+            "5",
             "10",
-            "100",
-            "5"});
+            "100"});
             this.comboBoxEnergyCharge.Location = new System.Drawing.Point(95, 31);
             this.comboBoxEnergyCharge.Name = "comboBoxEnergyCharge";
             this.comboBoxEnergyCharge.Size = new System.Drawing.Size(45, 21);
@@ -439,28 +457,6 @@ namespace Corvus
             this.accountinfo.Size = new System.Drawing.Size(90, 17);
             this.accountinfo.TabIndex = 37;
             this.accountinfo.Text = "Account info:";
-            // 
-            // boxoptionABG
-            // 
-            this.boxoptionABG.Location = new System.Drawing.Point(81, 151);
-            this.boxoptionABG.Maximum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            this.boxoptionABG.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.boxoptionABG.Name = "boxoptionABG";
-            this.boxoptionABG.Size = new System.Drawing.Size(60, 20);
-            this.boxoptionABG.TabIndex = 36;
-            this.boxoptionABG.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
             // 
             // chkSpinOnlyEE
             // 
@@ -542,11 +538,6 @@ namespace Corvus
             this.nudGateDelay.Location = new System.Drawing.Point(20, 58);
             this.nudGateDelay.Maximum = new decimal(new int[] {
             5000,
-            0,
-            0,
-            0});
-            this.nudGateDelay.Minimum = new decimal(new int[] {
-            25,
             0,
             0,
             0});
@@ -719,6 +710,42 @@ namespace Corvus
             this.dgvGates.Size = new System.Drawing.Size(358, 327);
             this.dgvGates.TabIndex = 10;
             this.dgvGates.SelectionChanged += new System.EventHandler(this.dataGridView_SelectionChanged);
+            // 
+            // clmnGateName
+            // 
+            this.clmnGateName.Frozen = true;
+            this.clmnGateName.HeaderText = "Name";
+            this.clmnGateName.Name = "clmnGateName";
+            this.clmnGateName.ReadOnly = true;
+            this.clmnGateName.Width = 60;
+            // 
+            // clmnGateParts
+            // 
+            this.clmnGateParts.HeaderText = "Parts";
+            this.clmnGateParts.Name = "clmnGateParts";
+            this.clmnGateParts.ReadOnly = true;
+            this.clmnGateParts.Width = 70;
+            // 
+            // clmnGateReady
+            // 
+            this.clmnGateReady.HeaderText = "Ready";
+            this.clmnGateReady.Name = "clmnGateReady";
+            this.clmnGateReady.ReadOnly = true;
+            this.clmnGateReady.Width = 70;
+            // 
+            // clmnGateOnMap
+            // 
+            this.clmnGateOnMap.HeaderText = "On Map";
+            this.clmnGateOnMap.Name = "clmnGateOnMap";
+            this.clmnGateOnMap.ReadOnly = true;
+            this.clmnGateOnMap.Width = 70;
+            // 
+            // clmnGatesBuilt
+            // 
+            this.clmnGatesBuilt.HeaderText = "Gates built";
+            this.clmnGatesBuilt.Name = "clmnGatesBuilt";
+            this.clmnGatesBuilt.ReadOnly = true;
+            this.clmnGatesBuilt.Width = 85;
             // 
             // cmdResetGateStats
             // 
@@ -1122,42 +1149,6 @@ namespace Corvus
             this.cmdSaveSettings.UseVisualStyleBackColor = true;
             this.cmdSaveSettings.Click += new System.EventHandler(this.cmdSaveSettings_Click);
             // 
-            // clmnGateName
-            // 
-            this.clmnGateName.Frozen = true;
-            this.clmnGateName.HeaderText = "Name";
-            this.clmnGateName.Name = "clmnGateName";
-            this.clmnGateName.ReadOnly = true;
-            this.clmnGateName.Width = 60;
-            // 
-            // clmnGateParts
-            // 
-            this.clmnGateParts.HeaderText = "Parts";
-            this.clmnGateParts.Name = "clmnGateParts";
-            this.clmnGateParts.ReadOnly = true;
-            this.clmnGateParts.Width = 70;
-            // 
-            // clmnGateReady
-            // 
-            this.clmnGateReady.HeaderText = "Ready";
-            this.clmnGateReady.Name = "clmnGateReady";
-            this.clmnGateReady.ReadOnly = true;
-            this.clmnGateReady.Width = 70;
-            // 
-            // clmnGateOnMap
-            // 
-            this.clmnGateOnMap.HeaderText = "On Map";
-            this.clmnGateOnMap.Name = "clmnGateOnMap";
-            this.clmnGateOnMap.ReadOnly = true;
-            this.clmnGateOnMap.Width = 70;
-            // 
-            // clmnGatesBuilt
-            // 
-            this.clmnGatesBuilt.HeaderText = "Gates built";
-            this.clmnGatesBuilt.Name = "clmnGatesBuilt";
-            this.clmnGatesBuilt.ReadOnly = true;
-            this.clmnGatesBuilt.Width = 85;
-            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1171,9 +1162,9 @@ namespace Corvus
             this.Controls.Add(this.tcMain);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "FrmMain";
-            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Corvus - DarkOrbit Bot Helper";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmMain_FormClosing);
@@ -1185,7 +1176,6 @@ namespace Corvus
             this.gBoxSessionIDLogin.PerformLayout();
             this.tabPageGalaxyGates.ResumeLayout(false);
             this.tabPageGalaxyGates.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.boxoptionABG)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMinimumUridium)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudGateDelay)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvGates)).EndInit();
@@ -1276,7 +1266,6 @@ namespace Corvus
         private System.Windows.Forms.CheckBox chkBoxBuildTechs;
         private System.Windows.Forms.CheckBox chkBoxUpgradeSkylab;
         private System.Windows.Forms.RichTextBox rtbLog;
-        private System.Windows.Forms.NumericUpDown boxoptionABG;
         private CheckBox chkBoxSaveUsernamePassword;
         private Label lblLastStatus;
         private Button cmdSaveSettings;
@@ -1295,6 +1284,7 @@ namespace Corvus
         private DataGridViewCheckBoxColumn clmnGateReady;
         private DataGridViewCheckBoxColumn clmnGateOnMap;
         private DataGridViewTextBoxColumn clmnGatesBuilt;
+        private ComboBox comboBoxOptionABG;
     }
 }
 
