@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace Corvus.Time.Scheduler
 {
-    //https://codinginfinite.com/creating-scheduler-task-seconds-minutes-hours-days/
     public class SchedulerService
     {
         private static SchedulerService _instance;

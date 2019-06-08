@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Corvus.Http
+﻿namespace Corvus.Http
 {
     public static class Urls
     {

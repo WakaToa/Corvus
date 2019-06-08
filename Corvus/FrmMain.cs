@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -909,58 +906,6 @@ namespace Corvus
                 {
                     if (chkBoxPlaceGate.Checked)
                     {
-                        if ((currentGateA.Prepared && currentGateA.Ready) && (currentGateB.Prepared && currentGateB.Ready) && (currentGateG.Prepared && currentGateG.Ready))
-                        {
-                            Log("Stopping gate mode for 5 minutes... Can not get more parts");
-                            _nextRunGalaxyGate = DateTime.Now.AddMinutes(5);
-                            return;
-                        }
-
-                        if (currentGateA.Ready && !currentGateA.Prepared)
-                        {
-                            Log($"Gate {GalaxyGate.Alpha.GetFullName()} is ready...");
-                            Log($"Placing {GalaxyGate.Alpha.GetFullName()}");
-                            await _account.PlaceGateAsync(GalaxyGate.Alpha);
-                            setGatesBuilt(GalaxyGate.Alpha);
-                            Log("Reading Galaxy Gates...");
-                            await _account.ReadGatesAsync();
-                            UpdateGateGui();
-                        }
-                        if (currentGateB.Ready && !currentGateB.Prepared)
-                        {
-                            Log($"Gate {GalaxyGate.Beta.GetFullName()} is ready...");
-                            Log($"Placing {GalaxyGate.Beta.GetFullName()}");
-                            await _account.PlaceGateAsync(GalaxyGate.Beta);
-                            setGatesBuilt(GalaxyGate.Beta);
-                            Log("Reading Galaxy Gates...");
-                            await _account.ReadGatesAsync();
-                            UpdateGateGui();
-                        }
-                        if (currentGateG.Ready && !currentGateG.Prepared)
-                        {
-                            Log($"Gate {GalaxyGate.Gamma.GetFullName()} is ready...");
-                            Log($"Placing {GalaxyGate.Gamma.GetFullName()}");
-                            await _account.PlaceGateAsync(GalaxyGate.Gamma);
-                            setGatesBuilt(GalaxyGate.Gamma);
-                            Log("Reading Galaxy Gates...");
-                            await _account.ReadGatesAsync();
-                            UpdateGateGui();
-                        }
-                    }
-                    else
-                    {
-                        if (currentGateA.Ready && currentGateB.Ready && currentGateG.Ready)
-                        {
-                            Log("Stopping gate mode for 5 minutes... Can not get more parts");
-                            _nextRunGalaxyGate = DateTime.Now.AddMinutes(5);
-                            return;
-                        }
-                    }
-                }
-                else if (getOptionforABG() == "option5")
-                {
-                    if (chkBoxPlaceGate.Checked)
-                    {
                         if ((currentGateA.Prepared && currentGateA.Ready) || (currentGateB.Prepared && currentGateB.Ready) || (currentGateG.Prepared && currentGateG.Ready))
                         {
                             Log("Stopping gate mode for 5 minutes... Can not get more parts");
@@ -1002,6 +947,59 @@ namespace Corvus
                     else
                     {
                         if (currentGateA.Ready || currentGateB.Ready || currentGateG.Ready)
+                        {
+                            Log("Stopping gate mode for 5 minutes... Can not get more parts");
+                            _nextRunGalaxyGate = DateTime.Now.AddMinutes(5);
+                            return;
+                        }
+                    }
+                    
+                }
+                else if (getOptionforABG() == "option5")
+                {
+                    if (chkBoxPlaceGate.Checked)
+                    {
+                        if ((currentGateA.Prepared && currentGateA.Ready) && (currentGateB.Prepared && currentGateB.Ready) && (currentGateG.Prepared && currentGateG.Ready))
+                        {
+                            Log("Stopping gate mode for 5 minutes... Can not get more parts");
+                            _nextRunGalaxyGate = DateTime.Now.AddMinutes(5);
+                            return;
+                        }
+
+                        if (currentGateA.Ready && !currentGateA.Prepared)
+                        {
+                            Log($"Gate {GalaxyGate.Alpha.GetFullName()} is ready...");
+                            Log($"Placing {GalaxyGate.Alpha.GetFullName()}");
+                            await _account.PlaceGateAsync(GalaxyGate.Alpha);
+                            setGatesBuilt(GalaxyGate.Alpha);
+                            Log("Reading Galaxy Gates...");
+                            await _account.ReadGatesAsync();
+                            UpdateGateGui();
+                        }
+                        if (currentGateB.Ready && !currentGateB.Prepared)
+                        {
+                            Log($"Gate {GalaxyGate.Beta.GetFullName()} is ready...");
+                            Log($"Placing {GalaxyGate.Beta.GetFullName()}");
+                            await _account.PlaceGateAsync(GalaxyGate.Beta);
+                            setGatesBuilt(GalaxyGate.Beta);
+                            Log("Reading Galaxy Gates...");
+                            await _account.ReadGatesAsync();
+                            UpdateGateGui();
+                        }
+                        if (currentGateG.Ready && !currentGateG.Prepared)
+                        {
+                            Log($"Gate {GalaxyGate.Gamma.GetFullName()} is ready...");
+                            Log($"Placing {GalaxyGate.Gamma.GetFullName()}");
+                            await _account.PlaceGateAsync(GalaxyGate.Gamma);
+                            setGatesBuilt(GalaxyGate.Gamma);
+                            Log("Reading Galaxy Gates...");
+                            await _account.ReadGatesAsync();
+                            UpdateGateGui();
+                        }
+                    }
+                    else
+                    {
+                        if (currentGateA.Ready && currentGateB.Ready && currentGateG.Ready)
                         {
                             Log("Stopping gate mode for 5 minutes... Can not get more parts");
                             _nextRunGalaxyGate = DateTime.Now.AddMinutes(5);
@@ -1449,7 +1447,7 @@ namespace Corvus
             ((DataGridView) sender).ClearSelection();
         }
 
-        public void Log(string text, Color color = new Color()) //new Color() == Color.Black
+        public void Log(string text, Color color = new Color())
         {
             if (lblLastStatus.InvokeRequired)
             {
@@ -1666,7 +1664,6 @@ namespace Corvus
         {
             SaveSettings();
         }
-        
 
         private String getOptionforABG()
         {

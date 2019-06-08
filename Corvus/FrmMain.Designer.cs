@@ -830,10 +830,12 @@ namespace Corvus
             // rbBuildABG
             // 
             this.rbBuildABG.AutoSize = true;
+            this.rbBuildABG.Checked = true;
             this.rbBuildABG.Location = new System.Drawing.Point(20, 151);
             this.rbBuildABG.Name = "rbBuildABG";
             this.rbBuildABG.Size = new System.Drawing.Size(47, 17);
             this.rbBuildABG.TabIndex = 33;
+            this.rbBuildABG.TabStop = true;
             this.rbBuildABG.Text = "ABG";
             this.rbBuildABG.UseVisualStyleBackColor = true;
             // 

@@ -19,6 +19,12 @@ General
 1. Save & load settings
 2. Works for all portals (https://darkorbit.com/, https://www.dark-orbit.it/, https://lp.darkorbit.com/)
 
+## Pre Requisites to tool to run
+
+1. Windows 7, 8, 8.1, 10 (32/64 bits)
+2. .NET Framework 4.6
+3. Internet
+
 ## Screenshots
 
 ![Login](https://i.imgur.com/zTz0xwC.png)
@@ -30,6 +36,7 @@ General
 ![Skylab](https://i.imgur.com/3rGwFrL.png)
 
 ![Debug](https://i.imgur.com/IYAwElj.png)
+
 ### Planned features
 1. Auction Bot
 2. Improved Log
