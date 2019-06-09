@@ -918,7 +918,7 @@ namespace Corvus
                             Log($"Gate {GalaxyGate.Alpha.GetFullName()} is ready...");
                             Log($"Placing {GalaxyGate.Alpha.GetFullName()}");
                             await _account.PlaceGateAsync(GalaxyGate.Alpha);
-                            setGatesBuilt(GalaxyGate.Beta);
+                            setGatesBuilt(GalaxyGate.Alpha);
                             Log("Reading Galaxy Gates...");
                             await _account.ReadGatesAsync();
                             UpdateGateGui();
@@ -1131,7 +1131,6 @@ namespace Corvus
                             Log($"Gate {GalaxyGate.Alpha.GetFullName()} is ready...");
                             Log($"Placing {GalaxyGate.Alpha.GetFullName()}");
                             await _account.PlaceGateAsync(GalaxyGate.Alpha);
-                            setGatesBuilt(GalaxyGate.Alpha);
                             Log("Reading Galaxy Gates...");
                             await _account.ReadGatesAsync();
                             UpdateGateGui();
@@ -1144,7 +1143,6 @@ namespace Corvus
                             Log($"Gate {GalaxyGate.Beta.GetFullName()} is ready...");
                             Log($"Placing {GalaxyGate.Beta.GetFullName()}");
                             await _account.PlaceGateAsync(GalaxyGate.Beta);
-                            setGatesBuilt(GalaxyGate.Beta);
                             Log("Reading Galaxy Gates...");
                             await _account.ReadGatesAsync();
                             UpdateGateGui();
@@ -1157,7 +1155,6 @@ namespace Corvus
                             Log($"Gate {GalaxyGate.Gamma.GetFullName()} is ready...");
                             Log($"Placing {GalaxyGate.Gamma.GetFullName()}");
                             await _account.PlaceGateAsync(GalaxyGate.Gamma);
-                            setGatesBuilt(GalaxyGate.Gamma);
                             Log("Reading Galaxy Gates...");
                             await _account.ReadGatesAsync();
                             UpdateGateGui();
@@ -1174,7 +1171,6 @@ namespace Corvus
                         Log($"Gate {GetSelectedGate().GetFullName()} is ready...");
                         Log($"Placing {GetSelectedGate().GetFullName()}");
                         await _account.PlaceGateAsync(GetSelectedGate());
-                        setGatesBuilt(GetSelectedGate());
                         Log("Reading Galaxy Gates...");
                         await _account.ReadGatesAsync();
                         UpdateGateGui();
