@@ -100,7 +100,6 @@ namespace Corvus
             InitializeComponent();
             DisableGui();
             tabPageLogin.Enabled = true;
-            CheckForIllegalCrossThreadCalls = false;
             comboBoxLoginPortal.SelectedIndex = 0;
             comboBoxOptionABG.SelectedIndex = 0;
             comboBoxEnergyCharge.SelectedIndex = 0;
@@ -732,315 +731,93 @@ namespace Corvus
         private async Task ExecuteSpinAsync()
         {
             if (DateTime.Now.Subtract(_nextRunGalaxyGate).TotalSeconds <= 0)
-            {
                 return;
-            }
 
             UpdateGateGui();
 
             var currentGate = _account.GateData.Gates.Get(GetSelectedGate());
-            //
-            //New function by SrFairyox
-            //
 
             if  (rbBuildABG.Checked)
             {
                 var currentGateA = _account.GateData.Gates.Get(GalaxyGate.Alpha);
                 var currentGateB = _account.GateData.Gates.Get(GalaxyGate.Beta);
                 var currentGateG = _account.GateData.Gates.Get(GalaxyGate.Gamma);
+
                 if (getOptionforABG() == "option1")
-                {
                     if (chkBoxPlaceGate.Checked)
-                    {
-                        if ((currentGateA.Prepared && currentGateA.Ready))
-                        {
-                            Log("Stopping gate mode for 5 minutes... Can not get more parts");
-                            _nextRunGalaxyGate = DateTime.Now.AddMinutes(5);
-                            return;
-                        }
-
+                        if (currentGateA.Prepared && currentGateA.Ready)
+                            CanNotGetMoreParts();
                         if (currentGateA.Ready && !currentGateA.Prepared)
-                        {
-                            Log($"Gate {GalaxyGate.Alpha.GetFullName()} is ready...");
-                            Log($"Placing {GalaxyGate.Alpha.GetFullName()}");
-                            await _account.PlaceGateAsync(GalaxyGate.Alpha);
-                            setGatesBuilt(GalaxyGate.Alpha);
-                            Log("Reading Galaxy Gates...");
-                            await _account.ReadGatesAsync();
-                            UpdateGateGui();
-                        }
+                            await PlaceGateAsync(GalaxyGate.Alpha);
                         if (currentGateB.Ready && !currentGateB.Prepared)
-                        {
-                            Log($"Gate {GalaxyGate.Beta.GetFullName()} is ready...");
-                            Log($"Placing {GalaxyGate.Beta.GetFullName()}");
-                            await _account.PlaceGateAsync(GalaxyGate.Beta);
-                            setGatesBuilt(GalaxyGate.Beta);
-                            Log("Reading Galaxy Gates...");
-                            await _account.ReadGatesAsync();
-                            UpdateGateGui();
-                        }
+                            await PlaceGateAsync(GalaxyGate.Beta);
                         if (currentGateG.Ready && !currentGateG.Prepared)
-                        {
-                            Log($"Gate {GalaxyGate.Gamma.GetFullName()} is ready...");
-                            Log($"Placing {GalaxyGate.Gamma.GetFullName()}");
-                            await _account.PlaceGateAsync(GalaxyGate.Gamma);
-                            setGatesBuilt(GalaxyGate.Gamma);
-                            Log("Reading Galaxy Gates...");
-                            await _account.ReadGatesAsync();
-                            UpdateGateGui();
-                        }
-                    }
+                            await PlaceGateAsync(GalaxyGate.Gamma);
                     else
-                    {
                         if (currentGateA.Ready)
-                        {
-                            Log("Stopping gate mode for 5 minutes... Can not get more parts");
-                            _nextRunGalaxyGate = DateTime.Now.AddMinutes(5);
-                            return;
-                        }
-                    }
-                }
+                            CanNotGetMoreParts();
                 else if (getOptionforABG() == "option2")
-                {
                     if (chkBoxPlaceGate.Checked)
-                    {
                         if (currentGateB.Prepared && currentGateB.Ready)
-                        {
-                            Log("Stopping gate mode for 5 minutes... Can not get more parts");
-                            _nextRunGalaxyGate = DateTime.Now.AddMinutes(5);
-                            return;
-                        }
+                            CanNotGetMoreParts();
                         if (currentGateA.Ready && !currentGateA.Prepared)
-                        {
-                            Log($"Gate {GalaxyGate.Alpha.GetFullName()} is ready...");
-                            Log($"Placing {GalaxyGate.Alpha.GetFullName()}");
-                            await _account.PlaceGateAsync(GalaxyGate.Alpha);
-                            setGatesBuilt(GalaxyGate.Alpha);
-                            Log("Reading Galaxy Gates...");
-                            await _account.ReadGatesAsync();
-                            UpdateGateGui();
-                        }
+                            await PlaceGateAsync(GalaxyGate.Alpha);
                         if (currentGateB.Ready && !currentGateB.Prepared)
-                        {
-                            Log($"Gate {GalaxyGate.Beta.GetFullName()} is ready...");
-                            Log($"Placing {GalaxyGate.Beta.GetFullName()}");
-                            await _account.PlaceGateAsync(GalaxyGate.Beta);
-                            setGatesBuilt(GalaxyGate.Beta);
-                            Log("Reading Galaxy Gates...");
-                            await _account.ReadGatesAsync();
-                            UpdateGateGui();
-                        }
+                            await PlaceGateAsync(GalaxyGate.Beta);
                         if (currentGateG.Ready && !currentGateG.Prepared)
-                        {
-                            Log($"Gate {GalaxyGate.Gamma.GetFullName()} is ready...");
-                            Log($"Placing {GalaxyGate.Gamma.GetFullName()}");
-                            await _account.PlaceGateAsync(GalaxyGate.Gamma);
-                            setGatesBuilt(GalaxyGate.Gamma);
-                            Log("Reading Galaxy Gates...");
-                            await _account.ReadGatesAsync();
-                            UpdateGateGui();
-                        }
-                    }
+                            await PlaceGateAsync(GalaxyGate.Gamma);
                     else
-                    {
                         if (currentGateB.Ready)
-                        {
-                            Log("Stopping gate mode for 5 minutes... Can not get more parts");
-                            _nextRunGalaxyGate = DateTime.Now.AddMinutes(5);
-                            return;
-                        }
-                    }
-                }
+                            CanNotGetMoreParts();
                 else if (getOptionforABG() == "option3")
-                {
                     if (chkBoxPlaceGate.Checked)
-                    {
                         if (currentGateG.Prepared && currentGateG.Ready)
-                        {
-                            Log("Stopping gate mode for 5 minutes... Can not get more parts");
-                            _nextRunGalaxyGate = DateTime.Now.AddMinutes(5);
-                            return;
-                        }
+                            CanNotGetMoreParts();
                         if (currentGateA.Ready && !currentGateA.Prepared)
-                        {
-                            Log($"Gate {GalaxyGate.Alpha.GetFullName()} is ready...");
-                            Log($"Placing {GalaxyGate.Alpha.GetFullName()}");
-                            await _account.PlaceGateAsync(GalaxyGate.Alpha);
-                            setGatesBuilt(GalaxyGate.Alpha);
-                            Log("Reading Galaxy Gates...");
-                            await _account.ReadGatesAsync();
-                            UpdateGateGui();
-                        }
+                            await PlaceGateAsync(GalaxyGate.Alpha);
                         if (currentGateB.Ready && !currentGateB.Prepared)
-                        {
-                            Log($"Gate {GalaxyGate.Beta.GetFullName()} is ready...");
-                            Log($"Placing {GalaxyGate.Beta.GetFullName()}");
-                            await _account.PlaceGateAsync(GalaxyGate.Beta);
-                            setGatesBuilt(GalaxyGate.Beta);
-                            Log("Reading Galaxy Gates...");
-                            await _account.ReadGatesAsync();
-                            UpdateGateGui();
-                        }
+                            await PlaceGateAsync(GalaxyGate.Beta);
                         if (currentGateG.Ready && !currentGateG.Prepared)
-                        {
-                            Log($"Gate {GalaxyGate.Gamma.GetFullName()} is ready...");
-                            Log($"Placing {GalaxyGate.Gamma.GetFullName()}");
-                            await _account.PlaceGateAsync(GalaxyGate.Gamma);
-                            setGatesBuilt(GalaxyGate.Gamma);
-                            Log("Reading Galaxy Gates...");
-                            await _account.ReadGatesAsync();
-                            UpdateGateGui();
-                        }
-                    }
+                            await PlaceGateAsync(GalaxyGate.Gamma);
                     else
-                    {
                         if (currentGateG.Ready)
-                        {
-                            Log("Stopping gate mode for 5 minutes... Can not get more parts");
-                            _nextRunGalaxyGate = DateTime.Now.AddMinutes(5);
-                            return;
-                        }
-                    }
-                }
+                            CanNotGetMoreParts();
                 else if (getOptionforABG() == "option4")
-                {
                     if (chkBoxPlaceGate.Checked)
-                    {
                         if ((currentGateA.Prepared && currentGateA.Ready) || (currentGateB.Prepared && currentGateB.Ready) || (currentGateG.Prepared && currentGateG.Ready))
-                        {
-                            Log("Stopping gate mode for 5 minutes... Can not get more parts");
-                            _nextRunGalaxyGate = DateTime.Now.AddMinutes(5);
-                            return;
-                        }
-
+                            CanNotGetMoreParts();
                         if (currentGateA.Ready && !currentGateA.Prepared)
-                        {
-                            Log($"Gate {GalaxyGate.Alpha.GetFullName()} is ready...");
-                            Log($"Placing {GalaxyGate.Alpha.GetFullName()}");
-                            await _account.PlaceGateAsync(GalaxyGate.Alpha);
-                            setGatesBuilt(GalaxyGate.Alpha);
-                            Log("Reading Galaxy Gates...");
-                            await _account.ReadGatesAsync();
-                            UpdateGateGui();
-                        }
+                            await PlaceGateAsync(GalaxyGate.Alpha);
                         if (currentGateB.Ready && !currentGateB.Prepared)
-                        {
-                            Log($"Gate {GalaxyGate.Beta.GetFullName()} is ready...");
-                            Log($"Placing {GalaxyGate.Beta.GetFullName()}");
-                            await _account.PlaceGateAsync(GalaxyGate.Beta);
-                            setGatesBuilt(GalaxyGate.Beta);
-                            Log("Reading Galaxy Gates...");
-                            await _account.ReadGatesAsync();
-                            UpdateGateGui();
-                        }
+                            await PlaceGateAsync(GalaxyGate.Beta);
                         if (currentGateG.Ready && !currentGateG.Prepared)
-                        {
-                            Log($"Gate {GalaxyGate.Gamma.GetFullName()} is ready...");
-                            Log($"Placing {GalaxyGate.Gamma.GetFullName()}");
-                            await _account.PlaceGateAsync(GalaxyGate.Gamma);
-                            setGatesBuilt(GalaxyGate.Gamma);
-                            Log("Reading Galaxy Gates...");
-                            await _account.ReadGatesAsync();
-                            UpdateGateGui();
-                        }
-                    }
+                            await PlaceGateAsync(GalaxyGate.Gamma);
                     else
-                    {
                         if (currentGateA.Ready || currentGateB.Ready || currentGateG.Ready)
-                        {
-                            Log("Stopping gate mode for 5 minutes... Can not get more parts");
-                            _nextRunGalaxyGate = DateTime.Now.AddMinutes(5);
-                            return;
-                        }
-                    }
-                    
-                }
+                            CanNotGetMoreParts();
                 else if (getOptionforABG() == "option5")
-                {
                     if (chkBoxPlaceGate.Checked)
-                    {
                         if ((currentGateA.Prepared && currentGateA.Ready) && (currentGateB.Prepared && currentGateB.Ready) && (currentGateG.Prepared && currentGateG.Ready))
-                        {
-                            Log("Stopping gate mode for 5 minutes... Can not get more parts");
-                            _nextRunGalaxyGate = DateTime.Now.AddMinutes(5);
-                            return;
-                        }
-
+                            CanNotGetMoreParts();
                         if (currentGateA.Ready && !currentGateA.Prepared)
-                        {
-                            Log($"Gate {GalaxyGate.Alpha.GetFullName()} is ready...");
-                            Log($"Placing {GalaxyGate.Alpha.GetFullName()}");
-                            await _account.PlaceGateAsync(GalaxyGate.Alpha);
-                            setGatesBuilt(GalaxyGate.Alpha);
-                            Log("Reading Galaxy Gates...");
-                            await _account.ReadGatesAsync();
-                            UpdateGateGui();
-                        }
+                            await PlaceGateAsync(GalaxyGate.Alpha);
                         if (currentGateB.Ready && !currentGateB.Prepared)
-                        {
-                            Log($"Gate {GalaxyGate.Beta.GetFullName()} is ready...");
-                            Log($"Placing {GalaxyGate.Beta.GetFullName()}");
-                            await _account.PlaceGateAsync(GalaxyGate.Beta);
-                            setGatesBuilt(GalaxyGate.Beta);
-                            Log("Reading Galaxy Gates...");
-                            await _account.ReadGatesAsync();
-                            UpdateGateGui();
-                        }
+                            await PlaceGateAsync(GalaxyGate.Beta);
                         if (currentGateG.Ready && !currentGateG.Prepared)
-                        {
-                            Log($"Gate {GalaxyGate.Gamma.GetFullName()} is ready...");
-                            Log($"Placing {GalaxyGate.Gamma.GetFullName()}");
-                            await _account.PlaceGateAsync(GalaxyGate.Gamma);
-                            setGatesBuilt(GalaxyGate.Gamma);
-                            Log("Reading Galaxy Gates...");
-                            await _account.ReadGatesAsync();
-                            UpdateGateGui();
-                        }
-                    }
+                            await PlaceGateAsync(GalaxyGate.Gamma);
                     else
-                    {
                         if (currentGateA.Ready && currentGateB.Ready && currentGateG.Ready)
-                        {
-                            Log("Stopping gate mode for 5 minutes... Can not get more parts");
-                            _nextRunGalaxyGate = DateTime.Now.AddMinutes(5);
-                            return;
-                        }
-                    }
-                }
-            } else
-            {
+                            CanNotGetMoreParts();
+            } else {
                 if (chkBoxPlaceGate.Checked)
-                {
                     if (currentGate.Prepared && currentGate.Ready)
-                    {
-                        Log("Stopping gate mode for 5 minutes... Can not get more parts");
-                        _nextRunGalaxyGate = DateTime.Now.AddMinutes(5);
-                        return;
-                    }
+                        CanNotGetMoreParts();
                     if (currentGate.Ready && !currentGate.Prepared)
-                    {
-                        Log($"Gate {GetSelectedGate().GetFullName()} is ready...");
-                        Log($"Placing {GetSelectedGate().GetFullName()}");
-                        await _account.PlaceGateAsync(GetSelectedGate());
-                        setGatesBuilt(GetSelectedGate());
-                        Log("Reading Galaxy Gates...");
-                        await _account.ReadGatesAsync();
-                        UpdateGateGui();
-                    }
-                }
+                        await PlaceGateAsync(GetSelectedGate());
                 else
-                {
                     if (currentGate.Ready)
-                    {
-                        Log("Stopping gate mode for 5 minutes... Can not get more parts");
-                        _nextRunGalaxyGate = DateTime.Now.AddMinutes(5);
-                        return;
-                    }
-                }
+                        CanNotGetMoreParts();
             }
-            //
-            //end new function by srfairyox
-            //
 
 
             if (_account.GateData.EnergyCost.Text > _account.GateData.Money && _account.GateData.Samples <= 0)
@@ -1063,122 +840,26 @@ namespace Corvus
                 _nextRunGalaxyGate = DateTime.Now.AddMinutes(5);
                 return;
             }
-            
-            //start function by srfairyox
+
             if (rbBuildABG.Checked)
-            {
                 Log("Spinning ABG...");
-                var spin = await _account.SpinGateAsync(GetSelectedGate(), getEnergyCharge());
-                foreach (var allItem in spin.Items.GetAllItems())
-                {
-                    if (allItem.Duplicate)
-                    {
-                        Log($"Received duplicate gate part > received multiplier");
-                    }
-                    else
-                    {
-                        Log($"Received {allItem.ToString()}");
-                    }
-                }
-            }
             else if (rbBuildKuiper.Checked)
-            {
                 Log("Spinning Kuiper...");
-                var spin = await _account.SpinGateAsync(GetSelectedGate(), getEnergyCharge());
-                foreach (var allItem in spin.Items.GetAllItems())
-                {
-                    if (allItem.Duplicate)
-                    {
-                        Log($"Received duplicate gate part > received multiplier");
-                    }
-                    else
-                    {
-                        Log($"Received {allItem.ToString()}");
-                    }
-                }
-            }
             else
-            {
                 Log($"Spinning {GetSelectedGate().GetFullName()}...");
-                var spin = await _account.SpinGateAsync(GetSelectedGate(), getEnergyCharge());
-                foreach (var allItem in spin.Items.GetAllItems())
+
+            var spin = await _account.SpinGateAsync(GetSelectedGate(), getEnergyCharge());
+            foreach (var allItem in spin.Items.GetAllItems())
+            {
+                if (allItem.Duplicate)
                 {
-                    if (allItem.Duplicate)
-                    {
-                        Log($"Received duplicate gate part > received multiplier");
-                    }
-                    else
-                    {
-                        Log($"Received {allItem.ToString()}");
-                    }
+                    Log($"Received duplicate gate part > received multiplier");
+                }
+                else
+                {
+                    Log($"Received {allItem.ToString()}");
                 }
             }
-            
-            //end function by srfairyox
-            
-            //start function by srfairyox
-            if (rbBuildABG.Checked)
-            {
-                var currentGateA = _account.GateData.Gates.Get(GalaxyGate.Alpha);
-                var currentGateB = _account.GateData.Gates.Get(GalaxyGate.Beta);
-                var currentGateG = _account.GateData.Gates.Get(GalaxyGate.Gamma);
-                if ((getOptionforABG() == "option1") || (getOptionforABG() == "option2") || (getOptionforABG() == "option3") || (getOptionforABG() == "option4") || (getOptionforABG() == "option5"))
-                {
-                    if (currentGateA.Ready && !currentGateA.Prepared)
-                    {
-                        if (chkBoxPlaceGate.Checked)
-                        {
-                            Log($"Gate {GalaxyGate.Alpha.GetFullName()} is ready...");
-                            Log($"Placing {GalaxyGate.Alpha.GetFullName()}");
-                            await _account.PlaceGateAsync(GalaxyGate.Alpha);
-                            Log("Reading Galaxy Gates...");
-                            await _account.ReadGatesAsync();
-                            UpdateGateGui();
-                        }
-                    }
-                    if (currentGateB.Ready && !currentGateB.Prepared)
-                    {
-                        if (chkBoxPlaceGate.Checked)
-                        {
-                            Log($"Gate {GalaxyGate.Beta.GetFullName()} is ready...");
-                            Log($"Placing {GalaxyGate.Beta.GetFullName()}");
-                            await _account.PlaceGateAsync(GalaxyGate.Beta);
-                            Log("Reading Galaxy Gates...");
-                            await _account.ReadGatesAsync();
-                            UpdateGateGui();
-                        }
-                    }
-                    if (currentGateG.Ready && !currentGateG.Prepared)
-                    {
-                        if (chkBoxPlaceGate.Checked)
-                        {
-                            Log($"Gate {GalaxyGate.Gamma.GetFullName()} is ready...");
-                            Log($"Placing {GalaxyGate.Gamma.GetFullName()}");
-                            await _account.PlaceGateAsync(GalaxyGate.Gamma);
-                            Log("Reading Galaxy Gates...");
-                            await _account.ReadGatesAsync();
-                            UpdateGateGui();
-                        }
-                    }
-                }
-
-            } else
-            {
-                if (currentGate.Ready && !currentGate.Prepared)
-                {
-                    if (chkBoxPlaceGate.Checked)
-                    {
-                        Log($"Gate {GetSelectedGate().GetFullName()} is ready...");
-                        Log($"Placing {GetSelectedGate().GetFullName()}");
-                        await _account.PlaceGateAsync(GetSelectedGate());
-                        Log("Reading Galaxy Gates...");
-                        await _account.ReadGatesAsync();
-                        UpdateGateGui();
-                    }
-                }
-            }
-
-            //end function by srfairyox
 
             UpdateGateGui();
         }
@@ -1298,17 +979,11 @@ namespace Corvus
         {
             var dateTimes = new List<DateTime>();
             if (chkBoxSpinGate.Checked)
-            {
                 dateTimes.Add(_nextRunGalaxyGate);
-            }
             if (chkBoxUpgradeSkylab.Checked)
-            {
                 dateTimes.Add(_nextRunSkylab);
-            }
             if (chkBoxBuildTechs.Checked)
-            {
                 dateTimes.Add(_nextRunTechFactory);
-            }
             dateTimes.Add(_nextRefreshGalaxyGate);
 
             return TimeSpan.FromMilliseconds(dateTimes.Min().Subtract(DateTime.Now).TotalMilliseconds + 1000);
@@ -1518,6 +1193,7 @@ namespace Corvus
                 iniData["GalaxyGates"]["Spin"] = chkBoxSpinGate.Checked.ToString();
                 iniData["GalaxyGates"]["EnergyCharge"] = comboBoxEnergyCharge.SelectedItem.ToString();
                 iniData["GalaxyGates"]["Delay"] = nudGateDelay.Text;
+                iniData["GalaxyGates"]["Wait"] = nudGateWait.Text;
                 iniData["GalaxyGates"]["MinUridium"] = nudMinimumUridium.Text;
                 iniData["GalaxyGates"]["GetOptionABG"] = comboBoxOptionABG.SelectedIndex.ToString();
                 iniData["GalaxyGates"]["OnlyEE"] = chkSpinOnlyEE.Checked.ToString();
@@ -1590,6 +1266,7 @@ namespace Corvus
                 chkBoxSpinGate.Checked = bool.Parse(iniData["GalaxyGates"]["Spin"]);
                 comboBoxEnergyCharge.SelectedIndex = comboBoxEnergyCharge.Items.IndexOf(iniData["GalaxyGates"]["EnergyCharge"]);
                 nudGateDelay.Value = decimal.Parse(iniData["GalaxyGates"]["Delay"]);
+                nudGateWait.Value = decimal.Parse(iniData["GalaxyGates"]["Wait"]);
                 nudMinimumUridium.Value = decimal.Parse(iniData["GalaxyGates"]["MinUridium"]);
                 comboBoxOptionABG.SelectedIndex = int.Parse(iniData["GalaxyGates"]["GetOptionABG"]);
                 chkSpinOnlyEE.Checked = bool.Parse(iniData["GalaxyGates"]["OnlyEE"]);
@@ -1663,7 +1340,7 @@ namespace Corvus
 
         private String getOptionforABG()
         {
-            switch(comboBoxOptionABG.SelectedIndex)
+            switch (GetSelecetedIndex_comboBoxOptionABG())
             {
                 case 0:
                     return "option1";
@@ -1679,9 +1356,10 @@ namespace Corvus
                     return "null";
             }
         }
+
         private int getEnergyCharge()
         {
-            switch (comboBoxEnergyCharge.SelectedIndex)
+            switch (GetSelecetedIndex_comboBoxEnergyCharge())
             {
                 case 0:
                     return 1;
@@ -1731,6 +1409,43 @@ namespace Corvus
                     GatesBuiltKuiper++;
                     break;
             }
+        }
+
+        public async Task PlaceGateAsync(GalaxyGate gate)
+        {
+            Log($"Gate {gate.GetFullName()} is ready...");
+            Log($"Placing {gate.GetFullName()}");
+            await _account.PlaceGateAsync(gate);
+            setGatesBuilt(gate);
+            Log("Reading Galaxy Gates...");
+            await _account.ReadGatesAsync();
+            UpdateGateGui();
+        }
+
+        public void CanNotGetMoreParts()
+        {
+            int minutes;
+            minutes = (int)(Math.Floor((double)(nudGateWait.Value / 60)));
+
+            Log($"Stopping gate mode for {minutes} minutes... Can not get more parts");
+            _nextRunGalaxyGate = DateTime.Now.AddMinutes(minutes);
+            return;
+        }
+
+        private int GetSelecetedIndex_comboBoxEnergyCharge()
+        {
+            if (comboBoxEnergyCharge.InvokeRequired)
+                return (int)comboBoxEnergyCharge.Invoke(new Func<int>(GetSelecetedIndex_comboBoxEnergyCharge));
+            else
+                return comboBoxEnergyCharge.SelectedIndex;
+        }
+
+        private int GetSelecetedIndex_comboBoxOptionABG()
+        {
+            if (comboBoxOptionABG.InvokeRequired)
+                return (int)comboBoxOptionABG.Invoke(new Func<int>(GetSelecetedIndex_comboBoxOptionABG));
+            else
+                return comboBoxOptionABG.SelectedIndex;
         }
     }
 }
