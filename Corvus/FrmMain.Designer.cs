@@ -51,6 +51,8 @@ namespace Corvus
             this.txtServer = new System.Windows.Forms.TextBox();
             this.lblServer = new System.Windows.Forms.Label();
             this.tabPageGalaxyGates = new System.Windows.Forms.TabPage();
+            this.lblWaitGate = new System.Windows.Forms.Label();
+            this.nudGateWait = new System.Windows.Forms.NumericUpDown();
             this.comboBoxOptionABG = new System.Windows.Forms.ComboBox();
             this.comboBoxEnergyCharge = new System.Windows.Forms.ComboBox();
             this.lblEnergyCharge = new System.Windows.Forms.Label();
@@ -121,13 +123,12 @@ namespace Corvus
             this.cmdOpenBackPage = new System.Windows.Forms.Button();
             this.lblLastStatus = new System.Windows.Forms.Label();
             this.cmdSaveSettings = new System.Windows.Forms.Button();
-            this.nudGateWait = new System.Windows.Forms.NumericUpDown();
-            this.lblWaitGate = new System.Windows.Forms.Label();
             this.tcMain.SuspendLayout();
             this.tabPageLogin.SuspendLayout();
             this.gBoxUsernamePasswordLogin.SuspendLayout();
             this.gBoxSessionIDLogin.SuspendLayout();
             this.tabPageGalaxyGates.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudGateWait)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMinimumUridium)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudGateDelay)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvGates)).BeginInit();
@@ -138,7 +139,6 @@ namespace Corvus
             ((System.ComponentModel.ISupportInitialize)(this.nudCheckSkylabEvery)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSkylab)).BeginInit();
             this.tabPageLog.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudGateWait)).BeginInit();
             this.SuspendLayout();
             // 
             // tcMain
@@ -391,6 +391,37 @@ namespace Corvus
             this.tabPageGalaxyGates.TabIndex = 1;
             this.tabPageGalaxyGates.Text = "Galaxy Gates";
             this.tabPageGalaxyGates.UseVisualStyleBackColor = true;
+            // 
+            // lblWaitGate
+            // 
+            this.lblWaitGate.AutoSize = true;
+            this.lblWaitGate.Location = new System.Drawing.Point(70, 62);
+            this.lblWaitGate.Name = "lblWaitGate";
+            this.lblWaitGate.Size = new System.Drawing.Size(78, 13);
+            this.lblWaitGate.TabIndex = 44;
+            this.lblWaitGate.Text = "Wait (seconds)";
+            // 
+            // nudGateWait
+            // 
+            this.nudGateWait.Location = new System.Drawing.Point(20, 58);
+            this.nudGateWait.Maximum = new decimal(new int[] {
+            3600,
+            0,
+            0,
+            0});
+            this.nudGateWait.Minimum = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
+            this.nudGateWait.Name = "nudGateWait";
+            this.nudGateWait.Size = new System.Drawing.Size(50, 20);
+            this.nudGateWait.TabIndex = 43;
+            this.nudGateWait.Value = new decimal(new int[] {
+            300,
+            0,
+            0,
+            0});
             // 
             // comboBoxOptionABG
             // 
@@ -1156,37 +1187,6 @@ namespace Corvus
             this.cmdSaveSettings.UseVisualStyleBackColor = true;
             this.cmdSaveSettings.Click += new System.EventHandler(this.cmdSaveSettings_Click);
             // 
-            // nudGateWait
-            // 
-            this.nudGateWait.Location = new System.Drawing.Point(20, 58);
-            this.nudGateWait.Maximum = new decimal(new int[] {
-            3600,
-            0,
-            0,
-            0});
-            this.nudGateWait.Minimum = new decimal(new int[] {
-            30,
-            0,
-            0,
-            0});
-            this.nudGateWait.Name = "nudGateWait";
-            this.nudGateWait.Size = new System.Drawing.Size(50, 20);
-            this.nudGateWait.TabIndex = 43;
-            this.nudGateWait.Value = new decimal(new int[] {
-            300,
-            0,
-            0,
-            0});
-            // 
-            // lblWaitGate
-            // 
-            this.lblWaitGate.AutoSize = true;
-            this.lblWaitGate.Location = new System.Drawing.Point(70, 62);
-            this.lblWaitGate.Name = "lblWaitGate";
-            this.lblWaitGate.Size = new System.Drawing.Size(78, 13);
-            this.lblWaitGate.TabIndex = 44;
-            this.lblWaitGate.Text = "Wait (seconds)";
-            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1214,6 +1214,7 @@ namespace Corvus
             this.gBoxSessionIDLogin.PerformLayout();
             this.tabPageGalaxyGates.ResumeLayout(false);
             this.tabPageGalaxyGates.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudGateWait)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMinimumUridium)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudGateDelay)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvGates)).EndInit();
@@ -1226,7 +1227,6 @@ namespace Corvus
             ((System.ComponentModel.ISupportInitialize)(this.nudCheckSkylabEvery)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSkylab)).EndInit();
             this.tabPageLog.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.nudGateWait)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

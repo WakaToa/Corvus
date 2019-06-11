@@ -134,7 +134,7 @@ namespace Corvus
             _hadesRow = dgvGates.Rows[dgvGates.Rows.Add("Hades", 0, false, false, 0)];
             _kuiperRow = dgvGates.Rows[dgvGates.Rows.Add("Kuiper", 0, false, false, 0)];
 
-            Log($"Corvus v{Assembly.GetExecutingAssembly().GetName().Version} started - Made by 'Heaven.");
+            Log($"Corvus v{Assembly.GetExecutingAssembly().GetName().Version} started - Made by 'Heaven and SrFairyox.");
 
             LoadSettings();
         }
@@ -643,9 +643,9 @@ namespace Corvus
             Log("Updating Gate gui...");
             Invoke(new Action(() =>
             {
-                lblSpinCost.Text = $"&Spin cost: {_account.GateData.EnergyCost.Text}";
-                lblUridium.Text = $"&Uridium: {_account.GateData.Money}";
-                lblExtraEnergy.Text = $"&Extra Energy: {_account.GateData.Samples}";
+                lblSpinCost.Text = $"Spin cost: {_account.GateData.EnergyCost.Text}";
+                lblUridium.Text = $"Uridium: {_account.GateData.Money}";
+                lblExtraEnergy.Text = $"Extra Energy: {_account.GateData.Samples}";
 
                 _alphaRow.Cells[_dgvGateParts].Value = $"{_account.GateData.Gates.Alpha().Current}/{_account.GateData.Gates.Alpha().Total}";
                 _alphaRow.Cells[_dgvGateReady].Value = _account.GateData.Gates.Alpha().Current == _account.GateData.Gates.Alpha().Total;
@@ -697,19 +697,19 @@ namespace Corvus
                 _kuiperRow.Cells[_dgvGateOnMap].Value = _account.GateData.Gates.Kuiper().Prepared;
                 _kuiperRow.Cells[_dgvGateGatesBuilt].Value = GatesBuiltKuiper;
 
-                lblTotalSpins.Text = $"&Total spins: {_account.GateItemsReceived.TotalSpins}";
-                lblReceivedX2.Text = $"&X2: {_account.GateItemsReceived.X2}";
-                lblReceivedX3.Text = $"&X3: {_account.GateItemsReceived.X3}";
-                lblReceivedX4.Text = $"&X4: {_account.GateItemsReceived.X4}";
-                lblReceivedSAB.Text = $"&SAB: {_account.GateItemsReceived.SAB}";
-                lblReceivedPLT2021.Text = $"&PLT-2021: {_account.GateItemsReceived.PLT2021}";
-                lblReceivedACM.Text = $"&ACM: {_account.GateItemsReceived.ACM}";
+                lblTotalSpins.Text = $"Total spins: {_account.GateItemsReceived.TotalSpins}";
+                lblReceivedX2.Text = $"X2: {_account.GateItemsReceived.X2}";
+                lblReceivedX3.Text = $"X3: {_account.GateItemsReceived.X3}";
+                lblReceivedX4.Text = $"X4: {_account.GateItemsReceived.X4}";
+                lblReceivedSAB.Text = $"SAB: {_account.GateItemsReceived.SAB}";
+                lblReceivedPLT2021.Text = $"PLT-2021: {_account.GateItemsReceived.PLT2021}";
+                lblReceivedACM.Text = $"ACM: {_account.GateItemsReceived.ACM}";
 
-                lblReceivedParts.Text = $"&Parts: {_account.GateItemsReceived.GateParts}";
-                lblReceivedLogDisks.Text = $"&Log disks: {_account.GateItemsReceived.LogDisks}";
-                lblReceivedRepairCredits.Text = $"&Repair credits: {_account.GateItemsReceived.RepairCredits}";
-                lblReceivedXenomit.Text = $"&Xenomit: {_account.GateItemsReceived.Xenomit}";
-                lblReceivedNanoHull.Text = $"&Nano hull: {_account.GateItemsReceived.NanoHull}";
+                lblReceivedParts.Text = $"Parts: {_account.GateItemsReceived.GateParts}";
+                lblReceivedLogDisks.Text = $"Log disks: {_account.GateItemsReceived.LogDisks}";
+                lblReceivedRepairCredits.Text = "&Repair credits: {_account.GateItemsReceived.RepairCredits}";
+                lblReceivedXenomit.Text = $"Xenomit: {_account.GateItemsReceived.Xenomit}";
+                lblReceivedNanoHull.Text = $"Nano hull: {_account.GateItemsReceived.NanoHull}";
             }));
         }
 
@@ -746,7 +746,7 @@ namespace Corvus
                 if (getOptionforABG() == "option1")
                     if (chkBoxPlaceGate.Checked)
                         if (currentGateA.Prepared && currentGateA.Ready)
-                            CanNotGetMoreParts();
+                            Stopping_gate_mode("can_not_get_more_parts");
                         if (currentGateA.Ready && !currentGateA.Prepared)
                             await PlaceGateAsync(GalaxyGate.Alpha);
                         if (currentGateB.Ready && !currentGateB.Prepared)
@@ -755,11 +755,11 @@ namespace Corvus
                             await PlaceGateAsync(GalaxyGate.Gamma);
                     else
                         if (currentGateA.Ready)
-                            CanNotGetMoreParts();
+                            Stopping_gate_mode("can_not_get_more_parts");
                 else if (getOptionforABG() == "option2")
                     if (chkBoxPlaceGate.Checked)
                         if (currentGateB.Prepared && currentGateB.Ready)
-                            CanNotGetMoreParts();
+                            Stopping_gate_mode("can_not_get_more_parts");
                         if (currentGateA.Ready && !currentGateA.Prepared)
                             await PlaceGateAsync(GalaxyGate.Alpha);
                         if (currentGateB.Ready && !currentGateB.Prepared)
@@ -768,11 +768,11 @@ namespace Corvus
                             await PlaceGateAsync(GalaxyGate.Gamma);
                     else
                         if (currentGateB.Ready)
-                            CanNotGetMoreParts();
+                            Stopping_gate_mode("can_not_get_more_parts");
                 else if (getOptionforABG() == "option3")
                     if (chkBoxPlaceGate.Checked)
                         if (currentGateG.Prepared && currentGateG.Ready)
-                            CanNotGetMoreParts();
+                            Stopping_gate_mode("can_not_get_more_parts");
                         if (currentGateA.Ready && !currentGateA.Prepared)
                             await PlaceGateAsync(GalaxyGate.Alpha);
                         if (currentGateB.Ready && !currentGateB.Prepared)
@@ -781,11 +781,11 @@ namespace Corvus
                             await PlaceGateAsync(GalaxyGate.Gamma);
                     else
                         if (currentGateG.Ready)
-                            CanNotGetMoreParts();
+                            Stopping_gate_mode("can_not_get_more_parts");
                 else if (getOptionforABG() == "option4")
                     if (chkBoxPlaceGate.Checked)
                         if ((currentGateA.Prepared && currentGateA.Ready) || (currentGateB.Prepared && currentGateB.Ready) || (currentGateG.Prepared && currentGateG.Ready))
-                            CanNotGetMoreParts();
+                            Stopping_gate_mode("can_not_get_more_parts");
                         if (currentGateA.Ready && !currentGateA.Prepared)
                             await PlaceGateAsync(GalaxyGate.Alpha);
                         if (currentGateB.Ready && !currentGateB.Prepared)
@@ -794,11 +794,11 @@ namespace Corvus
                             await PlaceGateAsync(GalaxyGate.Gamma);
                     else
                         if (currentGateA.Ready || currentGateB.Ready || currentGateG.Ready)
-                            CanNotGetMoreParts();
+                            Stopping_gate_mode("can_not_get_more_parts");
                 else if (getOptionforABG() == "option5")
                     if (chkBoxPlaceGate.Checked)
                         if ((currentGateA.Prepared && currentGateA.Ready) && (currentGateB.Prepared && currentGateB.Ready) && (currentGateG.Prepared && currentGateG.Ready))
-                            CanNotGetMoreParts();
+                            Stopping_gate_mode("can_not_get_more_parts");
                         if (currentGateA.Ready && !currentGateA.Prepared)
                             await PlaceGateAsync(GalaxyGate.Alpha);
                         if (currentGateB.Ready && !currentGateB.Prepared)
@@ -807,39 +807,25 @@ namespace Corvus
                             await PlaceGateAsync(GalaxyGate.Gamma);
                     else
                         if (currentGateA.Ready && currentGateB.Ready && currentGateG.Ready)
-                            CanNotGetMoreParts();
+                            Stopping_gate_mode("can_not_get_more_parts");
             } else {
                 if (chkBoxPlaceGate.Checked)
                     if (currentGate.Prepared && currentGate.Ready)
-                        CanNotGetMoreParts();
+                        Stopping_gate_mode("can_not_get_more_parts");
                     if (currentGate.Ready && !currentGate.Prepared)
                         await PlaceGateAsync(GetSelectedGate());
                 else
                     if (currentGate.Ready)
-                        CanNotGetMoreParts();
+                        Stopping_gate_mode("can_not_get_more_parts");
             }
 
 
             if (_account.GateData.EnergyCost.Text > _account.GateData.Money && _account.GateData.Samples <= 0)
-            {
-                Log("Stopping gate mode for 5 minutes... No Uridium/EE left");
-                _nextRunGalaxyGate = DateTime.Now.AddMinutes(5);
-                return;
-            }
-
+                Stopping_gate_mode("no_uridium/ee_left");
             if (_account.GateData.Money <= (int) nudMinimumUridium.Value)
-            {
-                Log("Stopping gate mode for 5 minutes... Minimum Uridium reached");
-                _nextRunGalaxyGate = DateTime.Now.AddMinutes(5);
-                return;
-            }
-
+                Stopping_gate_mode("minimum_uridium_reached");
             if (chkSpinOnlyEE.Checked && _account.GateData.Samples <= 0)
-            {
-                Log("Stopping gate mode for 5 minutes... No EE left");
-                _nextRunGalaxyGate = DateTime.Now.AddMinutes(5);
-                return;
-            }
+                Stopping_gate_mode("no_ee_left");
 
             if (rbBuildABG.Checked)
                 Log("Spinning ABG...");
@@ -1422,12 +1408,25 @@ namespace Corvus
             UpdateGateGui();
         }
 
-        public void CanNotGetMoreParts()
+        public void Stopping_gate_mode(String value)
         {
             int minutes;
             minutes = (int)(Math.Floor((double)(nudGateWait.Value / 60)));
-
-            Log($"Stopping gate mode for {minutes} minutes... Can not get more parts");
+            switch(value)
+            {
+                case "can_not_get_more_parts":
+                    Log($"Stopping gate mode for {minutes} minutes... Can not get more parts");
+                    break;
+                case "no_uridium/ee_left":
+                    Log($"Stopping gate mode for {minutes} minutes... No Uridium/EE left");
+                    break;
+                case "minimum_uridium_reached":
+                    Log($"Stopping gate mode for {minutes} minutes... Minimum Uridium reached");
+                    break;
+                case "no_ee_left":
+                    Log($"Stopping gate mode for {minutes} minutes... No EE left");
+                    break;
+            }
             _nextRunGalaxyGate = DateTime.Now.AddMinutes(minutes);
             return;
         }
