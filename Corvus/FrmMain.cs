@@ -707,7 +707,7 @@ namespace Corvus
 
                 lblReceivedParts.Text = $"Parts: {_account.GateItemsReceived.GateParts}";
                 lblReceivedLogDisks.Text = $"Log disks: {_account.GateItemsReceived.LogDisks}";
-                lblReceivedRepairCredits.Text = "&Repair credits: {_account.GateItemsReceived.RepairCredits}";
+                lblReceivedRepairCredits.Text = $"Repair credits: {_account.GateItemsReceived.RepairCredits}";
                 lblReceivedXenomit.Text = $"Xenomit: {_account.GateItemsReceived.Xenomit}";
                 lblReceivedNanoHull.Text = $"Nano hull: {_account.GateItemsReceived.NanoHull}";
             }));
@@ -957,6 +957,13 @@ namespace Corvus
                 _running = false;
                 cmdStart.Invoke(new Action(() => cmdStart.Enabled = true));
                 Log("RunTask destroyed...Logic stopped...");
+
+                notifyIcon1.Icon = this.Icon;
+                notifyIcon1.BalloonTipIcon = ToolTipIcon.Warning;
+                notifyIcon1.BalloonTipTitle = "The process has been stopped";
+                notifyIcon1.BalloonTipText = "RunTask destroyed...Logic stopped...";
+                notifyIcon1.ShowBalloonTip(15);
+
                 _runTask = null;
             }
         }

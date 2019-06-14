@@ -23,7 +23,6 @@ General
 
 1. Windows 7, 8, 8.1, 10 (32/64 bits)
 2. .NET Framework 4.6
-3. Internet
 
 ## Screenshots
 

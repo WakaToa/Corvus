@@ -30,6 +30,7 @@ namespace Corvus
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
             this.tcMain = new System.Windows.Forms.TabControl();
             this.tabPageLogin = new System.Windows.Forms.TabPage();
@@ -123,6 +124,7 @@ namespace Corvus
             this.cmdOpenBackPage = new System.Windows.Forms.Button();
             this.lblLastStatus = new System.Windows.Forms.Label();
             this.cmdSaveSettings = new System.Windows.Forms.Button();
+            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.tcMain.SuspendLayout();
             this.tabPageLogin.SuspendLayout();
             this.gBoxUsernamePasswordLogin.SuspendLayout();
@@ -1187,6 +1189,11 @@ namespace Corvus
             this.cmdSaveSettings.UseVisualStyleBackColor = true;
             this.cmdSaveSettings.Click += new System.EventHandler(this.cmdSaveSettings_Click);
             // 
+            // notifyIcon1
+            // 
+            this.notifyIcon1.Text = "notifyIcon1";
+            this.notifyIcon1.Visible = true;
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1326,6 +1333,7 @@ namespace Corvus
         private ComboBox comboBoxOptionABG;
         private Label lblWaitGate;
         private NumericUpDown nudGateWait;
+        private NotifyIcon notifyIcon1;
     }
 }
 

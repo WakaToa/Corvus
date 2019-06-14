@@ -35,5 +35,8 @@
         public static string PlaceGate { get; } =
             "{0}/flashinput/galaxyGates.php?userID={1}&sid={2}&action=setupGate&gateID={3}";
 
+        public static string Auction { get; } =
+            "{0}/indexInternal.es?action=internalAuction&reloadToken={1}&auctionType=hour&subAction=bid&lootId={2}&itemId={3}&credits={4}";
+
     }
 }
