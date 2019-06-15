@@ -399,20 +399,21 @@ namespace Corvus
             this.lblWaitGate.AutoSize = true;
             this.lblWaitGate.Location = new System.Drawing.Point(70, 62);
             this.lblWaitGate.Name = "lblWaitGate";
-            this.lblWaitGate.Size = new System.Drawing.Size(78, 13);
+            this.lblWaitGate.Size = new System.Drawing.Size(69, 13);
             this.lblWaitGate.TabIndex = 44;
-            this.lblWaitGate.Text = "Wait (seconds)";
+            this.lblWaitGate.Text = "Wait (minute)";
             // 
             // nudGateWait
             // 
+            this.nudGateWait.InterceptArrowKeys = false;
             this.nudGateWait.Location = new System.Drawing.Point(20, 58);
             this.nudGateWait.Maximum = new decimal(new int[] {
-            3600,
+            60,
             0,
             0,
             0});
             this.nudGateWait.Minimum = new decimal(new int[] {
-            30,
+            1,
             0,
             0,
             0});
@@ -420,7 +421,7 @@ namespace Corvus
             this.nudGateWait.Size = new System.Drawing.Size(50, 20);
             this.nudGateWait.TabIndex = 43;
             this.nudGateWait.Value = new decimal(new int[] {
-            300,
+            1,
             0,
             0,
             0});

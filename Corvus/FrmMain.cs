@@ -730,6 +730,7 @@ namespace Corvus
 
         private async Task ExecuteSpinAsync()
         {
+
             if (DateTime.Now.Subtract(_nextRunGalaxyGate).TotalSeconds <= 0)
                 return;
 
@@ -744,79 +745,153 @@ namespace Corvus
                 var currentGateG = _account.GateData.Gates.Get(GalaxyGate.Gamma);
 
                 if (getOptionforABG() == "option1")
+                {
                     if (chkBoxPlaceGate.Checked)
+                    {
                         if (currentGateA.Prepared && currentGateA.Ready)
+                        {
                             Stopping_gate_mode("can_not_get_more_parts");
+                            return;
+                        }
                         if (currentGateA.Ready && !currentGateA.Prepared)
                             await PlaceGateAsync(GalaxyGate.Alpha);
                         if (currentGateB.Ready && !currentGateB.Prepared)
                             await PlaceGateAsync(GalaxyGate.Beta);
                         if (currentGateG.Ready && !currentGateG.Prepared)
                             await PlaceGateAsync(GalaxyGate.Gamma);
+                    }
                     else
+                    {
                         if (currentGateA.Ready)
+                        {
                             Stopping_gate_mode("can_not_get_more_parts");
+                            return;
+                        }
+                    }
+                }                    
                 else if (getOptionforABG() == "option2")
+                {
                     if (chkBoxPlaceGate.Checked)
+                    {
                         if (currentGateB.Prepared && currentGateB.Ready)
+                        {
                             Stopping_gate_mode("can_not_get_more_parts");
+                            return;
+                        }
                         if (currentGateA.Ready && !currentGateA.Prepared)
                             await PlaceGateAsync(GalaxyGate.Alpha);
                         if (currentGateB.Ready && !currentGateB.Prepared)
                             await PlaceGateAsync(GalaxyGate.Beta);
                         if (currentGateG.Ready && !currentGateG.Prepared)
                             await PlaceGateAsync(GalaxyGate.Gamma);
+                    }
                     else
+                    {
                         if (currentGateB.Ready)
+                        {
                             Stopping_gate_mode("can_not_get_more_parts");
+                            return;
+                        }
+                    }
+
+                }
+                    
                 else if (getOptionforABG() == "option3")
+                {
                     if (chkBoxPlaceGate.Checked)
+                    {
                         if (currentGateG.Prepared && currentGateG.Ready)
+                        {
                             Stopping_gate_mode("can_not_get_more_parts");
+                            return;
+                        }
                         if (currentGateA.Ready && !currentGateA.Prepared)
                             await PlaceGateAsync(GalaxyGate.Alpha);
                         if (currentGateB.Ready && !currentGateB.Prepared)
                             await PlaceGateAsync(GalaxyGate.Beta);
                         if (currentGateG.Ready && !currentGateG.Prepared)
                             await PlaceGateAsync(GalaxyGate.Gamma);
+                    }
                     else
+                    {
                         if (currentGateG.Ready)
+                        {
                             Stopping_gate_mode("can_not_get_more_parts");
-                else if (getOptionforABG() == "option4")
+                            return;
+                        }
+                    }
+
+                }
+                else if (getOptionforABG() == "option4") {
                     if (chkBoxPlaceGate.Checked)
+                    {
                         if ((currentGateA.Prepared && currentGateA.Ready) || (currentGateB.Prepared && currentGateB.Ready) || (currentGateG.Prepared && currentGateG.Ready))
+                        {
                             Stopping_gate_mode("can_not_get_more_parts");
+                            return;
+                        }
                         if (currentGateA.Ready && !currentGateA.Prepared)
                             await PlaceGateAsync(GalaxyGate.Alpha);
                         if (currentGateB.Ready && !currentGateB.Prepared)
                             await PlaceGateAsync(GalaxyGate.Beta);
                         if (currentGateG.Ready && !currentGateG.Prepared)
                             await PlaceGateAsync(GalaxyGate.Gamma);
+                    }
                     else
+                    {
                         if (currentGateA.Ready || currentGateB.Ready || currentGateG.Ready)
+                        {
                             Stopping_gate_mode("can_not_get_more_parts");
+                            return;
+                        }
+                    }
+                }
+                    
                 else if (getOptionforABG() == "option5")
+                {
                     if (chkBoxPlaceGate.Checked)
+                    {
                         if ((currentGateA.Prepared && currentGateA.Ready) && (currentGateB.Prepared && currentGateB.Ready) && (currentGateG.Prepared && currentGateG.Ready))
+                        {
                             Stopping_gate_mode("can_not_get_more_parts");
+                            return;
+                        }
                         if (currentGateA.Ready && !currentGateA.Prepared)
                             await PlaceGateAsync(GalaxyGate.Alpha);
                         if (currentGateB.Ready && !currentGateB.Prepared)
                             await PlaceGateAsync(GalaxyGate.Beta);
                         if (currentGateG.Ready && !currentGateG.Prepared)
                             await PlaceGateAsync(GalaxyGate.Gamma);
+                    }
                     else
+                    {
                         if (currentGateA.Ready && currentGateB.Ready && currentGateG.Ready)
+                        {
                             Stopping_gate_mode("can_not_get_more_parts");
+                            return;
+                        }
+                    }
+                }
+                
             } else {
                 if (chkBoxPlaceGate.Checked)
+                {
                     if (currentGate.Prepared && currentGate.Ready)
+                    {
                         Stopping_gate_mode("can_not_get_more_parts");
+                        return;
+                    }
                     if (currentGate.Ready && !currentGate.Prepared)
                         await PlaceGateAsync(GetSelectedGate());
+                }
                 else
+                {
                     if (currentGate.Ready)
+                    {
                         Stopping_gate_mode("can_not_get_more_parts");
+                        return;
+                    }
+                }
             }
 
 
@@ -1417,25 +1492,22 @@ namespace Corvus
 
         public void Stopping_gate_mode(String value)
         {
-            int minutes;
-            minutes = (int)(Math.Floor((double)(nudGateWait.Value / 60)));
             switch(value)
             {
                 case "can_not_get_more_parts":
-                    Log($"Stopping gate mode for {minutes} minutes... Can not get more parts");
+                    Log($"Stopping gate mode for {nudGateWait.Value} minutes... Can not get more parts");
                     break;
                 case "no_uridium/ee_left":
-                    Log($"Stopping gate mode for {minutes} minutes... No Uridium/EE left");
+                    Log($"Stopping gate mode for {nudGateWait.Value} minutes... No Uridium/EE left");
                     break;
                 case "minimum_uridium_reached":
-                    Log($"Stopping gate mode for {minutes} minutes... Minimum Uridium reached");
+                    Log($"Stopping gate mode for {nudGateWait.Value} minutes... Minimum Uridium reached");
                     break;
                 case "no_ee_left":
-                    Log($"Stopping gate mode for {minutes} minutes... No EE left");
+                    Log($"Stopping gate mode for {nudGateWait.Value} minutes... No EE left");
                     break;
             }
-            _nextRunGalaxyGate = DateTime.Now.AddMinutes(minutes);
-            return;
+            _nextRunGalaxyGate = DateTime.Now.AddMinutes((double)nudGateWait.Value);
         }
 
         private int GetSelecetedIndex_comboBoxEnergyCharge()
