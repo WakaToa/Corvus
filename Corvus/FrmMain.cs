@@ -102,7 +102,6 @@ namespace Corvus
             tabPageLogin.Enabled = true;
             comboBoxLoginPortal.SelectedIndex = 0;
             comboBoxOptionABG.SelectedIndex = 0;
-            comboBoxEnergyCharge.SelectedIndex = 0;
 
             _prometiumCollectorRow = dgvSkylab.Rows[dgvSkylab.Rows.Add("Prometium Collector", 0, false, "", false)];
             _enduriumCollectorRow = dgvSkylab.Rows[dgvSkylab.Rows.Add("Endurium Collector", 0, false, "", false)];
@@ -896,11 +895,20 @@ namespace Corvus
 
 
             if (_account.GateData.EnergyCost.Text > _account.GateData.Money && _account.GateData.Samples <= 0)
+            {
                 Stopping_gate_mode("no_uridium/ee_left");
-            if (_account.GateData.Money <= (int) nudMinimumUridium.Value)
+                return;
+            }
+            if (_account.GateData.Money <= (int)nudMinimumUridium.Value)
+            {
                 Stopping_gate_mode("minimum_uridium_reached");
+                return;
+            }
             if (chkSpinOnlyEE.Checked && _account.GateData.Samples <= 0)
+            {
                 Stopping_gate_mode("no_ee_left");
+                return;
+            }
 
             if (rbBuildABG.Checked)
                 Log("Spinning ABG...");
@@ -909,7 +917,7 @@ namespace Corvus
             else
                 Log($"Spinning {GetSelectedGate().GetFullName()}...");
 
-            var spin = await _account.SpinGateAsync(GetSelectedGate(), getEnergyCharge());
+            var spin = await _account.SpinGateAsync(GetSelectedGate());
             foreach (var allItem in spin.Items.GetAllItems())
             {
                 if (allItem.Duplicate)
@@ -1219,6 +1227,12 @@ namespace Corvus
                 rtbLog.AppendText(dt + text + Environment.NewLine);
                 rtbLog.ScrollToCaret();
             }
+
+            if (rtbLog.Lines.Length >= 500)
+            {
+                rtbLog.Clear();
+                rtbLog.Focus();
+            }
         }
 
         private void SaveSettings(bool confirm = false)
@@ -1259,7 +1273,6 @@ namespace Corvus
                 iniData["Login"]["Reconnect"] = chkBoxReconnect.Checked.ToString();
 
                 iniData["GalaxyGates"]["Spin"] = chkBoxSpinGate.Checked.ToString();
-                iniData["GalaxyGates"]["EnergyCharge"] = comboBoxEnergyCharge.SelectedItem.ToString();
                 iniData["GalaxyGates"]["Delay"] = nudGateDelay.Text;
                 iniData["GalaxyGates"]["Wait"] = nudGateWait.Text;
                 iniData["GalaxyGates"]["MinUridium"] = nudMinimumUridium.Text;
@@ -1332,7 +1345,6 @@ namespace Corvus
                 chkBoxReconnect.Checked = bool.Parse(iniData["Login"]["Reconnect"]);
 
                 chkBoxSpinGate.Checked = bool.Parse(iniData["GalaxyGates"]["Spin"]);
-                comboBoxEnergyCharge.SelectedIndex = comboBoxEnergyCharge.Items.IndexOf(iniData["GalaxyGates"]["EnergyCharge"]);
                 nudGateDelay.Value = decimal.Parse(iniData["GalaxyGates"]["Delay"]);
                 nudGateWait.Value = decimal.Parse(iniData["GalaxyGates"]["Wait"]);
                 nudMinimumUridium.Value = decimal.Parse(iniData["GalaxyGates"]["MinUridium"]);
@@ -1425,23 +1437,6 @@ namespace Corvus
             }
         }
 
-        private int getEnergyCharge()
-        {
-            switch (GetSelecetedIndex_comboBoxEnergyCharge())
-            {
-                case 0:
-                    return 1;
-                case 1:
-                    return 5;
-                case 2:
-                    return 10;
-                case 3:
-                    return 100;
-                default:
-                    return 0;
-            }
-        }
-
         public void setGatesBuilt(GalaxyGate gate)
         {
             switch ((int) gate)
@@ -1508,14 +1503,6 @@ namespace Corvus
                     break;
             }
             _nextRunGalaxyGate = DateTime.Now.AddMinutes((double)nudGateWait.Value);
-        }
-
-        private int GetSelecetedIndex_comboBoxEnergyCharge()
-        {
-            if (comboBoxEnergyCharge.InvokeRequired)
-                return (int)comboBoxEnergyCharge.Invoke(new Func<int>(GetSelecetedIndex_comboBoxEnergyCharge));
-            else
-                return comboBoxEnergyCharge.SelectedIndex;
         }
 
         private int GetSelecetedIndex_comboBoxOptionABG()
