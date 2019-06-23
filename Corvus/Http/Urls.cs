@@ -24,9 +24,15 @@
         public static string UpgradeSkylab { get; } = "{0}/indexInternal.es?action=internalSkylab&subaction=upgrade&construction={1}&reloadToken={2}";
 
         public static string SpinGate { get; } =
+            "{0}/flashinput/galaxyGates.php?userID={1}&action=multiEnergy&sid={2}&gateID={3}&{4}=1";
+
+        public static string SpinGateMultiplier { get; } =
             "{0}/flashinput/galaxyGates.php?userID={1}&action=multiEnergy&sid={2}&gateID={3}&{4}=1&multiplier=1";
 
         public static string SpinGateSample { get; } =
+            "{0}/flashinput/galaxyGates.php?userID={1}&action=multiEnergy&sid={2}&gateID={3}&{4}=1&sample=1";
+
+        public static string SpinGateSampleMultiplier { get; } =
             "{0}/flashinput/galaxyGates.php?userID={1}&action=multiEnergy&sid={2}&gateID={3}&{4}=1&multiplier=1&sample=1";
 
         public static string GateInfo { get; } =

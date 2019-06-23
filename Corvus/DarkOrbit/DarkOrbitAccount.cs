@@ -318,31 +318,58 @@ namespace Corvus.DarkOrbit
             return false;
         }
 
-        public async Task<GateSpinData> SpinGateAsync(GalaxyGate gate)
+        public async Task<GateSpinData> SpinGateAsync(GalaxyGate gate, bool useMultiplier)
         {
-            var spinUrl = string.Format(Urls.SpinGate, Urls.BaseUrl, AccountData.UserId, AccountData.SessionId,
-                (int) gate, gate.GetFullName().ToLower());
-            if (GateData.Samples > 0)
+            if (useMultiplier)
             {
-                spinUrl = string.Format(Urls.SpinGateSample, Urls.BaseUrl, AccountData.UserId, AccountData.SessionId,
+                var spinUrl = string.Format(Urls.SpinGateMultiplier, Urls.BaseUrl, AccountData.UserId, AccountData.SessionId,
                     (int)gate, gate.GetFullName().ToLower());
+
+                if (GateData.Samples > 0)
+                {
+                    spinUrl = string.Format(Urls.SpinGateSampleMultiplier, Urls.BaseUrl, AccountData.UserId, AccountData.SessionId,
+                        (int)gate, gate.GetFullName().ToLower());
+                }
+
+                var resultString = await _httpClient.GetAsyncNoLimit(spinUrl);
+
+                var serializer = new XmlSerializer(typeof(GateSpinData));
+
+                GateSpinData result;
+
+                using (var reader = new StringReader(resultString))
+                {
+                    result = (GateSpinData)serializer.Deserialize(reader) as GateSpinData;
+                }
+                EvaluateGateSpin(result);
+
+                return result;
             }
-
-            var resultString = await _httpClient.GetAsyncNoLimit(spinUrl);
-
-            var serializer = new XmlSerializer(typeof(GateSpinData));
-
-            GateSpinData result;
-
-            using (var reader = new StringReader(resultString))
+            else
             {
-                result = (GateSpinData)serializer.Deserialize(reader) as GateSpinData;
+                var spinUrl = string.Format(Urls.SpinGate, Urls.BaseUrl, AccountData.UserId, AccountData.SessionId,
+                    (int)gate, gate.GetFullName().ToLower());
+
+                if (GateData.Samples > 0)
+                {
+                    spinUrl = string.Format(Urls.SpinGateSample, Urls.BaseUrl, AccountData.UserId, AccountData.SessionId,
+                        (int)gate, gate.GetFullName().ToLower());
+                }
+
+                var resultString = await _httpClient.GetAsyncNoLimit(spinUrl);
+
+                var serializer = new XmlSerializer(typeof(GateSpinData));
+
+                GateSpinData result;
+
+                using (var reader = new StringReader(resultString))
+                {
+                    result = (GateSpinData)serializer.Deserialize(reader) as GateSpinData;
+                }
+                EvaluateGateSpin(result);
+
+                return result;
             }
-
-
-            EvaluateGateSpin(result);
-
-            return result;
         }
 
         private void EvaluateGateSpin(GateSpinData spin)

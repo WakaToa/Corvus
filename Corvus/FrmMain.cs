@@ -89,6 +89,10 @@ namespace Corvus
         private Task _runTask;
         private bool _running = false;
         CancellationTokenSource _cancellationTokenSource = null;
+        private bool manuallyStopped = false;
+        private bool loginAccount = false;
+        private bool useMultiplier = false;
+        private int multiplier = 1;
 
         private DateTime _nextRunTechFactory = DateTime.Now;
         private DateTime _nextRunSkylab = DateTime.Now;
@@ -102,6 +106,7 @@ namespace Corvus
             tabPageLogin.Enabled = true;
             comboBoxLoginPortal.SelectedIndex = 0;
             comboBoxOptionABG.SelectedIndex = 0;
+            comboBoxMultiplier.SelectedIndex = 0;
 
             _prometiumCollectorRow = dgvSkylab.Rows[dgvSkylab.Rows.Add("Prometium Collector", 0, false, "", false)];
             _enduriumCollectorRow = dgvSkylab.Rows[dgvSkylab.Rows.Add("Endurium Collector", 0, false, "", false)];
@@ -917,7 +922,17 @@ namespace Corvus
             else
                 Log($"Spinning {GetSelectedGate().GetFullName()}...");
 
-            var spin = await _account.SpinGateAsync(GetSelectedGate());
+            var spin = await _account.SpinGateAsync(GetSelectedGate(), useMultiplier);
+
+            var multiplierinfo = _account.GateData.MultiplierInfo;
+            foreach (var mi in multiplierinfo.MultiplierInfo)
+            {
+                if (mi.Mode.Contains(GetSelectedGate().GetFullName().ToLower()) && mi.Value != 0)
+                {
+                    Log($"Getting multiplier: {mi.Value}");
+                }
+            }
+
             foreach (var allItem in spin.Items.GetAllItems())
             {
                 if (allItem.Duplicate)
@@ -1041,13 +1056,25 @@ namespace Corvus
                 cmdStart.Invoke(new Action(() => cmdStart.Enabled = true));
                 Log("RunTask destroyed...Logic stopped...");
 
-                notifyIcon1.Icon = this.Icon;
-                notifyIcon1.BalloonTipIcon = ToolTipIcon.Warning;
-                notifyIcon1.BalloonTipTitle = "The process has been stopped";
-                notifyIcon1.BalloonTipText = "RunTask destroyed...Logic stopped...";
-                notifyIcon1.ShowBalloonTip(15);
+                if (chkBoxActivateTheNotification.Checked)
+                {
+                    notifyIcon1.Icon = this.Icon;
+                    notifyIcon1.BalloonTipIcon = ToolTipIcon.Warning;
+                    notifyIcon1.BalloonTipTitle = "The process has been stopped";
+                    notifyIcon1.BalloonTipText = "RunTask destroyed...Logic stopped...";
+                    notifyIcon1.ShowBalloonTip(15);
+                }
 
-                _runTask = null;
+                if (chkBoxStartAgainTaskDestroy.Checked && !manuallyStopped)
+                {
+                    Thread.Sleep(5000);
+                    _running = true;
+                    _runTask = Task.Run(DoWork, _cancellationTokenSource.Token);
+                }
+                else
+                {
+                    _runTask = null;
+                }
             }
         }
 
@@ -1089,12 +1116,16 @@ namespace Corvus
                 Log("Performing username/password login...");
                 _account = new DarkOrbitAccount(txtUsername.Text, txtPassword.Text, comboBoxLoginPortal.SelectedItem.ToString());
                 var loginSuccess = await _account.LoginAsync();
+
                 if (!loginSuccess)
                 {
                     Log("There was a problem performing the login! Please check your input data!");
                     MessageBox.Show("There was a problem performing the login! Please check your input data!");
                     EnableGui();
                     return;
+                } else
+                {
+                    loginAccount = true;
                 }
             }
             else
@@ -1114,10 +1145,20 @@ namespace Corvus
                     MessageBox.Show("There was a problem performing the login! Please check your input data!");
                     EnableGui();
                     return;
+                } else
+                {
+                    loginAccount = true;
                 }
             }
 
-            Text = "Corvus - DarkOrbit Bot Helper - " + _account.AccountData.Username;
+            if (!chkBoxHideName.Checked)
+            {
+                Text = "Corvus - DarkOrbit Bot Helper - " + _account.AccountData.Username;
+            }
+            else
+            {
+                Text = "Corvus - DarkOrbit Bot Helper";
+            }
 
             Log("Login success!");
 
@@ -1151,6 +1192,7 @@ namespace Corvus
 
         private void cmdStop_Click(object sender, EventArgs e)
         {
+            manuallyStopped = true;
             _cancellationTokenSource.Cancel();
             _running = false;
             cmdStop.Enabled = false;
@@ -1271,6 +1313,9 @@ namespace Corvus
                 iniData["Login"]["UsernamePasswordLogin"] = rbUsernamePasswordLogin.Checked.ToString();
                 iniData["Login"]["SaveUsernamePassword"] = chkBoxSaveUsernamePassword.Checked.ToString();
                 iniData["Login"]["Reconnect"] = chkBoxReconnect.Checked.ToString();
+                iniData["GeneralSettings"]["ActivateTheNotification"] = chkBoxActivateTheNotification.Checked.ToString();
+                iniData["GeneralSettings"]["StartAgainTaskDestroy"] = chkBoxStartAgainTaskDestroy.Checked.ToString();
+                iniData["GeneralSettings"]["HideName"] = chkBoxHideName.Checked.ToString();
 
                 iniData["GalaxyGates"]["Spin"] = chkBoxSpinGate.Checked.ToString();
                 iniData["GalaxyGates"]["Delay"] = nudGateDelay.Text;
@@ -1343,6 +1388,9 @@ namespace Corvus
                 rbUsernamePasswordLogin.Checked = bool.Parse(iniData["Login"]["UsernamePasswordLogin"]);
                 chkBoxSaveUsernamePassword.Checked = bool.Parse(iniData["Login"]["SaveUsernamePassword"]);
                 chkBoxReconnect.Checked = bool.Parse(iniData["Login"]["Reconnect"]);
+                chkBoxActivateTheNotification.Checked = bool.Parse(iniData["GeneralSettings"]["ActivateTheNotification"]);
+                chkBoxStartAgainTaskDestroy.Checked = bool.Parse(iniData["GeneralSettings"]["StartAgainTaskDestroy"]);
+                chkBoxHideName.Checked = bool.Parse(iniData["GeneralSettings"]["HideName"]);
 
                 chkBoxSpinGate.Checked = bool.Parse(iniData["GalaxyGates"]["Spin"]);
                 nudGateDelay.Value = decimal.Parse(iniData["GalaxyGates"]["Delay"]);
@@ -1505,12 +1553,53 @@ namespace Corvus
             _nextRunGalaxyGate = DateTime.Now.AddMinutes((double)nudGateWait.Value);
         }
 
+        private int getMulplier()
+        {
+            switch (GetSelecetedIndex_comboBoxMultiplier())
+            {
+                case 0:
+                    return 2;
+                case 1:
+                    return 3;
+                case 2:
+                    return 4;
+                case 3:
+                    return 5;
+                case 4:
+                    return 6;
+                default:
+                    return 2;
+            }
+        }
+
         private int GetSelecetedIndex_comboBoxOptionABG()
         {
             if (comboBoxOptionABG.InvokeRequired)
                 return (int)comboBoxOptionABG.Invoke(new Func<int>(GetSelecetedIndex_comboBoxOptionABG));
             else
                 return comboBoxOptionABG.SelectedIndex;
+        }
+
+        private int GetSelecetedIndex_comboBoxMultiplier()
+        {
+            if (comboBoxMultiplier.InvokeRequired)
+                return (int)comboBoxMultiplier.Invoke(new Func<int>(GetSelecetedIndex_comboBoxMultiplier));
+            else
+                return comboBoxMultiplier.SelectedIndex;
+        }
+
+        private void ChkBoxHideName_CheckedChanged(object sender, EventArgs e)
+        {
+            if (loginAccount){
+                if (chkBoxHideName.Checked)
+                {
+                    Text = "Corvus - DarkOrbit Bot Helper";
+                }
+                else
+                {
+                    Text = "Corvus - DarkOrbit Bot Helper - " + _account.AccountData.Username;
+                }
+            }
         }
     }
 }
