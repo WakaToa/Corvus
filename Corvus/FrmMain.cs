@@ -92,7 +92,6 @@ namespace Corvus
         private bool manuallyStopped = false;
         private bool loginAccount = false;
         private bool useMultiplier = false;
-        private int multiplier = 1;
 
         private DateTime _nextRunTechFactory = DateTime.Now;
         private DateTime _nextRunSkylab = DateTime.Now;

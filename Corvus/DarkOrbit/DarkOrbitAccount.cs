@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Net;
+using System.Runtime.Remoting.Lifetime;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
@@ -318,11 +320,24 @@ namespace Corvus.DarkOrbit
             return false;
         }
 
+        private bool IsMultiplierAvailable(GalaxyGate gate)
+        {
+            var gateName = gate.GetFullName().ToLower();
+
+            var data = GateData.MultiplierInfo.MultiplierInfo.FirstOrDefault(x => x.Mode.ToLower() == gateName);
+            if (data == null)
+            {
+                return false;
+            }
+            return data.Value >= 0;
+        }
+
         public async Task<GateSpinData> SpinGateAsync(GalaxyGate gate, bool useMultiplier)
         {
-            if (useMultiplier)
+            var spinUrl = string.Empty;
+            if (useMultiplier && IsMultiplierAvailable(gate))
             {
-                var spinUrl = string.Format(Urls.SpinGateMultiplier, Urls.BaseUrl, AccountData.UserId, AccountData.SessionId,
+                spinUrl = string.Format(Urls.SpinGateMultiplier, Urls.BaseUrl, AccountData.UserId, AccountData.SessionId,
                     (int)gate, gate.GetFullName().ToLower());
 
                 if (GateData.Samples > 0)
@@ -331,23 +346,11 @@ namespace Corvus.DarkOrbit
                         (int)gate, gate.GetFullName().ToLower());
                 }
 
-                var resultString = await _httpClient.GetAsyncNoLimit(spinUrl);
-
-                var serializer = new XmlSerializer(typeof(GateSpinData));
-
-                GateSpinData result;
-
-                using (var reader = new StringReader(resultString))
-                {
-                    result = (GateSpinData)serializer.Deserialize(reader) as GateSpinData;
-                }
-                EvaluateGateSpin(result);
-
-                return result;
+               
             }
             else
             {
-                var spinUrl = string.Format(Urls.SpinGate, Urls.BaseUrl, AccountData.UserId, AccountData.SessionId,
+                spinUrl = string.Format(Urls.SpinGate, Urls.BaseUrl, AccountData.UserId, AccountData.SessionId,
                     (int)gate, gate.GetFullName().ToLower());
 
                 if (GateData.Samples > 0)
@@ -355,21 +358,21 @@ namespace Corvus.DarkOrbit
                     spinUrl = string.Format(Urls.SpinGateSample, Urls.BaseUrl, AccountData.UserId, AccountData.SessionId,
                         (int)gate, gate.GetFullName().ToLower());
                 }
-
-                var resultString = await _httpClient.GetAsyncNoLimit(spinUrl);
-
-                var serializer = new XmlSerializer(typeof(GateSpinData));
-
-                GateSpinData result;
-
-                using (var reader = new StringReader(resultString))
-                {
-                    result = (GateSpinData)serializer.Deserialize(reader) as GateSpinData;
-                }
-                EvaluateGateSpin(result);
-
-                return result;
             }
+
+            var resultString = await _httpClient.GetAsyncNoLimit(spinUrl);
+
+            var serializer = new XmlSerializer(typeof(GateSpinData));
+
+            GateSpinData result;
+
+            using (var reader = new StringReader(resultString))
+            {
+                result = (GateSpinData)serializer.Deserialize(reader) as GateSpinData;
+            }
+            EvaluateGateSpin(result);
+
+            return result;
         }
 
         private void EvaluateGateSpin(GateSpinData spin)
@@ -379,6 +382,7 @@ namespace Corvus.DarkOrbit
             GateData.EnergyCost.Text = spin.EnergyCost.Text;
             GateData.Money = spin.Money;
 
+            GateData.MultiplierInfo = spin.MultiplierInfo;
 
             foreach (var spinItem in spin.Items.GetAllItems())
             {

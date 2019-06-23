@@ -31,6 +31,24 @@ namespace Corvus.DarkOrbit.Data
         Kuiper = 19
     }
 
+
+    [XmlRoot(ElementName = "multiplier")]
+    public class Multiplier
+    {
+        [XmlAttribute(AttributeName = "mode")]
+        public string Mode { get; set; }
+        [XmlAttribute(AttributeName = "value")]
+        public int Value { get; set; }
+        [XmlAttribute(AttributeName = "state")]
+        public int State { get; set; }
+    }
+    [XmlRoot(ElementName = "multipliers")]
+    public class Multipliers
+    {
+        [XmlElement(ElementName = "multiplier")]
+        public List<Multiplier> MultiplierInfo { get; set; }
+    }
+
     [XmlRoot(ElementName = "jumpgate")]
     public class GateData
     {
@@ -56,22 +74,7 @@ namespace Corvus.DarkOrbit.Data
             public int Text { get; set; }
         }
 
-        [XmlRoot(ElementName = "multiplier")]
-        public class Multiplier
-        {
-            [XmlAttribute(AttributeName = "mode")]
-            public string Mode { get; set; }
-            [XmlAttribute(AttributeName = "value")]
-            public int Value { get; set; }
-            [XmlAttribute(AttributeName = "state")]
-            public int State { get; set; }
-        }
-        [XmlRoot(ElementName = "multipliers")]
-        public class Multipliers
-        {
-            [XmlElement(ElementName = "multiplier")]
-            public List<Multiplier> MultiplierInfo { get; set; }
-        }
+     
 
         [XmlRoot(ElementName = "gate")]
         public class Gate
@@ -173,6 +176,9 @@ namespace Corvus.DarkOrbit.Data
         public EnergyCostInfo EnergyCost { get; set; }
         [XmlElement(ElementName = "items")]
         public ItemsInfo Items { get; set; }
+
+        [XmlElement(ElementName = "multipliers")]
+        public Multipliers MultiplierInfo { get; set; }
 
         [XmlRoot(ElementName = "energy_cost")]
         public class EnergyCostInfo
