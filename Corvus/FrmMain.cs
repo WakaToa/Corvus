@@ -107,6 +107,17 @@ namespace Corvus
             comboBoxOptionABG.SelectedIndex = 0;
             comboBoxMultiplier.SelectedIndex = 0;
 
+            if (chkBoxMultiplierInt.Checked)
+            {
+                lblMultiplier.Enabled = false;
+                comboBoxMultiplier.Enabled = false;
+            }
+            else
+            {
+                lblMultiplier.Enabled = true;
+                comboBoxMultiplier.Enabled = true;
+            }
+
             _prometiumCollectorRow = dgvSkylab.Rows[dgvSkylab.Rows.Add("Prometium Collector", 0, false, "", false)];
             _enduriumCollectorRow = dgvSkylab.Rows[dgvSkylab.Rows.Add("Endurium Collector", 0, false, "", false)];
             _terbiumCollectorRow = dgvSkylab.Rows[dgvSkylab.Rows.Add("Terbium Collector", 0, false, "", false)];
@@ -921,16 +932,63 @@ namespace Corvus
             else
                 Log($"Spinning {GetSelectedGate().GetFullName()}...");
 
-            var spin = await _account.SpinGateAsync(GetSelectedGate(), useMultiplier);
-
             var multiplierinfo = _account.GateData.MultiplierInfo;
             foreach (var mi in multiplierinfo.MultiplierInfo)
             {
-                if (mi.Mode.Contains(GetSelectedGate().GetFullName().ToLower()) && mi.Value != 0)
+                if (mi.Mode.Contains(GetSelectedGate().GetFullName().ToLower()))
                 {
-                    Log($"Getting multiplier: {mi.Value}");
+                    if (chkBoxMultiplierInt.Checked) {
+                        if (rbBuildABG.Checked)
+                        {
+                            if (2 <= mi.Value)
+                            {
+                                useMultiplier = use3MultiplierABG(
+                                    _account.GateData.Gates.Get(GalaxyGate.Alpha).Current,
+                                    _account.GateData.Gates.Get(GalaxyGate.Alpha).Total,
+                                    _account.GateData.Gates.Get(GalaxyGate.Beta).Current,
+                                    _account.GateData.Gates.Get(GalaxyGate.Beta).Total,
+                                    _account.GateData.Gates.Get(GalaxyGate.Beta).Current,
+                                    _account.GateData.Gates.Get(GalaxyGate.Beta).Total);
+                            } else
+                            {
+                                useMultiplier = false;
+                            }
+
+                        }
+                        else
+                        {
+                            if ((_account.GateData.Gates.Get(GetSelectedGate()).Total - _account.GateData.Gates.Get(GetSelectedGate()).Current) == 3)
+                            {
+                                if (2 <= mi.Value)
+                                {
+                                    useMultiplier = true;
+                                }
+                                else
+                                {
+                                    useMultiplier = false;
+                                }
+                            }
+                            else
+                            {
+                                useMultiplier = false;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (getMulplier() <= mi.Value)
+                        {
+                            useMultiplier = true;
+                        }
+                        else
+                        {
+                            useMultiplier = false;
+                        }
+                    }
                 }
             }
+
+            var spin = await _account.SpinGateAsync(GetSelectedGate(), useMultiplier);            
 
             foreach (var allItem in spin.Items.GetAllItems())
             {
@@ -1317,9 +1375,11 @@ namespace Corvus
                 iniData["GeneralSettings"]["HideName"] = chkBoxHideName.Checked.ToString();
 
                 iniData["GalaxyGates"]["Spin"] = chkBoxSpinGate.Checked.ToString();
-                iniData["GalaxyGates"]["Delay"] = nudGateDelay.Text;
                 iniData["GalaxyGates"]["Wait"] = nudGateWait.Text;
+                iniData["GalaxyGates"]["Delay"] = nudGateDelay.Text;
                 iniData["GalaxyGates"]["MinUridium"] = nudMinimumUridium.Text;
+                iniData["GalaxyGates"]["MultiplierInt"] = chkBoxMultiplierInt.Checked.ToString();
+                iniData["GalaxyGates"]["Multiplier"] = comboBoxMultiplier.SelectedIndex.ToString();
                 iniData["GalaxyGates"]["GetOptionABG"] = comboBoxOptionABG.SelectedIndex.ToString();
                 iniData["GalaxyGates"]["OnlyEE"] = chkSpinOnlyEE.Checked.ToString();
                 iniData["GalaxyGates"]["SelectedGate"] = GetSelectedGate().GetFullName();
@@ -1392,8 +1452,10 @@ namespace Corvus
                 chkBoxHideName.Checked = bool.Parse(iniData["GeneralSettings"]["HideName"]);
 
                 chkBoxSpinGate.Checked = bool.Parse(iniData["GalaxyGates"]["Spin"]);
-                nudGateDelay.Value = decimal.Parse(iniData["GalaxyGates"]["Delay"]);
                 nudGateWait.Value = decimal.Parse(iniData["GalaxyGates"]["Wait"]);
+                nudGateDelay.Value = decimal.Parse(iniData["GalaxyGates"]["Delay"]);
+                chkBoxMultiplierInt.Checked = bool.Parse(iniData["GalaxyGates"]["MultiplierInt"]);
+                comboBoxMultiplier.SelectedIndex = int.Parse(iniData["GalaxyGates"]["Multiplier"]);
                 nudMinimumUridium.Value = decimal.Parse(iniData["GalaxyGates"]["MinUridium"]);
                 comboBoxOptionABG.SelectedIndex = int.Parse(iniData["GalaxyGates"]["GetOptionABG"]);
                 chkSpinOnlyEE.Checked = bool.Parse(iniData["GalaxyGates"]["OnlyEE"]);
@@ -1557,17 +1619,17 @@ namespace Corvus
             switch (GetSelecetedIndex_comboBoxMultiplier())
             {
                 case 0:
-                    return 2;
+                    return 1;
                 case 1:
-                    return 3;
-                case 2:
-                    return 4;
-                case 3:
-                    return 5;
-                case 4:
-                    return 6;
-                default:
                     return 2;
+                case 2:
+                    return 3;
+                case 3:
+                    return 4;
+                case 4:
+                    return 5;
+                default:
+                    return 1;
             }
         }
 
@@ -1599,6 +1661,40 @@ namespace Corvus
                     Text = "Corvus - DarkOrbit Bot Helper - " + _account.AccountData.Username;
                 }
             }
+        }
+
+        private void ChkBoxMultiplierInt_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkBoxMultiplierInt.Checked)
+            {
+                lblMultiplier.Enabled = false;
+                comboBoxMultiplier.Enabled = false;
+            }
+            else
+            {
+                lblMultiplier.Enabled = true;
+                comboBoxMultiplier.Enabled = true;
+            }
+        }
+
+        private void RbBuildABG_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbBuildABG.Checked)
+            {
+                comboBoxOptionABG.Enabled = true;
+            }
+            else
+            {
+                comboBoxOptionABG.Enabled = false;
+            }
+        }
+
+        private bool use3MultiplierABG(int a_curr, int a_max, int b_curr, int b_max, int g_curr, int g_max)
+        {
+            if (a_max - a_curr == 3) return b_curr <= b_max * 0.2 && g_curr <= g_max * 0.2;
+            if (b_max - b_curr == 3) return a_curr <= a_max * 0.2 && g_curr <= g_max * 0.2;
+            if (g_max - b_curr == 3) return a_curr <= a_max * 0.2 && b_curr <= b_max * 0.2;
+            return false;
         }
     }
 }
