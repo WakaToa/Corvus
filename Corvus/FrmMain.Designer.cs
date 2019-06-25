@@ -58,7 +58,7 @@ namespace Corvus
             this.txtServer = new System.Windows.Forms.TextBox();
             this.lblServer = new System.Windows.Forms.Label();
             this.tabPageGalaxyGates = new System.Windows.Forms.TabPage();
-            this.chkBoxMultiplierInt = new System.Windows.Forms.CheckBox();
+            this.chkBoxSmartMultiplier = new System.Windows.Forms.CheckBox();
             this.lblMultiplier = new System.Windows.Forms.Label();
             this.comboBoxMultiplier = new System.Windows.Forms.ComboBox();
             this.lblWaitGate = new System.Windows.Forms.Label();
@@ -419,7 +419,7 @@ namespace Corvus
             // 
             // tabPageGalaxyGates
             // 
-            this.tabPageGalaxyGates.Controls.Add(this.chkBoxMultiplierInt);
+            this.tabPageGalaxyGates.Controls.Add(this.chkBoxSmartMultiplier);
             this.tabPageGalaxyGates.Controls.Add(this.lblMultiplier);
             this.tabPageGalaxyGates.Controls.Add(this.comboBoxMultiplier);
             this.tabPageGalaxyGates.Controls.Add(this.lblWaitGate);
@@ -467,18 +467,18 @@ namespace Corvus
             this.tabPageGalaxyGates.Text = "Galaxy Gates";
             this.tabPageGalaxyGates.UseVisualStyleBackColor = true;
             // 
-            // chkBoxMultiplierInt
+            // chkBoxSmartMultiplier
             // 
-            this.chkBoxMultiplierInt.AutoSize = true;
-            this.chkBoxMultiplierInt.Checked = true;
-            this.chkBoxMultiplierInt.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkBoxMultiplierInt.Location = new System.Drawing.Point(20, 82);
-            this.chkBoxMultiplierInt.Name = "chkBoxMultiplierInt";
-            this.chkBoxMultiplierInt.Size = new System.Drawing.Size(121, 17);
-            this.chkBoxMultiplierInt.TabIndex = 47;
-            this.chkBoxMultiplierInt.Text = "Multiplier intelligently";
-            this.chkBoxMultiplierInt.UseVisualStyleBackColor = true;
-            this.chkBoxMultiplierInt.CheckedChanged += new System.EventHandler(this.ChkBoxMultiplierInt_CheckedChanged);
+            this.chkBoxSmartMultiplier.AutoSize = true;
+            this.chkBoxSmartMultiplier.Checked = true;
+            this.chkBoxSmartMultiplier.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkBoxSmartMultiplier.Location = new System.Drawing.Point(20, 82);
+            this.chkBoxSmartMultiplier.Name = "chkBoxSmartMultiplier";
+            this.chkBoxSmartMultiplier.Size = new System.Drawing.Size(96, 17);
+            this.chkBoxSmartMultiplier.TabIndex = 47;
+            this.chkBoxSmartMultiplier.Text = "Smart multiplier";
+            this.chkBoxSmartMultiplier.UseVisualStyleBackColor = true;
+            this.chkBoxSmartMultiplier.CheckedChanged += new System.EventHandler(this.ChkBoxMultiplierInt_CheckedChanged);
             // 
             // lblMultiplier
             // 
@@ -1434,7 +1434,7 @@ namespace Corvus
         private Label label1;
         private Label lblMultiplier;
         private ComboBox comboBoxMultiplier;
-        private CheckBox chkBoxMultiplierInt;
+        private CheckBox chkBoxSmartMultiplier;
     }
 }
 

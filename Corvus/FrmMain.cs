@@ -107,7 +107,7 @@ namespace Corvus
             comboBoxOptionABG.SelectedIndex = 0;
             comboBoxMultiplier.SelectedIndex = 0;
 
-            if (chkBoxMultiplierInt.Checked)
+            if (chkBoxSmartMultiplier.Checked)
             {
                 lblMultiplier.Enabled = false;
                 comboBoxMultiplier.Enabled = false;
@@ -937,23 +937,31 @@ namespace Corvus
             {
                 if (mi.Mode.Contains(GetSelectedGate().GetFullName().ToLower()))
                 {
-                    if (chkBoxMultiplierInt.Checked) {
+                    if (chkBoxSmartMultiplier.Checked) {
                         if (rbBuildABG.Checked)
                         {
-                            if (2 <= mi.Value)
+                            if (use3MultiplierABG(_account.GateData.Gates.Get(GalaxyGate.Alpha).Current, _account.GateData.Gates.Get(GalaxyGate.Alpha).Total, _account.GateData.Gates.Get(GalaxyGate.Beta).Current, _account.GateData.Gates.Get(GalaxyGate.Beta).Total, _account.GateData.Gates.Get(GalaxyGate.Beta).Current, _account.GateData.Gates.Get(GalaxyGate.Beta).Total))
                             {
-                                useMultiplier = use3MultiplierABG(
-                                    _account.GateData.Gates.Get(GalaxyGate.Alpha).Current,
-                                    _account.GateData.Gates.Get(GalaxyGate.Alpha).Total,
-                                    _account.GateData.Gates.Get(GalaxyGate.Beta).Current,
-                                    _account.GateData.Gates.Get(GalaxyGate.Beta).Total,
-                                    _account.GateData.Gates.Get(GalaxyGate.Beta).Current,
-                                    _account.GateData.Gates.Get(GalaxyGate.Beta).Total);
-                            } else
-                            {
-                                useMultiplier = false;
+                                if (2 <= mi.Value)
+                                {
+                                    useMultiplier = true;
+                                }
+                                else
+                                {
+                                    useMultiplier = false;
+                                }
                             }
-
+                            else
+                            {
+                                if (1 <= mi.Value)
+                                {
+                                    useMultiplier = true;
+                                }
+                                else
+                                {
+                                    useMultiplier = false;
+                                }
+                            }
                         }
                         else
                         {
@@ -970,7 +978,14 @@ namespace Corvus
                             }
                             else
                             {
-                                useMultiplier = false;
+                                if (1 <= mi.Value)
+                                {
+                                    useMultiplier = true;
+                                }
+                                else
+                                {
+                                    useMultiplier = false;
+                                }
                             }
                         }
                     }
@@ -1378,7 +1393,7 @@ namespace Corvus
                 iniData["GalaxyGates"]["Wait"] = nudGateWait.Text;
                 iniData["GalaxyGates"]["Delay"] = nudGateDelay.Text;
                 iniData["GalaxyGates"]["MinUridium"] = nudMinimumUridium.Text;
-                iniData["GalaxyGates"]["MultiplierInt"] = chkBoxMultiplierInt.Checked.ToString();
+                iniData["GalaxyGates"]["SmartMultiplier"] = chkBoxSmartMultiplier.Checked.ToString();
                 iniData["GalaxyGates"]["Multiplier"] = comboBoxMultiplier.SelectedIndex.ToString();
                 iniData["GalaxyGates"]["GetOptionABG"] = comboBoxOptionABG.SelectedIndex.ToString();
                 iniData["GalaxyGates"]["OnlyEE"] = chkSpinOnlyEE.Checked.ToString();
@@ -1454,7 +1469,7 @@ namespace Corvus
                 chkBoxSpinGate.Checked = bool.Parse(iniData["GalaxyGates"]["Spin"]);
                 nudGateWait.Value = decimal.Parse(iniData["GalaxyGates"]["Wait"]);
                 nudGateDelay.Value = decimal.Parse(iniData["GalaxyGates"]["Delay"]);
-                chkBoxMultiplierInt.Checked = bool.Parse(iniData["GalaxyGates"]["MultiplierInt"]);
+                chkBoxSmartMultiplier.Checked = bool.Parse(iniData["GalaxyGates"]["SmartMultiplier"]);
                 comboBoxMultiplier.SelectedIndex = int.Parse(iniData["GalaxyGates"]["Multiplier"]);
                 nudMinimumUridium.Value = decimal.Parse(iniData["GalaxyGates"]["MinUridium"]);
                 comboBoxOptionABG.SelectedIndex = int.Parse(iniData["GalaxyGates"]["GetOptionABG"]);
@@ -1665,7 +1680,7 @@ namespace Corvus
 
         private void ChkBoxMultiplierInt_CheckedChanged(object sender, EventArgs e)
         {
-            if (chkBoxMultiplierInt.Checked)
+            if (chkBoxSmartMultiplier.Checked)
             {
                 lblMultiplier.Enabled = false;
                 comboBoxMultiplier.Enabled = false;

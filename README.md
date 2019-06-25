@@ -4,10 +4,12 @@ Corvus is a simple tool which helps your bot!
 ## Features
 
 Galaxy Gate Spinner
-1. Shows received items
-2. Builds and places gates automatically
-3. Always uses X2 multiplier
-4. Set custom spin delay
+1. Shows received items.
+2. Builds and places gates automatically.
+3. Option to Spin only EE.
+4. Smart multiplier - Uses an algorithm that provides minimum spin cost to build gates.
+5. Set custom spin speed and time wait.
+6. There are 5 different conditions options for ABG.
 
 Build techs in all 3 halls (checks every 5 minutes)
 1. Shows time left
@@ -18,6 +20,7 @@ Upgrade Skylab (checks every 5 minutes)
 General
 1. Save & load settings
 2. Works for all portals (https://darkorbit.com/, https://www.dark-orbit.it/, https://lp.darkorbit.com/)
+3. Option to hide name, notification and start again if task is destroy.
 
 ## Pre Requisites to tool to run
 
@@ -38,4 +41,5 @@ General
 
 ### Planned features
 1. Auction Bot
-2. Improved Log
+2. Upgrade Bot for vants, weapon, etc...
+3. Improved Log
