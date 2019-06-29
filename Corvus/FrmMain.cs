@@ -148,7 +148,7 @@ namespace Corvus
             _hadesRow = dgvGates.Rows[dgvGates.Rows.Add("Hades", 0, false, false, 0)];
             _kuiperRow = dgvGates.Rows[dgvGates.Rows.Add("Kuiper", 0, false, false, 0)];
 
-            Log($"Corvus v{Assembly.GetExecutingAssembly().GetName().Version} started - Made by 'Heaven and SrFairyox.");
+            Log($"Corvus v{Assembly.GetExecutingAssembly().GetName().Version} started - Made by 'Heaven. and SrFairyox");
 
             LoadSettings();
         }

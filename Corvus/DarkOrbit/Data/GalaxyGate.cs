@@ -203,6 +203,7 @@ namespace Corvus.DarkOrbit.Data
             [XmlAttribute(AttributeName = "total")]
             public int Total { get; set; }
             [XmlAttribute(AttributeName = "state")]
+
             public string State { get; set; }
             [XmlAttribute(AttributeName = "date")]
             public string Date { get; set; }
