@@ -35,6 +35,7 @@ namespace Corvus
             this.tcMain = new System.Windows.Forms.TabControl();
             this.tabPageLogin = new System.Windows.Forms.TabPage();
             this.gBoxGeneralSettings = new System.Windows.Forms.GroupBox();
+            this.chkBoxActLog = new System.Windows.Forms.CheckBox();
             this.chkBoxHideName = new System.Windows.Forms.CheckBox();
             this.lblAccount = new System.Windows.Forms.Label();
             this.chkBoxStartAgainTaskDestroy = new System.Windows.Forms.CheckBox();
@@ -179,6 +180,7 @@ namespace Corvus
             // 
             // gBoxGeneralSettings
             // 
+            this.gBoxGeneralSettings.Controls.Add(this.chkBoxActLog);
             this.gBoxGeneralSettings.Controls.Add(this.chkBoxHideName);
             this.gBoxGeneralSettings.Controls.Add(this.lblAccount);
             this.gBoxGeneralSettings.Controls.Add(this.chkBoxStartAgainTaskDestroy);
@@ -190,6 +192,19 @@ namespace Corvus
             this.gBoxGeneralSettings.TabIndex = 8;
             this.gBoxGeneralSettings.TabStop = false;
             this.gBoxGeneralSettings.Text = "General Settings ";
+            // 
+            // chkBoxActLog
+            // 
+            this.chkBoxActLog.AutoSize = true;
+            this.chkBoxActLog.Checked = true;
+            this.chkBoxActLog.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkBoxActLog.Location = new System.Drawing.Point(32, 93);
+            this.chkBoxActLog.Name = "chkBoxActLog";
+            this.chkBoxActLog.Size = new System.Drawing.Size(76, 17);
+            this.chkBoxActLog.TabIndex = 5;
+            this.chkBoxActLog.Text = "Enable log";
+            this.chkBoxActLog.UseVisualStyleBackColor = true;
+            this.chkBoxActLog.CheckedChanged += new System.EventHandler(this.ChkBoxActLog_CheckedChanged);
             // 
             // chkBoxHideName
             // 
@@ -205,7 +220,7 @@ namespace Corvus
             // lblAccount
             // 
             this.lblAccount.AutoSize = true;
-            this.lblAccount.Location = new System.Drawing.Point(6, 118);
+            this.lblAccount.Location = new System.Drawing.Point(6, 122);
             this.lblAccount.Name = "lblAccount";
             this.lblAccount.Size = new System.Drawing.Size(50, 13);
             this.lblAccount.TabIndex = 3;
@@ -214,7 +229,7 @@ namespace Corvus
             // chkBoxStartAgainTaskDestroy
             // 
             this.chkBoxStartAgainTaskDestroy.AutoSize = true;
-            this.chkBoxStartAgainTaskDestroy.Location = new System.Drawing.Point(32, 76);
+            this.chkBoxStartAgainTaskDestroy.Location = new System.Drawing.Point(32, 70);
             this.chkBoxStartAgainTaskDestroy.Name = "chkBoxStartAgainTaskDestroy";
             this.chkBoxStartAgainTaskDestroy.Size = new System.Drawing.Size(155, 17);
             this.chkBoxStartAgainTaskDestroy.TabIndex = 2;
@@ -224,11 +239,11 @@ namespace Corvus
             // chkBoxActivateTheNotification
             // 
             this.chkBoxActivateTheNotification.AutoSize = true;
-            this.chkBoxActivateTheNotification.Location = new System.Drawing.Point(32, 51);
+            this.chkBoxActivateTheNotification.Location = new System.Drawing.Point(32, 47);
             this.chkBoxActivateTheNotification.Name = "chkBoxActivateTheNotification";
-            this.chkBoxActivateTheNotification.Size = new System.Drawing.Size(137, 17);
+            this.chkBoxActivateTheNotification.Size = new System.Drawing.Size(113, 17);
             this.chkBoxActivateTheNotification.TabIndex = 1;
-            this.chkBoxActivateTheNotification.Text = "Activate the notification";
+            this.chkBoxActivateTheNotification.Text = "Enable notification";
             this.chkBoxActivateTheNotification.UseVisualStyleBackColor = true;
             // 
             // label1
@@ -547,11 +562,11 @@ namespace Corvus
             this.comboBoxOptionABG.FormattingEnabled = true;
             this.comboBoxOptionABG.IntegralHeight = false;
             this.comboBoxOptionABG.Items.AddRange(new object[] {
-            "1. It should just stop when the alpha portal is 2/2",
-            "2. It should just stop when the beta portal is 2/2",
-            "3. It should just stop when the gamma portal is 2/2",
-            "4. It should just stop when any of the 3 portals is 2/2",
-            "5. It should just stop when the 3 portals are 2/2"});
+            "1. Stop when any of the 3 portals is 2/2.",
+            "2. Stop when all portals are 2/2.",
+            "3. Stop when the alpha portal is 2/2.",
+            "4. Stop when the beta portal is 2/2.",
+            "5. Stop when the gamma portal is 2/2."});
             this.comboBoxOptionABG.Location = new System.Drawing.Point(73, 189);
             this.comboBoxOptionABG.Name = "comboBoxOptionABG";
             this.comboBoxOptionABG.Size = new System.Drawing.Size(69, 21);
@@ -1435,6 +1450,7 @@ namespace Corvus
         private Label lblMultiplier;
         private ComboBox comboBoxMultiplier;
         private CheckBox chkBoxSmartMultiplier;
+        private CheckBox chkBoxActLog;
     }
 }
 

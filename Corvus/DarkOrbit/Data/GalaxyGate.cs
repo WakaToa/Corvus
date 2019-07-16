@@ -203,6 +203,7 @@ namespace Corvus.DarkOrbit.Data
             [XmlAttribute(AttributeName = "total")]
             public int Total { get; set; }
             [XmlAttribute(AttributeName = "state")]
+
             public string State { get; set; }
             [XmlAttribute(AttributeName = "date")]
             public string Date { get; set; }
@@ -211,7 +212,7 @@ namespace Corvus.DarkOrbit.Data
             [XmlAttribute(AttributeName = "part_id")]
             public int PartId { get; set; }
             [XmlAttribute(AttributeName = "multiplier_used")]
-            public bool MultiplierUsed { get; set; }
+            public int MultiplierUsed { get; set; }
             [XmlAttribute(AttributeName = "duplicate")]
             public bool Duplicate { get; set; }
 

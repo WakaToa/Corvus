@@ -360,95 +360,111 @@ namespace Corvus.DarkOrbit
                 }
             }
 
-            var resultString = await _httpClient.GetAsyncNoLimit(spinUrl);
-
-            var serializer = new XmlSerializer(typeof(GateSpinData));
-
-            GateSpinData result;
-
-            using (var reader = new StringReader(resultString))
+            var resultString = string.Empty;
+            try
             {
-                result = (GateSpinData)serializer.Deserialize(reader) as GateSpinData;
-            }
-            EvaluateGateSpin(result);
+                resultString = await _httpClient.GetAsyncNoLimit(spinUrl);
 
-            return result;
+                var serializer = new XmlSerializer(typeof(GateSpinData));
+
+                GateSpinData result;
+
+                using (var reader = new StringReader(resultString))
+                {
+                    result = (GateSpinData)serializer.Deserialize(reader) as GateSpinData;
+                }
+                EvaluateGateSpin(result);
+
+                return result;
+            }
+            catch (Exception e)
+            {
+                return default(GateSpinData);
+            }
+
+            
         }
 
         private void EvaluateGateSpin(GateSpinData spin)
         {
-            GateItemsReceived.TotalSpins++;
-            GateData.Samples = spin.Samples;
-            GateData.EnergyCost.Text = spin.EnergyCost.Text;
-            GateData.Money = spin.Money;
-
-            GateData.MultiplierInfo = spin.MultiplierInfo;
-
-            foreach (var spinItem in spin.Items.GetAllItems())
+            try
             {
-                if (spinItem.Type == "part" && !spinItem.Duplicate)
+                GateItemsReceived.TotalSpins++;
+                GateData.Samples = spin.Samples;
+                GateData.EnergyCost.Text = spin.EnergyCost.Text;
+                GateData.Money = spin.Money;
+
+                GateData.MultiplierInfo = spin.MultiplierInfo;
+
+                foreach (var spinItem in spin.Items.GetAllItems())
                 {
-                    GateItemsReceived.GateParts++;
-                    var gate = GateData.Gates.Gates.Find(x => x.Id == spinItem.GateId);
-                    if (gate != null)
+                    if (spinItem.Type == "part" && !spinItem.Duplicate)
                     {
-                        gate.Total = spinItem.Total;
-                        gate.Current = spinItem.Current;
+                        GateItemsReceived.GateParts++;
+                        var gate = GateData.Gates.Gates.Find(x => x.Id == spinItem.GateId);
+                        if (gate != null)
+                        {
+                            gate.Total = spinItem.Total;
+                            gate.Current = spinItem.Current;
+                        }
                     }
-                }
 
-                if (spinItem.Type == "battery")
-                {
-                    switch (spinItem.ItemId)
+                    if (spinItem.Type == "battery")
                     {
-                        case 2:
-                            GateItemsReceived.X2 += spinItem.Amount;
-                            break;
-                        case 3:
-                            GateItemsReceived.X3 += spinItem.Amount;
-                            break;
-                        case 4:
-                            GateItemsReceived.X4 += spinItem.Amount;
-                            break;
-                        case 5:
-                            GateItemsReceived.SAB += spinItem.Amount;
-                            break;
+                        switch (spinItem.ItemId)
+                        {
+                            case 2:
+                                GateItemsReceived.X2 += spinItem.Amount;
+                                break;
+                            case 3:
+                                GateItemsReceived.X3 += spinItem.Amount;
+                                break;
+                            case 4:
+                                GateItemsReceived.X4 += spinItem.Amount;
+                                break;
+                            case 5:
+                                GateItemsReceived.SAB += spinItem.Amount;
+                                break;
+                        }
                     }
-                }
 
-                if (spinItem.Type == "ore" && spinItem.ItemId == 4)
-                {
-                    GateItemsReceived.Xenomit += spinItem.Amount;
-                }
-
-                if (spinItem.Type == "rocket")
-                {
-                    switch (spinItem.ItemId)
+                    if (spinItem.Type == "ore" && spinItem.ItemId == 4)
                     {
-                        case 3:
-                            GateItemsReceived.PLT2021 += spinItem.Amount;
-                            break;
-                        case 11:
-                            GateItemsReceived.ACM += spinItem.Amount;
-                            break;
+                        GateItemsReceived.Xenomit += spinItem.Amount;
                     }
-                }
 
-                if (spinItem.Type == "logfile")
-                {
-                    GateItemsReceived.LogDisks += spinItem.Amount;
-                }
+                    if (spinItem.Type == "rocket")
+                    {
+                        switch (spinItem.ItemId)
+                        {
+                            case 3:
+                                GateItemsReceived.PLT2021 += spinItem.Amount;
+                                break;
+                            case 11:
+                                GateItemsReceived.ACM += spinItem.Amount;
+                                break;
+                        }
+                    }
 
-                if (spinItem.Type == "voucher")
-                {
-                    GateItemsReceived.RepairCredits += spinItem.Amount;
-                }
+                    if (spinItem.Type == "logfile")
+                    {
+                        GateItemsReceived.LogDisks += spinItem.Amount;
+                    }
 
-                if (spinItem.Type == "nanohull")
-                {
-                    GateItemsReceived.NanoHull += spinItem.Amount;
+                    if (spinItem.Type == "voucher")
+                    {
+                        GateItemsReceived.RepairCredits += spinItem.Amount;
+                    }
+
+                    if (spinItem.Type == "nanohull")
+                    {
+                        GateItemsReceived.NanoHull += spinItem.Amount;
+                    }
                 }
             }
+            catch (Exception e)
+            {
+            }            
         }
 
         public async Task ReadGatesAsync()

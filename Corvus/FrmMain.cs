@@ -107,6 +107,15 @@ namespace Corvus
             comboBoxOptionABG.SelectedIndex = 0;
             comboBoxMultiplier.SelectedIndex = 0;
 
+            if (chkBoxActLog.Checked)
+            {
+                tcMain.TabPages.Insert(4, tabPageLog);
+            }
+            else
+            {
+                tcMain.TabPages.Remove(tabPageLog);
+            }
+
             if (chkBoxSmartMultiplier.Checked)
             {
                 lblMultiplier.Enabled = false;
@@ -148,7 +157,7 @@ namespace Corvus
             _hadesRow = dgvGates.Rows[dgvGates.Rows.Add("Hades", 0, false, false, 0)];
             _kuiperRow = dgvGates.Rows[dgvGates.Rows.Add("Kuiper", 0, false, false, 0)];
 
-            Log($"Corvus v{Assembly.GetExecutingAssembly().GetName().Version} started - Made by 'Heaven and SrFairyox.");
+            Log($"Corvus v{Assembly.GetExecutingAssembly().GetName().Version} started - Made by 'Heaven. and SrFairyox");
 
             LoadSettings();
         }
@@ -762,6 +771,58 @@ namespace Corvus
                 {
                     if (chkBoxPlaceGate.Checked)
                     {
+                        if ((currentGateA.Prepared && currentGateA.Ready) || (currentGateB.Prepared && currentGateB.Ready) || (currentGateG.Prepared && currentGateG.Ready))
+                        {
+                            Stopping_gate_mode("can_not_get_more_parts");
+                            return;
+                        }
+                        if (currentGateA.Ready && !currentGateA.Prepared)
+                            await PlaceGateAsync(GalaxyGate.Alpha);
+                        if (currentGateB.Ready && !currentGateB.Prepared)
+                            await PlaceGateAsync(GalaxyGate.Beta);
+                        if (currentGateG.Ready && !currentGateG.Prepared)
+                            await PlaceGateAsync(GalaxyGate.Gamma);
+                    }
+                    else
+                    {
+                        if (currentGateA.Ready || currentGateB.Ready || currentGateG.Ready)
+                        {
+                            Stopping_gate_mode("can_not_get_more_parts");
+                            return;
+                        }
+                    }
+                    
+                }                    
+                else if (getOptionforABG() == "option2")
+                {
+                    if (chkBoxPlaceGate.Checked)
+                    {
+                        if ((currentGateA.Prepared && currentGateA.Ready) && (currentGateB.Prepared && currentGateB.Ready) && (currentGateG.Prepared && currentGateG.Ready))
+                        {
+                            Stopping_gate_mode("can_not_get_more_parts");
+                            return;
+                        }
+                        if (currentGateA.Ready && !currentGateA.Prepared)
+                            await PlaceGateAsync(GalaxyGate.Alpha);
+                        if (currentGateB.Ready && !currentGateB.Prepared)
+                            await PlaceGateAsync(GalaxyGate.Beta);
+                        if (currentGateG.Ready && !currentGateG.Prepared)
+                            await PlaceGateAsync(GalaxyGate.Gamma);
+                    }
+                    else
+                    {
+                        if (currentGateA.Ready && currentGateB.Ready && currentGateG.Ready)
+                        {
+                            Stopping_gate_mode("can_not_get_more_parts");
+                            return;
+                        }
+                    }
+                }
+                    
+                else if (getOptionforABG() == "option3")
+                {
+                    if (chkBoxPlaceGate.Checked)
+                    {
                         if (currentGateA.Prepared && currentGateA.Ready)
                         {
                             Stopping_gate_mode("can_not_get_more_parts");
@@ -782,9 +843,8 @@ namespace Corvus
                             return;
                         }
                     }
-                }                    
-                else if (getOptionforABG() == "option2")
-                {
+                }
+                else if (getOptionforABG() == "option4") {
                     if (chkBoxPlaceGate.Checked)
                     {
                         if (currentGateB.Prepared && currentGateB.Ready)
@@ -807,10 +867,9 @@ namespace Corvus
                             return;
                         }
                     }
-
                 }
                     
-                else if (getOptionforABG() == "option3")
+                else if (getOptionforABG() == "option5")
                 {
                     if (chkBoxPlaceGate.Checked)
                     {
@@ -829,57 +888,6 @@ namespace Corvus
                     else
                     {
                         if (currentGateG.Ready)
-                        {
-                            Stopping_gate_mode("can_not_get_more_parts");
-                            return;
-                        }
-                    }
-
-                }
-                else if (getOptionforABG() == "option4") {
-                    if (chkBoxPlaceGate.Checked)
-                    {
-                        if ((currentGateA.Prepared && currentGateA.Ready) || (currentGateB.Prepared && currentGateB.Ready) || (currentGateG.Prepared && currentGateG.Ready))
-                        {
-                            Stopping_gate_mode("can_not_get_more_parts");
-                            return;
-                        }
-                        if (currentGateA.Ready && !currentGateA.Prepared)
-                            await PlaceGateAsync(GalaxyGate.Alpha);
-                        if (currentGateB.Ready && !currentGateB.Prepared)
-                            await PlaceGateAsync(GalaxyGate.Beta);
-                        if (currentGateG.Ready && !currentGateG.Prepared)
-                            await PlaceGateAsync(GalaxyGate.Gamma);
-                    }
-                    else
-                    {
-                        if (currentGateA.Ready || currentGateB.Ready || currentGateG.Ready)
-                        {
-                            Stopping_gate_mode("can_not_get_more_parts");
-                            return;
-                        }
-                    }
-                }
-                    
-                else if (getOptionforABG() == "option5")
-                {
-                    if (chkBoxPlaceGate.Checked)
-                    {
-                        if ((currentGateA.Prepared && currentGateA.Ready) && (currentGateB.Prepared && currentGateB.Ready) && (currentGateG.Prepared && currentGateG.Ready))
-                        {
-                            Stopping_gate_mode("can_not_get_more_parts");
-                            return;
-                        }
-                        if (currentGateA.Ready && !currentGateA.Prepared)
-                            await PlaceGateAsync(GalaxyGate.Alpha);
-                        if (currentGateB.Ready && !currentGateB.Prepared)
-                            await PlaceGateAsync(GalaxyGate.Beta);
-                        if (currentGateG.Ready && !currentGateG.Prepared)
-                            await PlaceGateAsync(GalaxyGate.Gamma);
-                    }
-                    else
-                    {
-                        if (currentGateA.Ready && currentGateB.Ready && currentGateG.Ready)
                         {
                             Stopping_gate_mode("can_not_get_more_parts");
                             return;
@@ -1280,7 +1288,7 @@ namespace Corvus
 
         private void cmdOpenBackPage_Click(object sender, EventArgs e)
         {
-            Process.Start("chrome.exe", string.Format(Urls.OpenBackPage, Urls.BaseUrl, _account.AccountData.SessionId));
+            Process.Start(string.Format(Urls.OpenBackPage, Urls.BaseUrl, _account.AccountData.SessionId));
         }
 
         private void dataGridView_CurrentCellDirtyStateChanged(object sender, EventArgs e)
@@ -1319,7 +1327,7 @@ namespace Corvus
                 lblLastStatus.Text = $"Last status: {text}";
             }
 
-            if (rtbLog.InvokeRequired)
+            if (rtbLog.InvokeRequired && chkBoxActLog.Checked)
             {
                 rtbLog.Invoke(new Action(() => Log(text, color)));
                 return;
@@ -1329,23 +1337,19 @@ namespace Corvus
 
             rtbLog.SelectionStart = rtbLog.Text.Length;
             rtbLog.SelectionColor = color;
-
-            if (rtbLog.Lines.Length == 0)
+            if (chkBoxActLog.Checked)
             {
-                rtbLog.AppendText(dt + text);
-                rtbLog.ScrollToCaret();
-                rtbLog.AppendText(Environment.NewLine);
-            }
-            else
-            {
-                rtbLog.AppendText(dt + text + Environment.NewLine);
-                rtbLog.ScrollToCaret();
-            }
-
-            if (rtbLog.Lines.Length >= 500)
-            {
-                rtbLog.Clear();
-                rtbLog.Focus();
+                if (rtbLog.Lines.Length == 0)
+                {
+                    rtbLog.AppendText(dt + text);
+                    rtbLog.ScrollToCaret();
+                    rtbLog.AppendText(Environment.NewLine);
+                }
+                else
+                {
+                    rtbLog.AppendText(dt + text + Environment.NewLine);
+                    rtbLog.ScrollToCaret();
+                }
             }
         }
 
@@ -1387,6 +1391,7 @@ namespace Corvus
                 iniData["Login"]["Reconnect"] = chkBoxReconnect.Checked.ToString();
                 iniData["GeneralSettings"]["ActivateTheNotification"] = chkBoxActivateTheNotification.Checked.ToString();
                 iniData["GeneralSettings"]["StartAgainTaskDestroy"] = chkBoxStartAgainTaskDestroy.Checked.ToString();
+                iniData["GeneralSettings"]["ActLog"] = chkBoxActLog.Checked.ToString();
                 iniData["GeneralSettings"]["HideName"] = chkBoxHideName.Checked.ToString();
 
                 iniData["GalaxyGates"]["Spin"] = chkBoxSpinGate.Checked.ToString();
@@ -1395,7 +1400,7 @@ namespace Corvus
                 iniData["GalaxyGates"]["MinUridium"] = nudMinimumUridium.Text;
                 iniData["GalaxyGates"]["SmartMultiplier"] = chkBoxSmartMultiplier.Checked.ToString();
                 iniData["GalaxyGates"]["Multiplier"] = comboBoxMultiplier.SelectedIndex.ToString();
-                iniData["GalaxyGates"]["GetOptionABG"] = comboBoxOptionABG.SelectedIndex.ToString();
+                iniData["GalaxyGates"]["OptionABG"] = comboBoxOptionABG.SelectedIndex.ToString();
                 iniData["GalaxyGates"]["OnlyEE"] = chkSpinOnlyEE.Checked.ToString();
                 iniData["GalaxyGates"]["SelectedGate"] = GetSelectedGate().GetFullName();
                 iniData["GalaxyGates"]["PlaceGate"] = chkBoxPlaceGate.Checked.ToString();
@@ -1464,6 +1469,7 @@ namespace Corvus
                 chkBoxReconnect.Checked = bool.Parse(iniData["Login"]["Reconnect"]);
                 chkBoxActivateTheNotification.Checked = bool.Parse(iniData["GeneralSettings"]["ActivateTheNotification"]);
                 chkBoxStartAgainTaskDestroy.Checked = bool.Parse(iniData["GeneralSettings"]["StartAgainTaskDestroy"]);
+                chkBoxActLog.Checked = bool.Parse(iniData["GeneralSettings"]["ActLog"]);
                 chkBoxHideName.Checked = bool.Parse(iniData["GeneralSettings"]["HideName"]);
 
                 chkBoxSpinGate.Checked = bool.Parse(iniData["GalaxyGates"]["Spin"]);
@@ -1472,7 +1478,7 @@ namespace Corvus
                 chkBoxSmartMultiplier.Checked = bool.Parse(iniData["GalaxyGates"]["SmartMultiplier"]);
                 comboBoxMultiplier.SelectedIndex = int.Parse(iniData["GalaxyGates"]["Multiplier"]);
                 nudMinimumUridium.Value = decimal.Parse(iniData["GalaxyGates"]["MinUridium"]);
-                comboBoxOptionABG.SelectedIndex = int.Parse(iniData["GalaxyGates"]["GetOptionABG"]);
+                comboBoxOptionABG.SelectedIndex = int.Parse(iniData["GalaxyGates"]["OptionABG"]);
                 chkSpinOnlyEE.Checked = bool.Parse(iniData["GalaxyGates"]["OnlyEE"]);
                 chkBoxPlaceGate.Checked = bool.Parse(iniData["GalaxyGates"]["PlaceGate"]);
 
@@ -1710,6 +1716,18 @@ namespace Corvus
             if (b_max - b_curr == 3) return a_curr <= a_max * 0.2 && g_curr <= g_max * 0.2;
             if (g_max - b_curr == 3) return a_curr <= a_max * 0.2 && b_curr <= b_max * 0.2;
             return false;
+        }
+
+        private void ChkBoxActLog_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkBoxActLog.Checked)
+            {
+                tcMain.TabPages.Insert(4, tabPageLog);
+            }
+            else
+            {
+                tcMain.TabPages.Remove(tabPageLog);
+            }
         }
     }
 }
