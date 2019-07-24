@@ -29,11 +29,23 @@
         public static string SpinGateMultiplier { get; } =
             "{0}/flashinput/galaxyGates.php?userID={1}&action=multiEnergy&sid={2}&gateID={3}&{4}=1&multiplier=1";
 
+        public static string SpinGateAmount { get; } =
+            "{0}/flashinput/galaxyGates.php?userID={1}&action=multiEnergy&sid={2}&gateID={3}&{4}=1&spinamount={5}";
+
+        public static string SpinGateMultiplierAmount { get; } =
+            "{0}/flashinput/galaxyGates.php?userID={1}&action=multiEnergy&sid={2}&gateID={3}&{4}=1&multiplier=1&spinamount={5}";
+
         public static string SpinGateSample { get; } =
             "{0}/flashinput/galaxyGates.php?userID={1}&action=multiEnergy&sid={2}&gateID={3}&{4}=1&sample=1";
 
         public static string SpinGateSampleMultiplier { get; } =
             "{0}/flashinput/galaxyGates.php?userID={1}&action=multiEnergy&sid={2}&gateID={3}&{4}=1&multiplier=1&sample=1";
+
+        public static string SpinGateSampleAmount { get; } =
+            "{0}/flashinput/galaxyGates.php?userID={1}&action=multiEnergy&sid={2}&gateID={3}&{4}=1&sample=1&spinamount={5}";
+
+        public static string SpinGateSampleMultiplierAmount { get; } =
+            "{0}/flashinput/galaxyGates.php?userID={1}&action=multiEnergy&sid={2}&gateID={3}&{4}=1&multiplier=1&sample=1&spinamount={5}";
 
         public static string GateInfo { get; } =
             "{0}/flashinput/galaxyGates.php?userID={1}&action=init&sid={2}";

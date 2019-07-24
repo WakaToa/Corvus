@@ -332,31 +332,56 @@ namespace Corvus.DarkOrbit
             return data.Value >= 0;
         }
 
-        public async Task<GateSpinData> SpinGateAsync(GalaxyGate gate, bool useMultiplier)
+        public async Task<GateSpinData> SpinGateAsync(GalaxyGate gate, bool useMultiplier, int spinamount)
         {
             var spinUrl = string.Empty;
             if (useMultiplier && IsMultiplierAvailable(gate))
             {
-                spinUrl = string.Format(Urls.SpinGateMultiplier, Urls.BaseUrl, AccountData.UserId, AccountData.SessionId,
-                    (int)gate, gate.GetFullName().ToLower());
-
-                if (GateData.Samples > 0)
+                if(spinamount == 1)
                 {
-                    spinUrl = string.Format(Urls.SpinGateSampleMultiplier, Urls.BaseUrl, AccountData.UserId, AccountData.SessionId,
-                        (int)gate, gate.GetFullName().ToLower());
-                }
+                    spinUrl = string.Format(Urls.SpinGateMultiplier, Urls.BaseUrl, AccountData.UserId, AccountData.SessionId,
+                       (int)gate, gate.GetFullName().ToLower());
 
-               
+                    if (GateData.Samples > 0)
+                    {
+                        spinUrl = string.Format(Urls.SpinGateSampleMultiplier, Urls.BaseUrl, AccountData.UserId, AccountData.SessionId,
+                            (int)gate, gate.GetFullName().ToLower());
+                    }
+                } else
+                {
+                    spinUrl = string.Format(Urls.SpinGateMultiplierAmount, Urls.BaseUrl, AccountData.UserId, AccountData.SessionId,
+                    (int)gate, gate.GetFullName().ToLower(), spinamount);
+
+                    if (GateData.Samples > 0)
+                    {
+                        spinUrl = string.Format(Urls.SpinGateSampleMultiplierAmount, Urls.BaseUrl, AccountData.UserId, AccountData.SessionId,
+                            (int)gate, gate.GetFullName().ToLower(), spinamount);
+                    }
+                }               
             }
             else
             {
-                spinUrl = string.Format(Urls.SpinGate, Urls.BaseUrl, AccountData.UserId, AccountData.SessionId,
-                    (int)gate, gate.GetFullName().ToLower());
-
-                if (GateData.Samples > 0)
+                if(spinamount == 1)
                 {
-                    spinUrl = string.Format(Urls.SpinGateSample, Urls.BaseUrl, AccountData.UserId, AccountData.SessionId,
+                    spinUrl = string.Format(Urls.SpinGate, Urls.BaseUrl, AccountData.UserId, AccountData.SessionId,
                         (int)gate, gate.GetFullName().ToLower());
+
+                    if (GateData.Samples > 0)
+                    {
+                        spinUrl = string.Format(Urls.SpinGateSample, Urls.BaseUrl, AccountData.UserId, AccountData.SessionId,
+                            (int)gate, gate.GetFullName().ToLower());
+                    }
+                }
+                else
+                {
+                    spinUrl = string.Format(Urls.SpinGateAmount, Urls.BaseUrl, AccountData.UserId, AccountData.SessionId,
+                        (int)gate, gate.GetFullName().ToLower(), spinamount);
+
+                    if (GateData.Samples > 0)
+                    {
+                        spinUrl = string.Format(Urls.SpinGateSampleAmount, Urls.BaseUrl, AccountData.UserId, AccountData.SessionId,
+                            (int)gate, gate.GetFullName().ToLower(), spinamount);
+                    }
                 }
             }
 
@@ -373,7 +398,7 @@ namespace Corvus.DarkOrbit
                 {
                     result = (GateSpinData)serializer.Deserialize(reader) as GateSpinData;
                 }
-                EvaluateGateSpin(result);
+                EvaluateGateSpin(result, spinamount);
 
                 return result;
             }
@@ -385,11 +410,11 @@ namespace Corvus.DarkOrbit
             
         }
 
-        private void EvaluateGateSpin(GateSpinData spin)
+        private void EvaluateGateSpin(GateSpinData spin, int spinamount)
         {
             try
             {
-                GateItemsReceived.TotalSpins++;
+                GateItemsReceived.TotalSpins += spinamount;
                 GateData.Samples = spin.Samples;
                 GateData.EnergyCost.Text = spin.EnergyCost.Text;
                 GateData.Money = spin.Money;
