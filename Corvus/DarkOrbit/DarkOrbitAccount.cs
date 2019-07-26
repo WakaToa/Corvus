@@ -305,8 +305,9 @@ namespace Corvus.DarkOrbit
 
         public async Task<bool> BuildTechAsync(TechFactoryData.TechFactoryItem item, int hall)
         {
-            var techFactory = await _httpClient.GetAsyncLimit(Urls.Build(Urls.InternalNanoTechFactory));
-            var reloadToken = Regex.Match(techFactory, "reloadToken=(.*?)'").Groups[1].Value;
+            var techFactoryRaw = await _httpClient.PostAsyncLimitRaw(Urls.Build("{0}/ajax/nanotechFactory.php"), $"command=nanoTechFactoryShowBuff&key={item.GetShortName()}&level=1");
+            var techFactory = await techFactoryRaw.Content.ReadAsStringAsync();
+            var reloadToken = Regex.Match(techFactory, "reloadToken=(.*?)\"").Groups[1].Value;
             await Task.Delay(1500);
             var result = await _httpClient.GetAsyncLimit(string.Format(Urls.BuildTech, Urls.BaseUrl, item.GetShortName(), reloadToken));
 
