@@ -106,6 +106,7 @@ namespace Corvus
             comboBoxLoginPortal.SelectedIndex = 0;
             comboBoxOptionABG.SelectedIndex = 0;
             comboBoxMultiplier.SelectedIndex = 0;
+            comboBoxEnergyBoost.SelectedIndex = 0;
 
             if (chkBoxActLog.Checked)
             {
@@ -1011,7 +1012,7 @@ namespace Corvus
                 }
             }
 
-            var spin = await _account.SpinGateAsync(GetSelectedGate(), useMultiplier);            
+            var spin = await _account.SpinGateAsync(GetSelectedGate(), useMultiplier, getEnergyCharge());            
 
             foreach (var allItem in spin.Items.GetAllItems())
             {
@@ -1398,6 +1399,7 @@ namespace Corvus
                 iniData["GalaxyGates"]["Wait"] = nudGateWait.Text;
                 iniData["GalaxyGates"]["Delay"] = nudGateDelay.Text;
                 iniData["GalaxyGates"]["MinUridium"] = nudMinimumUridium.Text;
+                iniData["GalaxyGates"]["EnergyBoost"] = comboBoxEnergyBoost.SelectedIndex.ToString();
                 iniData["GalaxyGates"]["SmartMultiplier"] = chkBoxSmartMultiplier.Checked.ToString();
                 iniData["GalaxyGates"]["Multiplier"] = comboBoxMultiplier.SelectedIndex.ToString();
                 iniData["GalaxyGates"]["OptionABG"] = comboBoxOptionABG.SelectedIndex.ToString();
@@ -1475,6 +1477,7 @@ namespace Corvus
                 chkBoxSpinGate.Checked = bool.Parse(iniData["GalaxyGates"]["Spin"]);
                 nudGateWait.Value = decimal.Parse(iniData["GalaxyGates"]["Wait"]);
                 nudGateDelay.Value = decimal.Parse(iniData["GalaxyGates"]["Delay"]);
+                comboBoxEnergyBoost.SelectedIndex = int.Parse(iniData["GalaxyGates"]["EnergyBoost"]);
                 chkBoxSmartMultiplier.Checked = bool.Parse(iniData["GalaxyGates"]["SmartMultiplier"]);
                 comboBoxMultiplier.SelectedIndex = int.Parse(iniData["GalaxyGates"]["Multiplier"]);
                 nudMinimumUridium.Value = decimal.Parse(iniData["GalaxyGates"]["MinUridium"]);
@@ -1728,6 +1731,30 @@ namespace Corvus
             {
                 tcMain.TabPages.Remove(tabPageLog);
             }
+        }
+        private int getEnergyCharge()
+        {
+            switch (GetSelecetedIndex_comboBoxEnergyCharge())
+            {
+                case 0:
+                    return 1;
+                case 1:
+                    return 5;
+                case 2:
+                    return 10;
+                case 3:
+                    return 100;
+                default:
+                    return 1;
+            }
+        }
+
+        private int GetSelecetedIndex_comboBoxEnergyCharge()
+        {
+            if (comboBoxEnergyBoost.InvokeRequired)
+                return (int)comboBoxEnergyBoost.Invoke(new Func<int>(GetSelecetedIndex_comboBoxEnergyCharge));
+            else
+                return comboBoxEnergyBoost.SelectedIndex;
         }
     }
 }
