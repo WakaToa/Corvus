@@ -933,6 +933,12 @@ namespace Corvus
                 Stopping_gate_mode("no_ee_left");
                 return;
             }
+            if (_account.GateData.EnergyCost.Text <= nudMaxSpinCost.Value)
+            {
+                Stopping_gate_mode("max_spin_cost");
+                return;
+            }
+
 
             if (rbBuildABG.Checked)
                 Log("Spinning ABG...");
@@ -1399,6 +1405,7 @@ namespace Corvus
                 iniData["GalaxyGates"]["Wait"] = nudGateWait.Text;
                 iniData["GalaxyGates"]["Delay"] = nudGateDelay.Text;
                 iniData["GalaxyGates"]["MinUridium"] = nudMinimumUridium.Text;
+                iniData["GalaxyGates"]["MaxSpinCost"] = nudMaxSpinCost.Text;
                 iniData["GalaxyGates"]["EnergyBoost"] = comboBoxEnergyBoost.SelectedIndex.ToString();
                 iniData["GalaxyGates"]["SmartMultiplier"] = chkBoxSmartMultiplier.Checked.ToString();
                 iniData["GalaxyGates"]["Multiplier"] = comboBoxMultiplier.SelectedIndex.ToString();
@@ -1481,6 +1488,7 @@ namespace Corvus
                 chkBoxSmartMultiplier.Checked = bool.Parse(iniData["GalaxyGates"]["SmartMultiplier"]);
                 comboBoxMultiplier.SelectedIndex = int.Parse(iniData["GalaxyGates"]["Multiplier"]);
                 nudMinimumUridium.Value = decimal.Parse(iniData["GalaxyGates"]["MinUridium"]);
+                nudMaxSpinCost.Value = decimal.Parse(iniData["GalaxyGates"]["MaxSpinCost"]);
                 comboBoxOptionABG.SelectedIndex = int.Parse(iniData["GalaxyGates"]["OptionABG"]);
                 chkSpinOnlyEE.Checked = bool.Parse(iniData["GalaxyGates"]["OnlyEE"]);
                 chkBoxPlaceGate.Checked = bool.Parse(iniData["GalaxyGates"]["PlaceGate"]);
@@ -1633,6 +1641,9 @@ namespace Corvus
                     break;
                 case "no_ee_left":
                     Log($"Stopping gate mode for {nudGateWait.Value} minutes... No EE left");
+                    break;
+                case "max_spin_cost":
+                    Log($"Stopping gate mode for {nudGateWait.Value} minutes... Max Spin Cost");
                     break;
             }
             _nextRunGalaxyGate = DateTime.Now.AddMinutes((double)nudGateWait.Value);

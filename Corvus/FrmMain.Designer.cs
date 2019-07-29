@@ -59,6 +59,9 @@ namespace Corvus
             this.txtServer = new System.Windows.Forms.TextBox();
             this.lblServer = new System.Windows.Forms.Label();
             this.tabPageGalaxyGates = new System.Windows.Forms.TabPage();
+            this.nudMaxSpinCost = new System.Windows.Forms.NumericUpDown();
+            this.lblMaxSpinCost = new System.Windows.Forms.Label();
+            this.lblSettingsGates = new System.Windows.Forms.Label();
             this.lblEnergyBoost = new System.Windows.Forms.Label();
             this.comboBoxEnergyBoost = new System.Windows.Forms.ComboBox();
             this.chkBoxSmartMultiplier = new System.Windows.Forms.CheckBox();
@@ -135,13 +138,13 @@ namespace Corvus
             this.lblLastStatus = new System.Windows.Forms.Label();
             this.cmdSaveSettings = new System.Windows.Forms.Button();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
-            this.lblSettingsGates = new System.Windows.Forms.Label();
             this.tcMain.SuspendLayout();
             this.tabPageLogin.SuspendLayout();
             this.gBoxGeneralSettings.SuspendLayout();
             this.gBoxUsernamePasswordLogin.SuspendLayout();
             this.gBoxSessionIDLogin.SuspendLayout();
             this.tabPageGalaxyGates.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMaxSpinCost)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudGateWait)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMinimumUridium)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudGateDelay)).BeginInit();
@@ -165,7 +168,7 @@ namespace Corvus
             this.tcMain.Location = new System.Drawing.Point(13, 39);
             this.tcMain.Name = "tcMain";
             this.tcMain.SelectedIndex = 0;
-            this.tcMain.Size = new System.Drawing.Size(775, 460);
+            this.tcMain.Size = new System.Drawing.Size(775, 484);
             this.tcMain.TabIndex = 0;
             // 
             // tabPageLogin
@@ -176,7 +179,7 @@ namespace Corvus
             this.tabPageLogin.Controls.Add(this.gBoxSessionIDLogin);
             this.tabPageLogin.Location = new System.Drawing.Point(4, 22);
             this.tabPageLogin.Name = "tabPageLogin";
-            this.tabPageLogin.Size = new System.Drawing.Size(767, 434);
+            this.tabPageLogin.Size = new System.Drawing.Size(767, 458);
             this.tabPageLogin.TabIndex = 0;
             this.tabPageLogin.Text = "Login";
             this.tabPageLogin.UseVisualStyleBackColor = true;
@@ -437,6 +440,8 @@ namespace Corvus
             // 
             // tabPageGalaxyGates
             // 
+            this.tabPageGalaxyGates.Controls.Add(this.nudMaxSpinCost);
+            this.tabPageGalaxyGates.Controls.Add(this.lblMaxSpinCost);
             this.tabPageGalaxyGates.Controls.Add(this.lblSettingsGates);
             this.tabPageGalaxyGates.Controls.Add(this.lblEnergyBoost);
             this.tabPageGalaxyGates.Controls.Add(this.comboBoxEnergyBoost);
@@ -483,15 +488,46 @@ namespace Corvus
             this.tabPageGalaxyGates.Controls.Add(this.rbBuildABG);
             this.tabPageGalaxyGates.Location = new System.Drawing.Point(4, 22);
             this.tabPageGalaxyGates.Name = "tabPageGalaxyGates";
-            this.tabPageGalaxyGates.Size = new System.Drawing.Size(767, 434);
+            this.tabPageGalaxyGates.Size = new System.Drawing.Size(767, 458);
             this.tabPageGalaxyGates.TabIndex = 1;
             this.tabPageGalaxyGates.Text = "Galaxy Gates";
             this.tabPageGalaxyGates.UseVisualStyleBackColor = true;
             // 
+            // nudMaxSpinCost
+            // 
+            this.nudMaxSpinCost.Location = new System.Drawing.Point(98, 234);
+            this.nudMaxSpinCost.Name = "nudMaxSpinCost";
+            this.nudMaxSpinCost.Size = new System.Drawing.Size(44, 20);
+            this.nudMaxSpinCost.TabIndex = 52;
+            this.nudMaxSpinCost.Value = new decimal(new int[] {
+            55,
+            0,
+            0,
+            0});
+            // 
+            // lblMaxSpinCost
+            // 
+            this.lblMaxSpinCost.AutoSize = true;
+            this.lblMaxSpinCost.Location = new System.Drawing.Point(17, 236);
+            this.lblMaxSpinCost.Name = "lblMaxSpinCost";
+            this.lblMaxSpinCost.Size = new System.Drawing.Size(75, 13);
+            this.lblMaxSpinCost.TabIndex = 51;
+            this.lblMaxSpinCost.Text = "Max spin cost:";
+            // 
+            // lblSettingsGates
+            // 
+            this.lblSettingsGates.AutoSize = true;
+            this.lblSettingsGates.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSettingsGates.Location = new System.Drawing.Point(17, 7);
+            this.lblSettingsGates.Name = "lblSettingsGates";
+            this.lblSettingsGates.Size = new System.Drawing.Size(63, 17);
+            this.lblSettingsGates.TabIndex = 50;
+            this.lblSettingsGates.Text = "Settings:";
+            // 
             // lblEnergyBoost
             // 
             this.lblEnergyBoost.AutoSize = true;
-            this.lblEnergyBoost.Location = new System.Drawing.Point(17, 77);
+            this.lblEnergyBoost.Location = new System.Drawing.Point(17, 93);
             this.lblEnergyBoost.Name = "lblEnergyBoost";
             this.lblEnergyBoost.Size = new System.Drawing.Size(73, 13);
             this.lblEnergyBoost.TabIndex = 49;
@@ -509,7 +545,7 @@ namespace Corvus
             "5",
             "10",
             "100"});
-            this.comboBoxEnergyBoost.Location = new System.Drawing.Point(96, 74);
+            this.comboBoxEnergyBoost.Location = new System.Drawing.Point(96, 90);
             this.comboBoxEnergyBoost.Name = "comboBoxEnergyBoost";
             this.comboBoxEnergyBoost.Size = new System.Drawing.Size(46, 21);
             this.comboBoxEnergyBoost.TabIndex = 48;
@@ -519,7 +555,7 @@ namespace Corvus
             this.chkBoxSmartMultiplier.AutoSize = true;
             this.chkBoxSmartMultiplier.Checked = true;
             this.chkBoxSmartMultiplier.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkBoxSmartMultiplier.Location = new System.Drawing.Point(20, 148);
+            this.chkBoxSmartMultiplier.Location = new System.Drawing.Point(20, 164);
             this.chkBoxSmartMultiplier.Name = "chkBoxSmartMultiplier";
             this.chkBoxSmartMultiplier.Size = new System.Drawing.Size(96, 17);
             this.chkBoxSmartMultiplier.TabIndex = 47;
@@ -530,7 +566,7 @@ namespace Corvus
             // lblMultiplier
             // 
             this.lblMultiplier.AutoSize = true;
-            this.lblMultiplier.Location = new System.Drawing.Point(17, 171);
+            this.lblMultiplier.Location = new System.Drawing.Point(17, 187);
             this.lblMultiplier.Name = "lblMultiplier";
             this.lblMultiplier.Size = new System.Drawing.Size(51, 13);
             this.lblMultiplier.TabIndex = 46;
@@ -549,7 +585,7 @@ namespace Corvus
             "x4",
             "x5",
             "x6"});
-            this.comboBoxMultiplier.Location = new System.Drawing.Point(73, 167);
+            this.comboBoxMultiplier.Location = new System.Drawing.Point(73, 183);
             this.comboBoxMultiplier.Name = "comboBoxMultiplier";
             this.comboBoxMultiplier.Size = new System.Drawing.Size(69, 21);
             this.comboBoxMultiplier.TabIndex = 45;
@@ -557,7 +593,7 @@ namespace Corvus
             // lblWaitGate
             // 
             this.lblWaitGate.AutoSize = true;
-            this.lblWaitGate.Location = new System.Drawing.Point(70, 101);
+            this.lblWaitGate.Location = new System.Drawing.Point(70, 117);
             this.lblWaitGate.Name = "lblWaitGate";
             this.lblWaitGate.Size = new System.Drawing.Size(69, 13);
             this.lblWaitGate.TabIndex = 44;
@@ -566,7 +602,7 @@ namespace Corvus
             // nudGateWait
             // 
             this.nudGateWait.InterceptArrowKeys = false;
-            this.nudGateWait.Location = new System.Drawing.Point(20, 98);
+            this.nudGateWait.Location = new System.Drawing.Point(20, 114);
             this.nudGateWait.Maximum = new decimal(new int[] {
             60,
             0,
@@ -599,7 +635,7 @@ namespace Corvus
             "3. Stop when the alpha portal is 2/2.",
             "4. Stop when the beta portal is 2/2.",
             "5. Stop when the gamma portal is 2/2."});
-            this.comboBoxOptionABG.Location = new System.Drawing.Point(73, 251);
+            this.comboBoxOptionABG.Location = new System.Drawing.Point(73, 275);
             this.comboBoxOptionABG.Name = "comboBoxOptionABG";
             this.comboBoxOptionABG.Size = new System.Drawing.Size(69, 21);
             this.comboBoxOptionABG.TabIndex = 42;
@@ -608,7 +644,7 @@ namespace Corvus
             // 
             this.lblGates.AutoSize = true;
             this.lblGates.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblGates.Location = new System.Drawing.Point(17, 228);
+            this.lblGates.Location = new System.Drawing.Point(17, 252);
             this.lblGates.Name = "lblGates";
             this.lblGates.Size = new System.Drawing.Size(50, 17);
             this.lblGates.TabIndex = 39;
@@ -637,7 +673,7 @@ namespace Corvus
             // chkSpinOnlyEE
             // 
             this.chkSpinOnlyEE.AutoSize = true;
-            this.chkSpinOnlyEE.Location = new System.Drawing.Point(664, 12);
+            this.chkSpinOnlyEE.Location = new System.Drawing.Point(20, 73);
             this.chkSpinOnlyEE.Name = "chkSpinOnlyEE";
             this.chkSpinOnlyEE.Size = new System.Drawing.Size(86, 17);
             this.chkSpinOnlyEE.TabIndex = 34;
@@ -651,7 +687,7 @@ namespace Corvus
             0,
             0,
             0});
-            this.nudMinimumUridium.Location = new System.Drawing.Point(81, 193);
+            this.nudMinimumUridium.Location = new System.Drawing.Point(81, 209);
             this.nudMinimumUridium.Maximum = new decimal(new int[] {
             1000000,
             0,
@@ -669,7 +705,7 @@ namespace Corvus
             // lblMinimumUridium
             // 
             this.lblMinimumUridium.AutoSize = true;
-            this.lblMinimumUridium.Location = new System.Drawing.Point(17, 196);
+            this.lblMinimumUridium.Location = new System.Drawing.Point(17, 212);
             this.lblMinimumUridium.Name = "lblMinimumUridium";
             this.lblMinimumUridium.Size = new System.Drawing.Size(63, 13);
             this.lblMinimumUridium.TabIndex = 30;
@@ -711,7 +747,7 @@ namespace Corvus
             0,
             0,
             0});
-            this.nudGateDelay.Location = new System.Drawing.Point(20, 124);
+            this.nudGateDelay.Location = new System.Drawing.Point(20, 140);
             this.nudGateDelay.Maximum = new decimal(new int[] {
             5000,
             0,
@@ -729,7 +765,7 @@ namespace Corvus
             // lblGateDelay
             // 
             this.lblGateDelay.AutoSize = true;
-            this.lblGateDelay.Location = new System.Drawing.Point(70, 127);
+            this.lblGateDelay.Location = new System.Drawing.Point(70, 143);
             this.lblGateDelay.Name = "lblGateDelay";
             this.lblGateDelay.Size = new System.Drawing.Size(56, 13);
             this.lblGateDelay.TabIndex = 25;
@@ -883,7 +919,7 @@ namespace Corvus
             this.dgvGates.ShowCellToolTips = false;
             this.dgvGates.ShowEditingIcon = false;
             this.dgvGates.ShowRowErrors = false;
-            this.dgvGates.Size = new System.Drawing.Size(358, 424);
+            this.dgvGates.Size = new System.Drawing.Size(358, 448);
             this.dgvGates.TabIndex = 10;
             this.dgvGates.SelectionChanged += new System.EventHandler(this.dataGridView_SelectionChanged);
             // 
@@ -936,7 +972,7 @@ namespace Corvus
             // rbBuildKuiper
             // 
             this.rbBuildKuiper.AutoSize = true;
-            this.rbBuildKuiper.Location = new System.Drawing.Point(20, 414);
+            this.rbBuildKuiper.Location = new System.Drawing.Point(20, 438);
             this.rbBuildKuiper.Name = "rbBuildKuiper";
             this.rbBuildKuiper.Size = new System.Drawing.Size(55, 17);
             this.rbBuildKuiper.TabIndex = 8;
@@ -946,7 +982,7 @@ namespace Corvus
             // rbBuildHades
             // 
             this.rbBuildHades.AutoSize = true;
-            this.rbBuildHades.Location = new System.Drawing.Point(20, 391);
+            this.rbBuildHades.Location = new System.Drawing.Point(20, 415);
             this.rbBuildHades.Name = "rbBuildHades";
             this.rbBuildHades.Size = new System.Drawing.Size(56, 17);
             this.rbBuildHades.TabIndex = 7;
@@ -956,7 +992,7 @@ namespace Corvus
             // rbBuildKappa
             // 
             this.rbBuildKappa.AutoSize = true;
-            this.rbBuildKappa.Location = new System.Drawing.Point(20, 345);
+            this.rbBuildKappa.Location = new System.Drawing.Point(20, 369);
             this.rbBuildKappa.Name = "rbBuildKappa";
             this.rbBuildKappa.Size = new System.Drawing.Size(56, 17);
             this.rbBuildKappa.TabIndex = 6;
@@ -966,7 +1002,7 @@ namespace Corvus
             // rbBuildLambda
             // 
             this.rbBuildLambda.AutoSize = true;
-            this.rbBuildLambda.Location = new System.Drawing.Point(20, 368);
+            this.rbBuildLambda.Location = new System.Drawing.Point(20, 392);
             this.rbBuildLambda.Name = "rbBuildLambda";
             this.rbBuildLambda.Size = new System.Drawing.Size(63, 17);
             this.rbBuildLambda.TabIndex = 5;
@@ -976,7 +1012,7 @@ namespace Corvus
             // rbBuildZeta
             // 
             this.rbBuildZeta.AutoSize = true;
-            this.rbBuildZeta.Location = new System.Drawing.Point(20, 322);
+            this.rbBuildZeta.Location = new System.Drawing.Point(20, 346);
             this.rbBuildZeta.Name = "rbBuildZeta";
             this.rbBuildZeta.Size = new System.Drawing.Size(47, 17);
             this.rbBuildZeta.TabIndex = 4;
@@ -986,7 +1022,7 @@ namespace Corvus
             // rbBuildEpsilon
             // 
             this.rbBuildEpsilon.AutoSize = true;
-            this.rbBuildEpsilon.Location = new System.Drawing.Point(20, 299);
+            this.rbBuildEpsilon.Location = new System.Drawing.Point(20, 323);
             this.rbBuildEpsilon.Name = "rbBuildEpsilon";
             this.rbBuildEpsilon.Size = new System.Drawing.Size(59, 17);
             this.rbBuildEpsilon.TabIndex = 3;
@@ -996,7 +1032,7 @@ namespace Corvus
             // rbBuildDelta
             // 
             this.rbBuildDelta.AutoSize = true;
-            this.rbBuildDelta.Location = new System.Drawing.Point(20, 276);
+            this.rbBuildDelta.Location = new System.Drawing.Point(20, 300);
             this.rbBuildDelta.Name = "rbBuildDelta";
             this.rbBuildDelta.Size = new System.Drawing.Size(50, 17);
             this.rbBuildDelta.TabIndex = 2;
@@ -1007,7 +1043,7 @@ namespace Corvus
             // 
             this.rbBuildABG.AutoSize = true;
             this.rbBuildABG.Checked = true;
-            this.rbBuildABG.Location = new System.Drawing.Point(20, 253);
+            this.rbBuildABG.Location = new System.Drawing.Point(20, 277);
             this.rbBuildABG.Name = "rbBuildABG";
             this.rbBuildABG.Size = new System.Drawing.Size(47, 17);
             this.rbBuildABG.TabIndex = 33;
@@ -1024,7 +1060,7 @@ namespace Corvus
             this.tabPageTechFactory.Controls.Add(this.dgvTechFactory);
             this.tabPageTechFactory.Location = new System.Drawing.Point(4, 22);
             this.tabPageTechFactory.Name = "tabPageTechFactory";
-            this.tabPageTechFactory.Size = new System.Drawing.Size(767, 434);
+            this.tabPageTechFactory.Size = new System.Drawing.Size(767, 458);
             this.tabPageTechFactory.TabIndex = 2;
             this.tabPageTechFactory.Text = "Tech Factory";
             this.tabPageTechFactory.UseVisualStyleBackColor = true;
@@ -1145,7 +1181,7 @@ namespace Corvus
             this.tabPageSkylab.Controls.Add(this.dgvSkylab);
             this.tabPageSkylab.Location = new System.Drawing.Point(4, 22);
             this.tabPageSkylab.Name = "tabPageSkylab";
-            this.tabPageSkylab.Size = new System.Drawing.Size(767, 412);
+            this.tabPageSkylab.Size = new System.Drawing.Size(767, 458);
             this.tabPageSkylab.TabIndex = 3;
             this.tabPageSkylab.Text = "Skylab";
             this.tabPageSkylab.UseVisualStyleBackColor = true;
@@ -1264,7 +1300,7 @@ namespace Corvus
             this.tabPageLog.Location = new System.Drawing.Point(4, 22);
             this.tabPageLog.Name = "tabPageLog";
             this.tabPageLog.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageLog.Size = new System.Drawing.Size(767, 412);
+            this.tabPageLog.Size = new System.Drawing.Size(767, 458);
             this.tabPageLog.TabIndex = 5;
             this.tabPageLog.Text = "Log";
             this.tabPageLog.UseVisualStyleBackColor = true;
@@ -1333,21 +1369,11 @@ namespace Corvus
             this.notifyIcon1.Text = "Corvus - DarkOrbit Bot Helper";
             this.notifyIcon1.Visible = true;
             // 
-            // lblSettingsGates
-            // 
-            this.lblSettingsGates.AutoSize = true;
-            this.lblSettingsGates.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSettingsGates.Location = new System.Drawing.Point(17, 7);
-            this.lblSettingsGates.Name = "lblSettingsGates";
-            this.lblSettingsGates.Size = new System.Drawing.Size(63, 17);
-            this.lblSettingsGates.TabIndex = 50;
-            this.lblSettingsGates.Text = "Settings:";
-            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(801, 511);
+            this.ClientSize = new System.Drawing.Size(801, 535);
             this.Controls.Add(this.cmdSaveSettings);
             this.Controls.Add(this.lblLastStatus);
             this.Controls.Add(this.cmdOpenBackPage);
@@ -1372,6 +1398,7 @@ namespace Corvus
             this.gBoxSessionIDLogin.PerformLayout();
             this.tabPageGalaxyGates.ResumeLayout(false);
             this.tabPageGalaxyGates.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMaxSpinCost)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudGateWait)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMinimumUridium)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudGateDelay)).EndInit();
@@ -1496,6 +1523,8 @@ namespace Corvus
         private Label lblEnergyBoost;
         private ComboBox comboBoxEnergyBoost;
         private Label lblSettingsGates;
+        private NumericUpDown nudMaxSpinCost;
+        private Label lblMaxSpinCost;
     }
 }
 
