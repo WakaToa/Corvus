@@ -933,7 +933,7 @@ namespace Corvus
                 Stopping_gate_mode("no_ee_left");
                 return;
             }
-            if (_account.GateData.EnergyCost.Text <= nudMaxSpinCost.Value)
+            if (!(_account.GateData.EnergyCost.Text <= (int)nudMaxSpinCost.Value))
             {
                 Stopping_gate_mode("max_spin_cost");
                 return;
