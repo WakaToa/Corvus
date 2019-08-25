@@ -1,4 +1,5 @@
-# Corvus - DarkOrbit Bot Helper Tool
+# Corvus - DarkOrbit Bot Helper Tool 
+# !! PROJECT CLOSED, CORVUS IS NO LONGER UPDATED!! HOWEVER THE LATEST VERSION SHOULD STILL WORK
 Corvus is a simple tool which helps your bot!
 
 ## Features
